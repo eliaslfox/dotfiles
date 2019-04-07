@@ -1,0 +1,20 @@
+templates:
+  params:
+    author-email: me@eliaslfox.com
+    author-name: Elias Lawson-Fox
+    category: web
+    github-username: eliaslfox
+    copyright: GPL
+  scm-init: git
+
+save-hackage-creds: false
+default-template: simple-hpack
+
+docker:
+  auto-pull: true
+
+nix:
+  enable: true
+  packages:
+    - zlib
+    - postgresql
