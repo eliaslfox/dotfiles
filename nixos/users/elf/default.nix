@@ -39,16 +39,15 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
       tor-browser-bundle-bin
       steam
       arandr
-      stack
       lxappearance
       gnome3.gnome_themes_standard
       gnome3.adwaita-icon-theme
       gnome3.gtk
       qemu
-      nodejs
-      haskellPackages.ghcid
-      cabal-install
-      ghc
+
+      nodejs # NodeJS
+      ghc haskellPackages.ghcid cabal-install stack # Haskell
+      rustup # Rust
     ];
 
   nixpkgs.config = {

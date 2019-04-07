@@ -107,7 +107,7 @@ in
     };
   };
 
-  system.stateVersion = "18.09";
+  system.stateVersion = "19.03";
   system.autoUpgrade.enable = true;
   nixpkgs.config.allowUnfree = true;
 }
