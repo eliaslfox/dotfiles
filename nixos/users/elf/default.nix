@@ -17,6 +17,9 @@ let
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/ghc
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/ghc /home/elf/.ghc
 
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/cabal
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/cabal /home/elf/.cabal
+
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
   '';
 in
@@ -43,6 +46,9 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
       gnome3.gtk
       qemu
       nodejs
+      haskellPackages.ghcid
+      cabal-install
+      ghc
     ];
 
   nixpkgs.config = {
@@ -106,6 +112,7 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.file.".local/share/stack/config.yaml".source = ./files/stack-config.yaml;
   home.file.".config/i3status/config".source = ./files/i3status-config;
   home.file.".local/share/ghc/ghci.conf".source = ./files/ghci.conf;
+  home.file.".config/gnupg/gpg.conf".source = ./files/gpg.conf;
 
 
   programs.chromium = {
