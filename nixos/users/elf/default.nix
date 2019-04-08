@@ -40,15 +40,70 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
       steam
       arandr
       lxappearance
-      gnome3.gnome_themes_standard
-      gnome3.adwaita-icon-theme
-      gnome3.gtk
       qemu
+      libnotify
 
       nodejs # NodeJS
       ghc haskellPackages.ghcid cabal-install stack # Haskell
       rustup # Rust
     ];
+
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome3.adwaita-icon-theme;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome3.gnome_themes_standard;
+    };
+  };
+ 
+
+  services.dunst = {
+    enable = true;
+    iconTheme = { 
+      name = "Adwaita";
+      package = pkgs.gnome3.adwaita-icon-theme;
+    };
+    settings = {
+      global = {
+        font = "FiraCode 9";
+	geometry = "300x5-30+30";
+	transparency = 20;
+	monitor = 0;
+	follow = "keyboard";
+	sticky_history = "yes";
+	line_height = 0;
+	seperator_height = 2;
+	padding = 10;
+	horizontal_padding = 10;
+	corner_radius = 10;
+	separator_color = "frame";
+	icon_position = "left";
+      };
+      frame = {
+	width = 0;
+	color = "#000000";
+      };
+      urgency_low = {
+        background = "#333333";
+        foreground = "#ffffff";
+        timeout = 10;
+      };
+      urgency_normal = {
+        background = "#333333";
+        foreground = "#ffffff";
+        timeout = 10;
+      };
+      urgency_critical = {
+        background = "#333333";
+        foreground = "#ffffff";
+        timeout = 10;
+      };
+    };
+  };
 
   nixpkgs.config = {
     allowUnfree = true; 
@@ -76,16 +131,7 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
     };
   };
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Adwaita";
-    };
-    theme = {
-      name = "Adwaita-dark";
-    };
-  };
-  
+ 
   xsession = {
     enable = true;
     windowManager.i3 = {
