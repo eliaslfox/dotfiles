@@ -93,6 +93,10 @@ in
       "* * * * * elf ${lowBatteryNotifier}"
     ];
   };
+  services.physlock = {
+    enable = true;
+    allowAnyUser = true;
+  };
 
   virtualisation.docker = {
     enable = true;

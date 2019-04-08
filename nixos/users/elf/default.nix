@@ -253,6 +253,10 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
     enable = true;
     enableSshSupport = true;
   };
+  services.screen-locker = {
+    inactiveInterval = 5;
+    lockCmd = "/run/wrappers/bin/physlock";
+  };
 
 
   systemd.user.startServices = true;
