@@ -8,5 +8,5 @@
     extraGroups = [ "wheel" "video" "sound" "docker" ];
     createHome = true;
   };
-  home-manager.users.elf = import ./elf { pkgs = pkgs; config = config; lib = lib;};
+  home-manager.users.elf = import ./elf { config = config; pkgs = pkgs; };
 }

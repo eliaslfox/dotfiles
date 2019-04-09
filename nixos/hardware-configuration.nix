@@ -50,6 +50,15 @@
     opengl.driSupport32Bit = true;
   };
 
+  services.xserver = {
+    xrandrHeads = [  
+      {
+        output = "DP-4";
+        primary = true;
+      }
+    ];
+  };
+
   swapDevices = [ { device = "/dev/vg/swap"; } ];
 
   fileSystems."/" = { 
