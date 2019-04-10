@@ -47,6 +47,8 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
       arandr lxappearance 
       qemu
       horriblesubsd 
+      tree
+      unzip
 
       nodejs # NodeJS
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
@@ -87,6 +89,7 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
 	corner_radius = 10;
 	separator_color = "frame";
 	icon_position = "left";
+	word_wrap = "yes";
       };
       frame = {
 	width = 0;
