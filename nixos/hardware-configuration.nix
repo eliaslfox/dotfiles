@@ -5,7 +5,7 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-    boot.kernelPackages = pkgs.linuxPackages_latest;
+    /* boot.kernelPackages = pkgs.linuxPackages_latest; */
     boot.kernelModules = [ "kvm-amd" "wl" ];
     boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 

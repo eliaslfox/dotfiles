@@ -58,6 +58,8 @@ in
     ];
   };
 
+  programs.iotop.enable = true;
+
   services.xserver = {
     enable = true;
 
