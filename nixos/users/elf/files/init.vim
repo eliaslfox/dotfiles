@@ -32,6 +32,7 @@ set undodir=~/.cache/neovim/undodir
 
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
+let g:airline#extensions#ale#enabled = 1
 
 let g:gitgutter_override_sign_column_highlight = 0
 
