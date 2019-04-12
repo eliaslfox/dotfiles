@@ -28,6 +28,7 @@ let
           url = "https://github.com/eliaslfox/horriblesubsd";
 	  ref = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
 	}}" {});
+
 in
 lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
 
@@ -49,8 +50,9 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
       horriblesubsd 
       tree
       unzip
+      (import ./nvim.nix)
 
-      nodejs # NodeJS
+      nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
       rustup # Rust
     ];
@@ -189,7 +191,7 @@ lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
       DEFAULT_USER = "elf";
       PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
       GNUPGHOME="$HOME/.config/gnupg";
-      EDITOR = "${pkgs.neovim}/bin/nvim";
+      EDITOR = "nvim";
     };
     initExtra = ''
 	export GPG_TTY="$(tty)"
