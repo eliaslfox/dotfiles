@@ -23,14 +23,14 @@ let
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
   '';
 
-  horriblesubsd = 
+  horriblesubsd =
   	(callPackage "${builtins.fetchGit {
           url = "https://github.com/eliaslfox/horriblesubsd";
 	  ref = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
 	}}" {});
 
-in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({ 
-  home.packages = 
+in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
+  home.packages =
     with pkgs; [
       vlc
       transmission-gtk
@@ -43,9 +43,9 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       nvtop
       tor-browser-bundle-bin
       steam
-      arandr lxappearance 
+      arandr lxappearance
       qemu
-      horriblesubsd 
+      horriblesubsd
       tree
       unzip
       (import ./nvim.nix)
@@ -66,11 +66,11 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       package = pkgs.gnome3.gnome_themes_standard;
     };
   };
- 
+
 
   services.dunst = {
     enable = true;
-    iconTheme = { 
+    iconTheme = {
       name = "Adwaita";
       package = pkgs.gnome3.adwaita-icon-theme;
     };
@@ -114,7 +114,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
   };
 
   nixpkgs.config = {
-    allowUnfree = true; 
+    allowUnfree = true;
     packageOverrides = pkgs: {
       steam = pkgs.steam.override {
         extraPkgs = pkgs: with pkgs; [
@@ -139,7 +139,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
     };
   };
 
- 
+
   xsession = {
     enable = true;
     windowManager.i3 = {
@@ -148,11 +148,11 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
         focus.newWindow = "none";
 	fonts = [ "FiraCode 8" ];
 	window.hideEdgeBorders = "both";
-	keybindings = 
-	  let 
+	keybindings =
+	  let
 	    cfg = config.home-manager.users.elf.xsession.windowManager.i3.config;
 	    modifier = cfg.modifier;
-	  in 
+	  in
 	    lib.mkOptionDefault {
 	      "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
 	    };
@@ -201,7 +201,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
     oh-my-zsh = {
       enable = true;
       theme = "agnoster";
-      plugins = []; 
+      plugins = [];
     };
     shellAliases = {
       movie = "/run/media/elf/stuff/movies/find.sh";
