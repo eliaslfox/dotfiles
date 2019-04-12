@@ -29,9 +29,7 @@ let
 	  ref = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
 	}}" {});
 
-in
-lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
-
+in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({ 
   home.packages = 
     with pkgs; [
       vlc

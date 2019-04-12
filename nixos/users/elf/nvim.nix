@@ -26,16 +26,20 @@ pkgs.neovim.override {
   configure.vam.knownPlugins = pkgs.vimPlugins // customPackages;
   configure.vam.pluginDictionaries = [
     "NeoSolarized"
+    "vim-airline"
+    "vim-airline-themes"
 
-    { 
+    {
       name = "deoplete-nvim";
       command = ":UpdateRemotePlugins";
     }
     "LanguageClient-neovim"
+    "ale"
 
     "ghcid-neovim"
     "vim-nix"
     "vim-javascript"
+    "gitgutter"
   ];
   configure.customRC = builtins.readFile ./files/init.vim;
 }
