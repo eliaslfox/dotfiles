@@ -32,6 +32,7 @@ let
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.packages =
     with pkgs; [
+
       vlc
       transmission-gtk
       firefox

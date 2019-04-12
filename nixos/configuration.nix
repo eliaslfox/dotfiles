@@ -9,13 +9,13 @@ let
       BAT_STA=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '\w+(?=,)'`
       test $BAT_PCT -le 10 && test $BAT_STA = "Discharging" && DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical -i ~/icons/low-battery.png 'Low Battery' "Battery is at $BAT_PCT%"
     '';
-in 
+in
 {
   imports =
-    [ 
+    [
       "${builtins.fetchGit {
-	url = https://github.com/rycee/home-manager;
-	ref = "release-18.09";
+    	url = https://github.com/rycee/home-manager;
+    	ref = "release-18.09";
       }}/nixos"
 
       ./hardware-configuration.nix
@@ -26,7 +26,7 @@ in
       ./scripts.nix
     ];
 
-  environment.systemPackages = 
+  environment.systemPackages =
     with pkgs; [
       git
       tmux
@@ -105,7 +105,7 @@ in
     enable = true;
     package = pkgs.docker-edge;
   };
-  
+
   systemd.services = {
     openvpn-reconnect = {
       description = "Restart OpenVPN after suspend";
