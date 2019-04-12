@@ -3,6 +3,7 @@ set termguicolors
 colorscheme NeoSolarized
 
 " general settings
+set updatetime=250
 set hidden
 set nowrap
 set wildmenu
