@@ -195,6 +195,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       home.file.".config/gnupg/gpg.conf".source = ./files/gpg.conf;
 
 
+      programs.command-not-found.enable = true;
       programs.chromium = {
         enable = true;
         extensions = [
