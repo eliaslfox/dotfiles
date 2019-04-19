@@ -172,10 +172,11 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
             modes =
               lib.mkOptionDefault {
                 launch = {
-                  f = "exec ${pkgs.firefox}/bin/firefox";
-                  d = "exec Discord";
-                  s = "exec ${pkgs.spotify}/bin/spotify";
-                  t = "exec ${pkgs.transmission-gtk}/bin/transmission-gtk";
+                  f = "exec ${pkgs.firefox}/bin/firefox; mode default";
+                  s = "exec ${pkgs.spotify}/bin/spotify; mode default";
+                  t = "exec ${pkgs.transmission-gtk}/bin/transmission-gtk; mode default";
+                  v = "exec ${pkgs.pavucontrol}/bin/pavucontrol; mode default";
+                  d = "exec /home/elf/.nix-profile/bin/Discord; mode default";
                   Escape = "mode default";
                   Return = "mode default";
                 };
@@ -299,7 +300,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
             Description = "Init symlinks in home folder";
           };
           Service = {
-            ExecStart = "${symlink-init}/bin/symlink-init";
+            ExecStart = "${symlink-init}";
           };
           Install = {
             WantedBy = [ "default.target" ];
