@@ -149,23 +149,40 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
     xsession = {
       enable = true;
-      windowManager.i3 = {
-        enable = true;
-        config = {
-          focus.newWindow = "none";
-          fonts = [ "FiraCode 8" ];
-          window.hideEdgeBorders = "both";
-          keybindings =
-            let
-              cfg = config.home-manager.users.elf.xsession.windowManager.i3.config;
-              modifier = cfg.modifier;
-            in
-            lib.mkOptionDefault {
-              "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-            };
-          };
+      windowManager.i3 =
+      let
+        cfg = config.home-manager.users.elf.xsession.windowManager.i3.config;
+        modifier = cfg.modifier;
+      in
+        {
+          enable = true;
+          config = {
+            focus.newWindow = "none";
+            fonts = [ "FiraCode 8" ];
+            window.hideEdgeBorders = "both";
+            keybindings =
+              lib.mkOptionDefault {
+                "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+                "${modifier}+h" = "focus left";
+                "${modifier}+j" = "focus down";
+                "${modifier}+k" = "focus up";
+                "${modifier}+l" = "focus right";
+                "${modifier}+o" = "mode launch";
+              };
+            modes =
+              lib.mkOptionDefault {
+                launch = {
+                  f = "exec ${pkgs.firefox}/bin/firefox";
+                  d = "exec Discord";
+                  s = "exec ${pkgs.spotify}/bin/spotify";
+                  t = "exec ${pkgs.transmission-gtk}/bin/transmission-gtk";
+                  Escape = "mode default";
+                  Return = "mode default";
+                };
+              };
         };
       };
+    };
 
       home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
       home.file.".config/npmrc".source = ./files/npmrc;
@@ -282,7 +299,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
             Description = "Init symlinks in home folder";
           };
           Service = {
-            ExecStart = symlink-init;
+            ExecStart = "${symlink-init}/bin/symlink-init";
           };
           Install = {
             WantedBy = [ "default.target" ];
