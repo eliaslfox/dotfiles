@@ -51,6 +51,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       unzip
       unrar
       wineWowPackages.stable
+      libnotify
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
@@ -93,6 +94,9 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           separator_color = "frame";
           icon_position = "left";
           word_wrap = "yes";
+          max_icon_size = 32;
+          format = "%s:\n%b";
+          markup = "full";
         };
         frame = {
           width = 0;
