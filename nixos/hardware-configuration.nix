@@ -6,8 +6,14 @@
     ];
 
     /* boot.kernelPackages = pkgs.linuxPackages_latest; */
-    boot.kernelModules = [ "kvm-amd" "wl" ];
+    boot.kernelParams = [ "amd_iommu=on" ];
+    boot.kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+    boot.blacklistedKernelModules = [ "nvidia" ];
     boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+    boot.extraModprobeConfig = ''
+      options vfio-pci ids=10de:1c81,10de:0fb9";
+      options kvm ignore_msrs=1
+    '';
 
     boot.loader = {
       grub = {
@@ -29,7 +35,7 @@
       luks.devices = {
         root = {
           preLVM = true;
-          device = "/dev/disk/by-uuid/85e6a10d-6df6-40b8-9357-3fa66ec2ff2f"; 
+          device = "/dev/disk/by-uuid/85e6a10d-6df6-40b8-9357-3fa66ec2ff2f";
         };
         stuff = {
           preLVM = true;
@@ -51,7 +57,7 @@
   };
 
   services.xserver = {
-    xrandrHeads = [  
+    xrandrHeads = [
       {
         output = "DP-4";
         primary = true;
@@ -61,29 +67,29 @@
 
   swapDevices = [ { device = "/dev/vg/swap"; } ];
 
-  fileSystems."/" = { 
+  fileSystems."/" = {
     device = "/dev/vg/root";
     fsType = "btrfs";
     options = [ "subvol=rootfs" ];
   };
 
-  fileSystems."/boot" = { 
+  fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/1735-CD63";
     fsType = "vfat";
   };
 
-  fileSystems."/run/media/elf/stuff" = { 
+  fileSystems."/run/media/elf/stuff" = {
     device = "/dev/mapper/stuff";
-    fsType = "btrfs"; 
+    fsType = "btrfs";
     options = [ "subvol=stuff" "compress=lzo" ];
   };
 
-  fileSystems."/run/media/elf/backup" = { 
+  fileSystems."/run/media/elf/backup" = {
     device = "/dev/mapper/backup";
-    fsType = "btrfs"; 
+    fsType = "btrfs";
     options = [ "subvol=backup" "compress=lzo:6" "noauto" ];
   };
 
-  
+
   nix.maxJobs = lib.mkDefault 12;
 }

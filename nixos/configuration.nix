@@ -60,6 +60,7 @@ in
   };
 
   programs.iotop.enable = true;
+  programs.dconf.enable = true;
 
   services.xserver = {
     enable = true;
@@ -72,7 +73,13 @@ in
 
     displayManager.lightdm = {
       enable = true;
-      greeters.gtk.enable = true;
+      greeters.gtk = {
+        enable = true;
+        theme = {
+          name = "Adwaita-dark";
+          package = pkgs.gnome3.adwaita-icon-theme;
+        };
+      };
     };
 
     desktopManager = {
@@ -102,6 +109,9 @@ in
   virtualisation.docker = {
     enable = true;
     package = pkgs.docker-edge;
+  };
+  virtualisation.libvirtd = {
+    enable = true;
   };
 
   systemd.services = {

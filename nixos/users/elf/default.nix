@@ -50,8 +50,10 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       tree
       unzip
       unrar
-      wineWowPackages.stable
+      wine
       libnotify
+
+      virtmanager pciutils usbutils
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
