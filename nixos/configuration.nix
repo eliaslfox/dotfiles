@@ -15,7 +15,7 @@ in
     [
       "${builtins.fetchGit {
     	url = https://github.com/rycee/home-manager;
-    	ref = "release-18.09";
+    	ref = "release-19.03";
       }}/nixos"
 
       ./hardware-configuration.nix
@@ -74,8 +74,6 @@ in
       enable = true;
       greeters.gtk.enable = true;
     };
-
-    windowManager.default = "i3";
 
     desktopManager = {
       default = "none";
