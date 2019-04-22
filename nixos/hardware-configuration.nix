@@ -11,7 +11,7 @@
     boot.blacklistedKernelModules = [ "nvidia" ];
     boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
     boot.extraModprobeConfig = ''
-      options vfio-pci ids=10de:1c81,10de:0fb9";
+      options vfio-pci ids=10de:1b80,10de:10f0";
       options kvm ignore_msrs=1
     '';
 
