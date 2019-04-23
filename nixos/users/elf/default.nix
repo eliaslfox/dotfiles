@@ -268,7 +268,8 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           ChallengeResponseAuthentication = "no";
           StrictHostKeyChecking = "ask";
           VerifyHostKeyDNS = "yes";
-           ServerAliveCountMax = "2";
+          ServerAliveCountMax = "2";
+          IdentitiesOnly = "yes";
         };
       };
 
