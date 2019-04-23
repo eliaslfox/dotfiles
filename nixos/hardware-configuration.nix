@@ -59,7 +59,7 @@
   services.xserver = {
     xrandrHeads = [
       {
-        output = "DP-4";
+        output = "HDMI-0";
         primary = true;
       }
     ];

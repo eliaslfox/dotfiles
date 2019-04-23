@@ -64,27 +64,12 @@ in
 
   services.xserver = {
     enable = true;
-
     videoDrivers = [ "nvidia" ];
-
-    windowManager.i3 = {
-      enable = true;
-    };
-
     displayManager.lightdm = {
       enable = true;
       greeters.gtk = {
         enable = true;
-        theme = {
-          name = "Adwaita-dark";
-          package = pkgs.gnome3.adwaita-icon-theme;
-        };
       };
-    };
-
-    desktopManager = {
-      default = "none";
-      xterm.enable = false;
     };
   };
 

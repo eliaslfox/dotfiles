@@ -20,6 +20,9 @@ let
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/cabal
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/cabal /home/elf/.cabal
 
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
+
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
   '';
 
@@ -73,6 +76,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       };
     };
 
+    xdg.enable = true;
 
     services.dunst = {
       enable = true;
@@ -151,38 +155,12 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
     xsession = {
       enable = true;
-      windowManager.i3 =
-      let
-        cfg = config.home-manager.users.elf.xsession.windowManager.i3.config;
-        modifier = cfg.modifier;
-      in
-        {
-          enable = true;
-          config = {
-            focus.newWindow = "none";
-            fonts = [ "FiraCode 8" ];
-            window.hideEdgeBorders = "both";
-            keybindings =
-              lib.mkOptionDefault {
-                "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-                "${modifier}+h" = "focus left";
-                "${modifier}+j" = "focus down";
-                "${modifier}+k" = "focus up";
-                "${modifier}+l" = "focus right";
-                "${modifier}+o" = "mode launch";
-              };
-            modes =
-              lib.mkOptionDefault {
-                launch = {
-                  f = "exec ${pkgs.firefox}/bin/firefox; mode default";
-                  s = "exec ${pkgs.spotify}/bin/spotify; mode default";
-                  t = "exec ${pkgs.transmission-gtk}/bin/transmission-gtk; mode default";
-                  v = "exec ${pkgs.pavucontrol}/bin/pavucontrol; mode default";
-                  d = "exec /home/elf/.nix-profile/bin/Discord; mode default";
-                  Escape = "mode default";
-                  Return = "mode default";
-                };
-              };
+      windowManager.i3 = {
+        enable = true;
+        config = {
+          focus.newWindow = "none";
+          fonts = [ "FiraCode 8" ];
+          window.hideEdgeBorders = "both";
         };
       };
     };
@@ -279,6 +257,21 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
         colorScheme = 6;
       };
 
+      programs.ssh = {
+        enable = true;
+        hashKnownHosts = true;
+        serverAliveInterval = 300;
+        extraOptionOverrides = {
+          UseRoaming = "no";
+          VisualHostKey = "yes";
+          PasswordAuthentication = "no";
+          ChallengeResponseAuthentication = "no";
+          StrictHostKeyChecking = "ask";
+          VerifyHostKeyDNS = "yes";
+           ServerAliveCountMax = "2";
+        };
+      };
+
       programs.zathura.enable = true;
 
       services.compton.enable = true;
@@ -288,11 +281,13 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       services.gpg-agent = {
         enable = true;
         enableSshSupport = true;
+        defaultCacheTtl = 60;
+        maxCacheTtl = 120;
       };
       services.screen-locker = {
         enable = true;
         inactiveInterval = 5;
-        lockCmd = "/run/wrappers/bin/physlock";
+        lockCmd = "${pkgs.i3lock}/bin/i3lock";
       };
 
 
