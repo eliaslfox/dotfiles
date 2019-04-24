@@ -19,6 +19,11 @@
   };
 
   services.xserver.videoDrivers = [ "intel" ];
+  home-manager.users.elf = {
+    xsession.windowManager.i3.config.bars = [
+      { trayOutput = "eDP-1"; fonts = [ "FiraCode 8" ]; }
+    ];
+  };
 
   boot.initrd.luks.devices.root = {
     preLVM = true;
