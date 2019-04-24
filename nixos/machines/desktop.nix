@@ -1,3 +1,4 @@
+with import <nixpkgs> {};
 { config, lib, pkgs, ... }:
 
 let
@@ -5,7 +6,7 @@ let
     (callPackage "${builtins.fetchGit {
       url = "https://github.com/eliaslfox/horriblesubsd";
       ref = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
-    }}" {})
+    }}" {});
 in
 {
   imports =
@@ -53,12 +54,12 @@ in
 
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "nvidia" ];
-  services.xserver.dislayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
   home-manager.users.elf = {
     xsession.enable = true;
-    packages =
+    home.packages =
       with pkgs; [
-	virt-manager
+	virtmanager
 	arandr
 	transmission-gtk
 	qemu
@@ -68,18 +69,7 @@ in
       ];
 
     systemd.user.services = {
-        home-symlinks = {
-          Unit = {
-            Description = "Init symlinks in home folder";
-          };
-          Service = {
-            ExecStart = "${symlink-init}";
-          };
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
-        };
-        horriblesubsd = {
+      horriblesubsd = {
           Unit = {
             Description = "Download anime from horriblesubs";
             Wants = [ "horriblesubsd.timer" ];
@@ -112,14 +102,13 @@ in
   };
 
 
-  services.xserver = {
-    xrandrHeads = [
+  services.xserver.xrandrHeads =
+    [
       {
         output = "HDMI-0";
         primary = true;
       }
     ];
-  };
 
   swapDevices = [ { device = "/dev/vg/swap"; } ];
 

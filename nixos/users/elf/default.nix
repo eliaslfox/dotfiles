@@ -35,7 +35,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       spotify
       pavucontrol
       pass
-      alacritty 
+      alacritty
       gnupg
       tor-browser-bundle-bin
       tree
@@ -280,4 +280,16 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
 
       systemd.user.startServices = true;
+      systemd.user.services.home-symlinks = {
+          Unit = {
+            Description = "Init symlinks in home folder";
+          };
+          Service = {
+            ExecStart = "${symlink-init}";
+          };
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+        };
+
           })
