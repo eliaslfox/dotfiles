@@ -18,12 +18,12 @@ in
     	ref = "release-19.03";
       }}/nixos"
 
-      ./hardware-configuration.nix
       ./mounts.nix
       ./users
       ./networking.nix
       ./services.nix
       ./scripts.nix
+      ./machine.nix
     ];
 
   environment.systemPackages =
@@ -61,12 +61,22 @@ in
 
   programs.iotop.enable = true;
   programs.dconf.enable = true;
+  programs.sway.enable = true;
+
+  hardware = {
+    pulseaudio = {
+      enable = true;
+      support32Bit = true;
+    };
+    cpu = {
+      amd.updateMicrocode = true;
+      intel.updateMicrocode = true;
+    };
+    opengl.driSupport32Bit = true;
+  };
 
   services.xserver = {
-    enable = true;
-    videoDrivers = [ "nvidia" ];
     displayManager.lightdm = {
-      enable = true;
       greeters.gtk = {
         enable = true;
       };
@@ -94,9 +104,6 @@ in
   virtualisation.docker = {
     enable = true;
     package = pkgs.docker-edge;
-  };
-  virtualisation.libvirtd = {
-    enable = true;
   };
 
   systemd.services = {

@@ -26,37 +26,24 @@ let
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
   '';
 
-  horriblesubsd =
-    (callPackage "${builtins.fetchGit {
-      url = "https://github.com/eliaslfox/horriblesubsd";
-      ref = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
-    }}" {});
 
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.packages =
     with pkgs; [
-      dwarf-fortress
       vlc
-      transmission-gtk
       firefox
       spotify
       pavucontrol
       pass
-      alacritty kitty
+      alacritty 
       gnupg
-      nvtop
       tor-browser-bundle-bin
-      steam
-      arandr lxappearance
-      qemu
-      horriblesubsd
       tree
       unzip
       unrar
-      wine
       libnotify
 
-      virtmanager pciutils usbutils
+      pciutils usbutils
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
@@ -154,7 +141,6 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
 
     xsession = {
-      enable = true;
       windowManager.i3 = {
         enable = true;
         config = {
@@ -275,8 +261,6 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
       programs.zathura.enable = true;
 
-      services.compton.enable = true;
-      services.gnome-keyring.enable = true;
       services.unclutter.enable = true;
 
       services.gpg-agent = {
@@ -293,42 +277,4 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
 
       systemd.user.startServices = true;
-      systemd.user.services = {
-        home-symlinks = {
-          Unit = {
-            Description = "Init symlinks in home folder";
-          };
-          Service = {
-            ExecStart = "${symlink-init}";
-          };
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
-        };
-        horriblesubsd = {
-          Unit = {
-            Description = "Download anime from horriblesubs";
-            Wants = [ "horriblesubsd.timer" ];
-          };
-          Service = {
-            ExecStart = "${horriblesubsd}/bin/horriblesubsd";
-          };
-          Install = {
-            WantedBy = [ "graphical-session.target" ];
-          };
-        };
-      };
-      systemd.user.timers = {
-        horriblesubsd = {
-          Unit = {
-            Description = "Download anime from horriblesubs";
-          };
-          Timer = {
-            OnUnitInactiveSec = "15m";
-          };
-          Install = {
-            WantedBy = [ "timers.target" ];
-          };
-        };
-      };
-    })
+          })

@@ -1,11 +1,18 @@
 { config, lib, pkgs, ... }:
 
+let
+  horriblesubsd =
+    (callPackage "${builtins.fetchGit {
+      url = "https://github.com/eliaslfox/horriblesubsd";
+      ref = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
+    }}" {})
+in
 {
   imports =
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-    /* boot.kernelPackages = pkgs.linuxPackages_latest; */
+    networking.hostName = "darling";
     boot.kernelParams = [ "amd_iommu=on" ];
     boot.kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     boot.blacklistedKernelModules = [ "nvidia" ];
@@ -44,17 +51,66 @@
       };
     };
 
-  hardware = {
-    pulseaudio = {
-      enable = true;
-      support32Bit = true;
-    };
-    cpu = {
-      amd.updateMicrocode = true;
-      intel.updateMicrocode = true;
-    };
-    opengl.driSupport32Bit = true;
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.dislayManager.lightdm.enable = true;
+  home-manager.users.elf = {
+    xsession.enable = true;
+    packages =
+      with pkgs; [
+	virt-manager
+	arandr
+	transmission-gtk
+	qemu
+	steam
+	wine
+	nvtop
+      ];
+
+    systemd.user.services = {
+        home-symlinks = {
+          Unit = {
+            Description = "Init symlinks in home folder";
+          };
+          Service = {
+            ExecStart = "${symlink-init}";
+          };
+          Install = {
+            WantedBy = [ "default.target" ];
+          };
+        };
+        horriblesubsd = {
+          Unit = {
+            Description = "Download anime from horriblesubs";
+            Wants = [ "horriblesubsd.timer" ];
+          };
+          Service = {
+            ExecStart = "${horriblesubsd}/bin/horriblesubsd";
+          };
+          Install = {
+            WantedBy = [ "graphical-session.target" ];
+          };
+        };
+      };
+      systemd.user.timers = {
+        horriblesubsd = {
+          Unit = {
+            Description = "Download anime from horriblesubs";
+          };
+          Timer = {
+            OnUnitInactiveSec = "15m";
+          };
+          Install = {
+            WantedBy = [ "timers.target" ];
+          };
+        };
+      };
   };
+
+  virtualisation.libvirtd = {
+    enable = true;
+  };
+
 
   services.xserver = {
     xrandrHeads = [
