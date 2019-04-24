@@ -147,6 +147,9 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           focus.newWindow = "none";
           fonts = [ "FiraCode 8" ];
           window.hideEdgeBorders = "both";
+          keybindings = lib.mkOptionDefault {
+            "Mod1+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+          };
         };
       };
     };
