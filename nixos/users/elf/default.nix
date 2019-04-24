@@ -287,8 +287,8 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       };
       services.screen-locker = {
         enable = true;
-        inactiveInterval = 5;
-        lockCmd = "${pkgs.i3lock}/bin/i3lock";
+        inactiveInterval = 10;
+        lockCmd = "/run/wrappers/bin/physlock";
       };
 
 
