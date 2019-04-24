@@ -36,15 +36,15 @@ in
     openvpn.servers = {
       pia = {
         config = ''
-          cd /home/elf/Documents/vpn
-	  auth-nocache
-	  config US\ Silicon\ Valley.ovpn
-	'';
-	autoStart = true;
-	authUserPass = {
-          username = credentials.vpn.username;
-	  password = credentials.vpn.password;
-	};
+         cd /home/elf/Documents/dotfiles/vpn
+	      auth-nocache
+	      config US\ Silicon\ Valley.ovpn
+	     '';
+	     autoStart = true;
+	     authUserPass = {
+           username = credentials.vpn.username;
+	       password = credentials.vpn.password;
+	     };
       };
     };
   };
