@@ -210,6 +210,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           keybindings = lib.mkOptionDefault {
             "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
             "Mod1+a" = "focus parent";
+            "Mod1+m" = "bar mode toggle";
           };
         };
         extraConfig = ''
