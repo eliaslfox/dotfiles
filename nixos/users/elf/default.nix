@@ -96,6 +96,12 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
         name = "Adwaita-dark";
         package = pkgs.gnome3.gnome_themes_standard;
       };
+      gtk3.extraCss = ''
+        .titlebar.default-decoration {
+          margin: -200px;
+          opacity: 0;
+        }
+      '';
     };
 
     xdg.enable = true;
@@ -205,7 +211,6 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           keybindings = lib.mkOptionDefault {
             "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
           };
-          bars = [];
         };
         extraConfig = ''
           default_border none
