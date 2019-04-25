@@ -53,7 +53,6 @@ in
       };
     };
     fonts = with pkgs; [
-      (import ./fonts.nix)
       powerline-fonts
       fira-code
       fira-code-symbols

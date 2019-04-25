@@ -113,7 +113,6 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           height = "2.5%";
           radius = 0;
           modules-center = "spotify";
-          font-0 = "SF Mono:size=10";
           /* background = "#002b36"; */
         };
        "module/spotify" = {
@@ -210,6 +209,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           window.hideEdgeBorders = "both";
           keybindings = lib.mkOptionDefault {
             "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
+            "Mod1+a" = "focus parent";
           };
         };
         extraConfig = ''
