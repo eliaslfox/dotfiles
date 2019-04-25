@@ -106,6 +106,12 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
     xdg.enable = true;
 
+    services.compton = {
+      enable = true;
+      opacityRule = [
+        "80:!I3_FLOATING_WINDOW@:c"
+      ];
+    };
     services.polybar = {
       config = {
         "bar/top" = {
@@ -113,7 +119,6 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           height = "2.5%";
           radius = 0;
           modules-center = "spotify";
-          /* background = "#002b36"; */
         };
        "module/spotify" = {
          type = "custom/script";
