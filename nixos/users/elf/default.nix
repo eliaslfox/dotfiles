@@ -109,7 +109,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
     services.compton = {
       enable = true;
       opacityRule = [
-        "80:!I3_FLOATING_WINDOW@:c"
+        "80:I3_FLOATING_WINDOW@:c && WM_CLASS@:s = \"kitty\""
       ];
     };
     services.polybar = {
