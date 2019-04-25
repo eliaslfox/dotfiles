@@ -36,8 +36,11 @@ let
       sed=${pkgs.gnused}/bin/sed
       tail=${pkgs.coreutils}/bin/tail
 
-     meta=$($dbus_send --print-reply --dest=''${domain}.spotify \
-      /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:''${domain}.Player string:Metadata)
+     meta=`$dbus_send --print-reply --dest=''${domain}.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:''${domain}.Player string:Metadata 2> /dev/null`
+     if [ $? -ne 0 ]; then
+       echo ""
+       exit 0
+     fi
 
     artist=$(echo "$meta" | $sed -nr '/xesam:artist"/,+2s/^ +string "(.*)"$/\1/p' | $tail -1  | $sed 's/\&/\\&/g' | $sed 's#\/#\\/#g')
     album=$(echo "$meta" | $sed -nr '/xesam:album"/,+2s/^ +variant +string "(.*)"$/\1/p' | $tail -1| $sed 's/\&/\\&/g'| $sed 's#\/#\\/#g')
@@ -102,15 +105,8 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           height = "2.5%";
           radius = 0;
           modules-center = "spotify";
+          /* background = "#002b36"; */
         };
-
-       "module/date" = {
-         type = "internal/date";
-         internal = 5;
-         date = "%d.%m.%y";
-         time = "%H:%M";
-         label = "%time%  %date%";
-       };
        "module/spotify" = {
          type = "custom/script";
          interval = 1;
