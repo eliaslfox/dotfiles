@@ -1,8 +1,9 @@
 with import <nixpkgs> {};
 { config, pkgs }:
 let
-  symlink-init = pkgs.writeScript "symlink-init" ''
-    #!${pkgs.bash}/bin/bash set -e -o pipefail
+  symlink-init = pkgs.writeScriptBin "symlink-init" ''
+    #!/bin/sh 
+    set -e 
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
@@ -23,10 +24,12 @@ let
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
 
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
+
   '';
 
   spotify-data = pkgs.writeScriptBin "spotify-data" ''
-    #!${pkgs.bash}/bin/bash set -e -o pipefail
+    #!/bin/sh 
+    set -e 
     main() {
       cmd="org.freedesktop.DBus.Properties.Get"
       domain="org.mpris.MediaPlayer2"
@@ -71,7 +74,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       unrar
       libnotify
       nix-prefetch-git
-      pciutils usbutils
+      pciutils usbutils acpi
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
@@ -80,7 +83,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       python35Packages.virtualenv # Python
       gcc
 
-      spotify-data
+      spotify-data symlink-init
     ];
 
     gtk = {
@@ -342,7 +345,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
             Description = "Init symlinks in home folder";
           };
           Service = {
-            ExecStart = "${symlink-init}";
+            ExecStart = "${symlink-init}/bin/symlink-init";
           };
           Install = {
             WantedBy = [ "default.target" ];
