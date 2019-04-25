@@ -20,7 +20,7 @@
 
   services.xserver.videoDrivers = [ "intel" ];
   home-manager.users.elf.xsession.windowManager.i3.config.bars = [
-    { trayOutput = "eDPI-1"; }
+    { trayOutput = "eDP-1"; }
   ];
 
   boot.initrd.luks.devices.root = {

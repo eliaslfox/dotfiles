@@ -56,6 +56,7 @@ in
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.displayManager.lightdm.enable = true;
   home-manager.users.elf = {
+    services.polybar.enable = true;
     xsession.enable = true;
     xsession.windowManager.i3.config.bars = [
       { trayOutput = "primary"; }

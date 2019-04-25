@@ -2,8 +2,8 @@ with import <nixpkgs> {};
 { config, pkgs }:
 let
   symlink-init = pkgs.writeScriptBin "symlink-init" ''
-    #!/bin/sh 
-    set -e 
+    #!/bin/sh
+    set -e
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
@@ -28,8 +28,8 @@ let
   '';
 
   spotify-data = pkgs.writeScriptBin "spotify-data" ''
-    #!/bin/sh 
-    set -e 
+    #!/bin/sh
+    set -e
     main() {
       cmd="org.freedesktop.DBus.Properties.Get"
       domain="org.mpris.MediaPlayer2"
@@ -107,7 +107,6 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
     xdg.enable = true;
 
     services.polybar = {
-      enable = true;
       config = {
         "bar/top" = {
           width = "100%";
