@@ -57,9 +57,6 @@ in
   services.xserver.displayManager.lightdm.enable = true;
   home-manager.users.elf = {
     xsession.enable = true;
-    xsession.windowManager.i3.config.bars = [
-      { trayOutput = "HDMI-0"; fonts = ["FiraCode 8"]; }
-    ];
     home.packages =
       with pkgs; [
 	virtmanager

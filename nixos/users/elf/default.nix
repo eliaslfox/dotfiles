@@ -2,8 +2,7 @@ with import <nixpkgs> {};
 { config, pkgs }:
 let
   symlink-init = pkgs.writeScript "symlink-init" ''
-    #!${pkgs.bash}/bin/bash
-    set -e -o pipefail
+    #!${pkgs.bash}/bin/bash set -e -o pipefail
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
@@ -25,6 +24,31 @@ let
 
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
   '';
+
+  spotify-data = pkgs.writeScriptBin "spotify-data" ''
+    #!${pkgs.bash}/bin/bash set -e -o pipefail
+    main() {
+      cmd="org.freedesktop.DBus.Properties.Get"
+      domain="org.mpris.MediaPlayer2"
+      path="/org/mpris/MediaPlayer2"
+
+      dbus_send=${pkgs.dbus}/bin/dbus-send
+      sed=${pkgs.gnused}/bin/sed
+      tail=${pkgs.coreutils}/bin/tail
+
+     meta=$($dbus_send --print-reply --dest=''${domain}.spotify \
+      /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:''${domain}.Player string:Metadata)
+
+    artist=$(echo "$meta" | $sed -nr '/xesam:artist"/,+2s/^ +string "(.*)"$/\1/p' | $tail -1  | $sed 's/\&/\\&/g' | $sed 's#\/#\\/#g')
+    album=$(echo "$meta" | $sed -nr '/xesam:album"/,+2s/^ +variant +string "(.*)"$/\1/p' | $tail -1| $sed 's/\&/\\&/g'| $sed 's#\/#\\/#g')
+    title=$(echo "$meta" | $sed -nr '/xesam:title"/,+2s/^ +variant +string "(.*)"$/\1/p' | $tail -1 | $sed 's/\&/\\&/g'| $sed 's#\/#\\/#g')
+
+    echo "''${*:-%artist% - %title%}" | $sed "s/%artist%/$artist/g;s/%title%/$title/g;s/%album%/$album/g"i | $sed "s/\&/\&/g" | $sed "s#\/#\/#g"
+
+   }
+
+   main "$@"
+   '';
 
 
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
@@ -50,6 +74,10 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
       rustup # Rust
+      python35Packages.virtualenv # Python
+      gcc
+
+      spotify-data
     ];
 
     gtk = {
@@ -65,6 +93,33 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
     };
 
     xdg.enable = true;
+
+    services.polybar = {
+      enable = true;
+      config = {
+        "bar/top" = {
+          width = "100%";
+          height = "2.5%";
+          radius = 0;
+          modules-center = "spotify";
+        };
+
+       "module/date" = {
+         type = "internal/date";
+         internal = 5;
+         date = "%d.%m.%y";
+         time = "%H:%M";
+         label = "%time%  %date%";
+       };
+       "module/spotify" = {
+         type = "custom/script";
+         interval = 1;
+         format = "<label>";
+         exec = "${spotify-data}/bin/spotify-data";
+       };
+    };
+    script = "polybar top &";
+  };
 
     services.dunst = {
       enable = true;
@@ -151,7 +206,11 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           keybindings = lib.mkOptionDefault {
             "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
           };
+          bars = [];
         };
+        extraConfig = ''
+          default_border none
+        '';
       };
     };
 
