@@ -30,19 +30,20 @@ let
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.packages =
     with pkgs; [
-      vlc
+      vlc mpv
       firefox
       spotify
       pavucontrol
       pass
-      alacritty
+      alacritty kitty
+      neofetch ranger
       gnupg
       tor-browser-bundle-bin
       tree
       unzip
       unrar
       libnotify
-
+      nix-prefetch-git
       pciutils usbutils
       (import ./nvim.nix)
 
@@ -148,13 +149,14 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           fonts = [ "FiraCode 8" ];
           window.hideEdgeBorders = "both";
           keybindings = lib.mkOptionDefault {
-            "Mod1+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
+            "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
           };
         };
       };
     };
 
       home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
+      home.file.".config/kitty/kitty.conf".source = ./files/kitty.conf;
       home.file.".config/npmrc".source = ./files/npmrc;
       home.file.".local/share/stack/config.yaml".source = ./files/stack-config.yaml;
       home.file.".config/i3status/config".source = ./files/i3status-config;

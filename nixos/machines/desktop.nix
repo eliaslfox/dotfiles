@@ -110,6 +110,9 @@ in
       {
         output = "HDMI-0";
         primary = true;
+        monitorConfig = ''
+          Option "PreferredMode" "1920x1080_143.77"
+        '';
       }
     ];
 
