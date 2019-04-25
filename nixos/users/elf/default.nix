@@ -113,6 +113,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           height = "2.5%";
           radius = 0;
           modules-center = "spotify";
+          font-0 = "SF Mono:style=Light:size=10";
           /* background = "#002b36"; */
         };
        "module/spotify" = {

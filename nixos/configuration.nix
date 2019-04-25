@@ -1,3 +1,4 @@
+with import <nixpkgs> {};
 { config, pkgs, ... }:
 let
   lowBatteryNotifier = pkgs.writeScript "lowBatteryNotifier"
@@ -52,6 +53,7 @@ in
       };
     };
     fonts = with pkgs; [
+      (import ./fonts.nix)
       powerline-fonts
       fira-code
       fira-code-symbols
