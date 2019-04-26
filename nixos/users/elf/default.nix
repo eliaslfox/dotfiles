@@ -27,36 +27,6 @@ let
 
   '';
 
-  spotify-data = pkgs.writeScriptBin "spotify-data" ''
-    #!/bin/sh
-    set -e
-    main() {
-      cmd="org.freedesktop.DBus.Properties.Get"
-      domain="org.mpris.MediaPlayer2"
-      path="/org/mpris/MediaPlayer2"
-
-      dbus_send=${pkgs.dbus}/bin/dbus-send
-      sed=${pkgs.gnused}/bin/sed
-      tail=${pkgs.coreutils}/bin/tail
-
-     meta=`$dbus_send --print-reply --dest=''${domain}.spotify /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Get string:''${domain}.Player string:Metadata 2> /dev/null`
-     if [ $? -ne 0 ]; then
-       echo ""
-       exit 0
-     fi
-
-    artist=$(echo "$meta" | $sed -nr '/xesam:artist"/,+2s/^ +string "(.*)"$/\1/p' | $tail -1  | $sed 's/\&/\\&/g' | $sed 's#\/#\\/#g')
-    album=$(echo "$meta" | $sed -nr '/xesam:album"/,+2s/^ +variant +string "(.*)"$/\1/p' | $tail -1| $sed 's/\&/\\&/g'| $sed 's#\/#\\/#g')
-    title=$(echo "$meta" | $sed -nr '/xesam:title"/,+2s/^ +variant +string "(.*)"$/\1/p' | $tail -1 | $sed 's/\&/\\&/g'| $sed 's#\/#\\/#g')
-
-    echo "''${*:-%artist% - %title%}" | $sed "s/%artist%/$artist/g;s/%title%/$title/g;s/%album%/$album/g"i | $sed "s/\&/\&/g" | $sed "s#\/#\/#g"
-
-   }
-
-   main "$@"
-   '';
-
-
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.packages =
     with pkgs; [
@@ -66,7 +36,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       pavucontrol
       pass
       alacritty kitty
-      neofetch ranger
+      neofetch ranger cava
       gnupg
       tor-browser-bundle-bin
       tree
@@ -75,6 +45,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       libnotify
       nix-prefetch-git
       pciutils usbutils acpi
+      ncmpcpp
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
@@ -83,7 +54,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       python35Packages.virtualenv # Python
       gcc
 
-      spotify-data symlink-init
+      symlink-init
     ];
 
     gtk = {
@@ -109,25 +80,27 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
     services.compton = {
       enable = true;
       opacityRule = [
-        "80:I3_FLOATING_WINDOW@:c && WM_CLASS@:s = \"kitty\""
+        "80:I3_FLOATING_WINDOW@:c && WM_CLASS@:s = \"kitty-float\""
       ];
     };
     services.polybar = {
+      enable = true;
       config = {
         "bar/top" = {
           width = "100%";
           height = "2.5%";
           radius = 0;
-          modules-center = "spotify";
+          modules-center = "mpd";
         };
-       "module/spotify" = {
-         type = "custom/script";
-         interval = 1;
-         format = "<label>";
-         exec = "${spotify-data}/bin/spotify-data";
+       "module/mpd" = {
+         type = "internal/mpd";
+         host = "127.0.0.1";
        };
     };
     script = "polybar top &";
+    package = pkgs.polybar.override {
+      mpdSupport = true;
+    };
   };
 
     services.dunst = {
@@ -214,12 +187,44 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
           window.hideEdgeBorders = "both";
           keybindings = lib.mkOptionDefault {
             "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
+            "Mod1+Shift+Return" = "exec ${pkgs.kitty}/bin/kitty --class kitty-float";
             "Mod1+a" = "focus parent";
             "Mod1+m" = "bar mode toggle";
+            "Mod1+Shift+space" = "mark toggle f, floating toggle";
           };
-        };
+          colors.focused = {
+			background = "#285577";
+			border = "#4c7899";
+			childBorder = "#002b36";
+			indicator = "#2e9ef4";
+			text = "#ffffff";
+		  };
+		  colors.unfocused = {
+			background = "#222222";
+			border = "#333333";
+			childBorder = "#002b36";
+			indicator = "#292d2e";
+			text = "#888888";
+		  };
+		  colors.focusedInactive = {
+			background = "#5f676a";
+			border = "#333333";
+			childBorder = "#002b36";
+			indicator = "#484e50";
+			text = "#ffffff";
+		  };
+		  colors.placeholder = {
+			background = "#0c0c0c";
+			border = "#000000";
+			childBorder = "#002b36";
+			indicator = "#000000";
+			text = "#ffffff";
+		  };
+		};
         extraConfig = ''
           default_border none
+
+          for_window [class="kitty-float"] border pixel 15, floating enable
         '';
       };
     };
@@ -234,6 +239,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
 
 
       programs.command-not-found.enable = true;
+
       programs.chromium = {
         enable = true;
         extensions = [
