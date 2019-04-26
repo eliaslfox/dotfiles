@@ -45,7 +45,9 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       libnotify
       nix-prefetch-git
       pciutils usbutils acpi
-      ncmpcpp
+      (ncmpcpp.override {
+        visualizerSupport = true;
+      })
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
