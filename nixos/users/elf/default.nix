@@ -75,7 +75,12 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       '';
     };
 
-    xdg.enable = true;
+    xdg = {
+      enable = true;
+      configFile = {
+        "nixpkgs/config.nix".source = ./nixpkgs.nix;
+      };
+    };
 
     services.compton = {
       opacityRule = [
@@ -366,5 +371,4 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
             WantedBy = [ "default.target" ];
           };
         };
-
           })

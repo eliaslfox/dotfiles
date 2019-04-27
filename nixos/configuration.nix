@@ -56,7 +56,10 @@ in
       powerline-fonts
       fira-code
       fira-code-symbols
-      emojione
+
+      noto-fonts
+      noto-fonts-extra
+      noto-fonts-emoji
     ];
   };
 
