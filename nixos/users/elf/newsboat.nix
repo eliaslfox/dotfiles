@@ -9,7 +9,7 @@
       { url = "https://feeds.feedburner.com/Torrentfreak?fmt=rss"; tags = []; }
       { url = "https://xkcd.com/rss.xml"; tags = ["comic"]; }
       { url = "https://what-if.xkcd.com/feed.atom"; tags = ["comic"]; }
-      { url = "https://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"; tags = ["news"]; }
+      { url = "https://nyaa.si/rss?u=PA-Subs&magnets"; tags = ["nyaa"]; }
     ];
     extraConfig = ''
       refresh-on-startup yes 

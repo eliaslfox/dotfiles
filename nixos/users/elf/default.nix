@@ -30,7 +30,8 @@ let
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.packages =
     with pkgs; [
-      vlc mpv
+      ncpamixer
+      vlc mpv gnome-mpv
       firefox
       spotify
       pavucontrol
@@ -280,6 +281,8 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
         shellAliases = {
           movie = "/run/media/elf/stuff/movies/find.sh";
           g = "git";
+          mixer = "ncpamixer";
+          music = "ncmpcpp";
         };
       };
 
