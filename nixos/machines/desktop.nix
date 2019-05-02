@@ -57,6 +57,7 @@ in
   services.xserver.displayManager.lightdm.enable = true;
   home-manager.users.elf = {
     services.polybar.enable = true;
+    services.compton.enable = true;
     xsession.enable = true;
     xsession.windowManager.i3.config.bars = [
       { trayOutput = "primary"; }
@@ -67,7 +68,6 @@ in
 	arandr
 	transmission-gtk
 	qemu
-	steam
 	wine
 	nvtop
       ];

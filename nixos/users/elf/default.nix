@@ -31,7 +31,8 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
   home.packages =
     with pkgs; [
       ncpamixer
-      vlc mpv gnome-mpv
+      steam
+      vlc mpv
       firefox
       spotify
       pavucontrol
@@ -46,9 +47,7 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       libnotify
       nix-prefetch-git
       pciutils usbutils acpi
-      (ncmpcpp.override {
-        visualizerSupport = true;
-      })
+      ncmpcpp
       (import ./nvim.nix)
 
       nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
@@ -78,16 +77,19 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
       '';
     };
 
-    xdg.enable = true;
+    xdg = {
+      enable = true;
+      configFile = {
+        "nixpkgs/config.nix".source = ./nixpkgs.nix;
+      };
+    };
 
     services.compton = {
-      enable = true;
       opacityRule = [
         "80:I3_FLOATING_WINDOW@:c && WM_CLASS@:s = \"kitty-float\""
       ];
     };
     services.polybar = {
-      enable = true;
       config = {
         "bar/top" = {
           width = "100%";
@@ -373,5 +375,4 @@ in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) 
             WantedBy = [ "default.target" ];
           };
         };
-
           })
