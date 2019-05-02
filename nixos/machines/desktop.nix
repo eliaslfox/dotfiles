@@ -68,7 +68,6 @@ in
 	arandr
 	transmission-gtk
 	qemu
-	steam
 	wine
 	nvtop
       ];

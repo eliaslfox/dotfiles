@@ -30,6 +30,7 @@ let
 in lib.recursiveUpdate (import ./newsboat.nix { pkgs = pkgs; config = config;}) ({
   home.packages =
     with pkgs; [
+      steam
       vlc mpv
       firefox
       spotify
