@@ -54,6 +54,7 @@ pkgs.neovim.override {
   configure.vam.pluginDictionaries = [
     /* UI */
     "NeoSolarized"
+    "goyo-vim"
     "vim-airline"
     "vim-airline-themes"
 

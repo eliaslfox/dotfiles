@@ -1,0 +1,16 @@
+ChallengeResponseAuthentication no
+IdentitiesOnly yes
+PasswordAuthentication no
+StrictHostKeyChecking ask
+UseRoaming no
+VerifyHostKeyDNS yes
+VisualHostKey yes
+
+Host *
+  ForwardAgent no
+  Compression yes
+  ServerAliveInterval 300
+  ServerAliveCountMax 2
+  HashKnownHosts yes
+  ControlMaster no
+  ControlPersist no

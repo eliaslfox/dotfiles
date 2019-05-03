@@ -42,7 +42,7 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 let g:ale_fix_on_save = 1
-let g:ale_sign_column_always = 1
+let g:ale_sign_column_always = 0
 let g:ale_change_sign_column_color = 1
 
 let g:ale_sign_error = '⤫'

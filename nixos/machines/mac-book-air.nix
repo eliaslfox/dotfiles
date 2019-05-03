@@ -2,6 +2,9 @@
 
 {
 
+  imports = [
+    ../laptop.nix
+  ];
   networking.hostName = "nico-ni";
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
@@ -19,6 +22,8 @@
   };
 
   services.xserver.videoDrivers = [ "intel" ];
+  programs.sway.enable = true;
+
   home-manager.users.elf.xsession.windowManager.i3.config.bars = [
     { trayOutput = "eDP-1"; }
   ];
@@ -28,7 +33,7 @@
       always = true;
     }
   ];
-
+  home-manager.users.elf.home.packages = [ pkgs.firefox-wayland ];
 
   boot.initrd.luks.devices.root = {
     preLVM = true;

@@ -31,7 +31,6 @@ wireless _first_ {
 
 ethernet _first_ {
         format_up = "E: %ip (%speed)"
-        format_down = "E: down"
 }
 
 battery all {
@@ -60,11 +59,11 @@ disk "/" {
         format = "%avail"
 }
 
-disk "/run/media/elf/stuff" { 
+disk "/run/media/elf/stuff" {
     format = "%avail"
 }
 
-disk "/run/media/elf/stuff" { 
+disk "/run/media/elf/stuff" {
     format = "%avail"
 }
 

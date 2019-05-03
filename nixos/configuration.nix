@@ -1,52 +1,72 @@
-with import <nixpkgs> {};
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
-  lowBatteryNotifier = pkgs.writeScript "lowBatteryNotifier"
-    ''
-      #!/bin/sh
-      set -euf -o pipefail
-
-      BAT_PCT=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '[0-9]+(?=%)'`
-      BAT_STA=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '\w+(?=,)'`
-      test $BAT_PCT -le 10 && test $BAT_STA = "Discharging" && DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical 'Low Battery' "Battery is at $BAT_PCT%"
-    '';
+  credentials = import ./credentials.nix;
 in
 {
-  imports =
-    [
-      "${builtins.fetchGit {
+
+  imports = [
+    "${builtins.fetchGit {
     	url = https://github.com/rycee/home-manager;
-    	ref = "release-19.03";
+    	ref = "master";
       }}/nixos"
 
-      ./mounts.nix
-      ./users
-      ./networking.nix
-      ./services.nix
-      ./scripts.nix
-      ./machine.nix
-    ];
+    ./mounts.nix
+    ./scripts.nix
+    ./users
 
+    ./features/hoogle.nix
+    ./features/horriblesubsd.nix
+    ./features/mopidy.nix
+    ./features/virtualisation.nix
+    ./features/vpn.nix
+
+    ./machine.nix
+  ];
+
+  networking = {
+    nameservers = ["1.1.1.1" "1.0.0.1"];
+    enableIPv6 = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [];
+      allowedUDPPorts = [];
+      allowPing = false;
+    };
+    wireless = {
+      enable = true;
+      networks = {
+        "${credentials.wifi.name}" = {
+          psk = credentials.wifi.psk;
+        };
+      };
+    };
+  };
+
+  features = {
+    vpn = {
+      enable = true;
+      credentials = credentials.vpn;
+    };
+    mopidy = {
+      enable = true;
+      credentials = credentials.spotify;
+    };
+  };
+
+  environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
       git
       tmux
-      wpa_supplicant
       gnumake
-      nethogs
-      (neovim.override {
-        vimAlias = true;
-      })
+      wpa_supplicant
+      vim
+      curl wget
     ];
-  environment.pathsToLink = [ "/share/zsh" ];
-
-  time.timeZone = "US/Pacific";
 
   fonts = {
-    enableCoreFonts = true;
+    enableDefaultFonts = true;
     enableFontDir = true;
-    enableGhostscriptFonts = true;
-
     fontconfig = {
       defaultFonts = {
         monospace = ["Fira Code Light"];
@@ -63,18 +83,10 @@ in
     ];
   };
 
-  programs.iotop.enable = true;
-  programs.dconf.enable = true;
-  programs.sway.enable = true;
-
   hardware = {
     pulseaudio = {
       enable = true;
       support32Bit = true;
-      tcp = {
-        enable = true;
-        anonymousClients.allowedIpRanges = [ "127.0.0.1" ];
-      };
     };
     cpu = {
       amd.updateMicrocode = true;
@@ -83,46 +95,22 @@ in
     opengl.driSupport32Bit = true;
   };
 
-  services.xserver = {
-    displayManager.lightdm = {
-      greeters.gtk = {
-        enable = true;
-      };
-    };
-  };
-
-  services.upower.enable = true;
-  services.dbus.packages = with pkgs; [ gnome3.dconf ];
-  services.udev = {
-    packages = with pkgs; [
-      yubikey-personalization
-    ];
-  };
-  services.cron = {
+  zramSwap= {
     enable = true;
-    systemCronJobs = [
-      "* * * * * elf ${lowBatteryNotifier}"
-    ];
-  };
-  services.physlock = {
-    enable = true;
-    allowAnyUser = true;
+    algorithm = "zstd";
   };
 
-  virtualisation.docker = {
-    enable = true;
-    package = pkgs.docker-edge;
-  };
+  documentation.dev.enable = true;
+  programs.iotop.enable = true;
+  programs.dconf.enable = true;
+  services.pcscd.enable = true;
 
-  systemd.services = {
-    openvpn-reconnect = {
-      description = "Restart OpenVPN after suspend";
-      script = "${pkgs.procps}/bin/pkill --signal SIGHUP --exact openvpn";
-      wantedBy = ["sleep.target"];
-    };
-  };
-
-  system.stateVersion = "19.03";
+  time.timeZone = "US/Pacific";
   system.autoUpgrade.enable = true;
   nixpkgs.config.allowUnfree = true;
+  nix = {
+    gc.automatic = true;
+    optimise.automatic = true;
+  };
+  system.stateVersion = "19.03";
 }

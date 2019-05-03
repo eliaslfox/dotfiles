@@ -3,8 +3,8 @@ env:
 
 window:
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 80
+    lines: 24
 
   padding:
     x: 2
@@ -92,7 +92,7 @@ visual_bell:
   animation: EaseOutExpo
   duration: 0
 
-background_opacity: 0.85
+background_opacity: 1.0
 
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
