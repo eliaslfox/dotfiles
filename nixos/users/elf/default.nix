@@ -61,7 +61,6 @@ in {
       irssi
       xclip
       ncpamixer
-      steam
       vlc mpv
       pavucontrol
       pass

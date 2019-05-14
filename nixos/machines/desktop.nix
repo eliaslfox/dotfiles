@@ -81,6 +81,7 @@
     home.packages =
       with pkgs; [
         transmission-gtk
+        steam
       ];
     xsession.windowManager.i3.config.bars = [
       {
