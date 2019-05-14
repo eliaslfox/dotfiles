@@ -17,7 +17,7 @@ in
       allowSFTP = false;
       challengeResponseAuthentication = false;
       passwordAuthentication = false;
-      permitRootLogin = "prohibit-password";
+      permitRootLogin = "no";
     };
   };
 }
