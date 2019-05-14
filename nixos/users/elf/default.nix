@@ -399,6 +399,13 @@ in {
         maxCacheTtl = 120;
       };
 
+      services.screen-locker = {
+        enable = true;
+        inactiveInterval = 10;
+        lockCmd = "/run/wrappers/bin/physlock";
+      };
+
+
     systemd.user.startServices = true;
     systemd.user.services.home-symlinks = {
       Unit = {

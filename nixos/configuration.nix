@@ -105,6 +105,7 @@ in
   programs.iotop.enable = true;
   programs.dconf.enable = true;
   services.pcscd.enable = true;
+  services.physlock.enable = true;
 
   time.timeZone = "US/Pacific";
   system.autoUpgrade.enable = true;

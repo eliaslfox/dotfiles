@@ -28,12 +28,6 @@
 
       services.unclutter.enable = true;
       services.compton.enable = true;
-      services.screen-locker = {
-        enable = true;
-        inactiveInterval = 10;
-        lockCmd = "/run/wrappers/bin/physlock";
-      };
-
       services.random-background = {
         enable = true;
         imageDirectory = "%h/Documents/backgrounds";
