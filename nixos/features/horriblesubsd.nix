@@ -3,9 +3,9 @@ with import <nixpkgs> {};
 
 with lib;
 
-let 
+let
   cfg = config.features.horriblesubsd;
-  
+
   horriblesubsd =
     (callPackage "${fetchFromGitHub {
       owner = "eliaslfox";

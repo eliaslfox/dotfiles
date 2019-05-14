@@ -57,6 +57,7 @@ pkgs.neovim.override {
     "goyo-vim"
     "vim-airline"
     "vim-airline-themes"
+    "supertab"
 
     /* Language Agnostic Plugins */
     {

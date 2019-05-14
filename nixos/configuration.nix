@@ -19,6 +19,7 @@ in
     ./features/mopidy.nix
     ./features/virtualisation.nix
     ./features/vpn.nix
+    ./features/openssh.nix
 
     ./machine.nix
   ];

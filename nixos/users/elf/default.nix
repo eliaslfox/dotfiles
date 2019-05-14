@@ -45,6 +45,7 @@ let
 in {
   home.packages =
     with pkgs; [
+      go-2fa
       discord
       smartmontools
       pulseeffects
@@ -75,6 +76,7 @@ in {
       nix-prefetch-git
       pciutils usbutils acpi
       file
+      youtube-dl
       (ncmpcpp.override {
         visualizerSupport = true;
       })

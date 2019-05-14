@@ -15,6 +15,15 @@
       options kvm ignore_msrs=1
       options kvm_amd nested=1
     '';
+    kernelPatches = [
+      {
+        name = "disable-rds";
+        patch = null;
+        extraConfig = ''
+          RDS n
+        '';
+      }
+    ];
 
     loader = {
       grub = {
@@ -57,10 +66,13 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
   features = {
     virtualisation.enable = true;
     horriblesubsd.enable = true;
     hoogle.enable = true;
+    openssh.enable = true;
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
