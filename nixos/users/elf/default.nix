@@ -268,7 +268,12 @@ in {
 			childBorder = borderColor;
 			indicator = "#000000";
 			text = "#ffffff";
-		  };
+          };
+          bars = [
+            {
+              trayOutput = "none";
+            }
+          ];
 		};
         extraConfig = ''
           default_border none

@@ -82,11 +82,6 @@
       with pkgs; [
         transmission-gtk
       ];
-    xsession.windowManager.i3.config.bars = [
-      {
-        trayOutput = "primary";
-      }
-    ];
   };
 
 
