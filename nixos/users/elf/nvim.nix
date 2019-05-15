@@ -77,6 +77,7 @@ pkgs.neovim.override {
     "vim-nix"
     "vim-javascript"
     "gitgutter"
+    "typescript-vim"
   ];
   configure.customRC = builtins.readFile ./files/init.vim;
 }

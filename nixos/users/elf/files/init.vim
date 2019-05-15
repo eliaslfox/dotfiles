@@ -39,6 +39,8 @@ let g:gitgutter_override_sign_column_highlight = 0
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['/home/elf/.nix-profile/bin/javascript-typescript-stdio'],
+    \ 'typescript': ['/home/elf/.nix-profile/bin/javascript-typescript-stdio'],
     \ }
 
 let g:ale_fix_on_save = 1
@@ -49,5 +51,10 @@ let g:ale_sign_error = '⤫'
 let g:ale_sign_warning = '⚑'
 
 let g:ale_fixers = {
-    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ }
+
+let g:ale_linters = {
+    \ 'javascript': [],
+    \ 'typescript': [],
     \ }

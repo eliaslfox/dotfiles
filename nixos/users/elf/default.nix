@@ -84,7 +84,10 @@ in {
       (import ./nvim.nix)
       efitools
 
-      nodejs nodePackages.node2nix nodePackages.prettier  # NodeJS
+      # NodeJs
+      nodejs nodePackages.node2nix nodePackages.prettier 
+      nodePackages.javascript-typescript-langserver
+
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
       rustup # Rust
       python35Packages.virtualenv # Python
