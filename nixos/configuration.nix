@@ -72,12 +72,36 @@ in
       defaultFonts = {
         monospace = ["Fira Code Light"];
       };
+      localConf = ''
+        <match>
+          <test name="family">
+            <string>Helvetica</string>
+          </test>
+          <edit binding="same" mode="assign" name="family">
+            <string>Source Sans Pro</string>
+          </edit>
+        </match>
+        <match>
+          <test name="family">
+            <string>Arial</string>
+          </test>
+          <edit binding="same" mode="assign" name="family">
+            <string>Source Sans Pro</string>
+          </edit>
+        </match>
+      '';
     };
     fonts = with pkgs; [
+      # Base Fonts
+      source-sans-pro
+      source-serif-pro
+
+      # Programming
       powerline-fonts
       fira-code
       fira-code-symbols
 
+      # Emoji
       noto-fonts
       noto-fonts-extra
       noto-fonts-emoji
