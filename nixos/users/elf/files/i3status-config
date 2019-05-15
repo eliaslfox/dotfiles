@@ -63,7 +63,7 @@ disk "/run/media/elf/stuff" {
     format = "%avail"
 }
 
-disk "/run/media/elf/stuff" {
+disk "/run/media/elf/backup" {
     format = "%avail"
 }
 

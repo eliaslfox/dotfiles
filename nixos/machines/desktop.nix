@@ -15,15 +15,6 @@
       options kvm ignore_msrs=1
       options kvm_amd nested=1
     '';
-    kernelPatches = [
-      {
-        name = "disable-rds";
-        patch = null;
-        extraConfig = ''
-          RDS n
-        '';
-      }
-    ];
 
     loader = {
       grub = {
@@ -48,7 +39,8 @@
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
 
-      luks.devices = { "root" = {
+      luks.devices = {
+        "root" = {
            preLVM = true;
            device = "/dev/disk/by-uuid/85a66fe9-830b-4944-b0b6-66364ddda85c";
            keyFile = "/keyfile.bin";
@@ -102,6 +94,12 @@
       fsType = "btrfs";
       options = ["subvol=stuff"];
     };
+
+  fileSystems."/run/media/elf/backup" =
+  { device = "/dev/mapper/backup";
+    fsType = "btrfs";
+    options = [ "subvol=backup" "noauto" "compress=lzo"];
+  };
 
   nix = {
     maxJobs = lib.mkDefault 12;

@@ -45,6 +45,8 @@ let
 in {
   home.packages =
     with pkgs; [
+      lzo
+      btrbk
       go-2fa
       discord
       smartmontools
@@ -127,55 +129,7 @@ in {
       ];
     };
 
-    services.dunst = {
-      enable = true;
-      iconTheme = {
-        name = "Adwaita";
-        package = pkgs.gnome3.adwaita-icon-theme;
-      };
-      settings = {
-        global = {
-          font = "FiraCode 9";
-          geometry = "300x5-30+30";
-          transparency = 20;
-          monitor = 0;
-          follow = "keyboard";
-          sticky_history = "yes";
-          line_height = 0;
-          seperator_height = 2;
-          padding = 10;
-          horizontal_padding = 10;
-          separator_color = "frame";
-          icon_position = "left";
-          word_wrap = "yes";
-          max_icon_size = 32;
-          format = "<b>%s</b><br />\\n%b";
-          markup = "full";
-          show_indicators = "no";
-          browser = "${pkgs.firefox}/bin/firefox -new-tab";
-          dmenu = "${pkgs.dmenu}/bin/dmenu -p dunst";
-        };
-        frame = {
-          width = 0;
-          color = "#000000";
-        };
-        urgency_low = {
-          background = "#333333";
-          foreground = "#ffffff";
-          timeout = 10;
-        };
-        urgency_normal = {
-          background = "#333333";
-          foreground = "#ffffff";
-          timeout = 10;
-        };
-        urgency_critical = {
-          background = "#333333";
-          foreground = "#ffffff";
-          timeout = 10;
-        };
-      };
-    };
+    services.dunst = import ./dunst.nix;
 
     nixpkgs.config = {
       packageOverrides = pkgs: {
@@ -202,86 +156,7 @@ in {
       };
     };
 
-    xsession = {
-      windowManager.i3 =
-        let
-          borderColor = "#002b36";
-        in
-        {
-        enable = true;
-        config = {
-          focus.newWindow = "none";
-          fonts = [ "FiraCode 8" ];
-          window.hideEdgeBorders = "both";
-          keybindings = lib.mkOptionDefault {
-            /* Spawn terminals */
-            "Mod1+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-            "Mod1+Shift+Return" = "exec ${pkgs.alacritty}/bin/alacritty --class term-float --title term-float";
-
-            /* Commands missing from the default */
-            "Mod1+a" = "focus parent";
-            "Mod1+e" = "layout toggle split";
-
-            /* Vim Mode */
-            "Mod1+c" = "split h";
-
-            "Mod1+h" = "focus left";
-            "Mod1+Shift+h" = "move left";
-
-            "Mod1+j" = "focus down";
-            "Mod1+Shift+j" = "move down";
-
-            "Mod1+k" = "focus up";
-            "Mod1+Shift+k" = "move up";
-
-            "Mod1+l" = "focus right";
-            "Mod1+Shift+l" = "move right";
-
-            /* Manage bars */
-            "Mod1+m" = "bar mode toggle";
-          };
-          colors.focused = {
-			background = "#285577";
-			border = "#4c7899";
-			childBorder = borderColor;
-			indicator = "#2e9ef4";
-			text = "#ffffff";
-		  };
-          colors.unfocused = {
-            background = "#222222";
-            border = "#333333";
-            childBorder = borderColor;
-            indicator = "#292d2e";
-            text = "#888888";
-          };
-		  colors.focusedInactive = {
-			background = "#5f676a";
-			border = "#333333";
-			childBorder = borderColor;
-			indicator = "#484e50";
-			text = "#ffffff";
-		  };
-		  colors.placeholder = {
-			background = "#0c0c0c";
-			border = "#000000";
-			childBorder = borderColor;
-			indicator = "#000000";
-			text = "#ffffff";
-          };
-          bars = [
-            {
-              trayOutput = "none";
-            }
-          ];
-		};
-        extraConfig = ''
-          default_border none
-
-          for_window [class="term-float"] border pixel 20, floating enable
-          for_window [title="term-float"] border pixel 20, floating enable
-        '';
-      };
-    };
+    xsession.windowManager.i3 = import ./i3.nix;
 
       home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
       home.file.".config/kitty/kitty.conf".source = ./files/kitty.conf;
@@ -311,46 +186,7 @@ in {
         scroll.bar.enable = false;
       };
 
-      programs.zsh = {
-        enable = true;
-        enableCompletion = true;
-        defaultKeymap = "viins";
-        dotDir = ".config/zsh";
-        sessionVariables = {
-          DEFAULT_USER = "elf";
-          PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
-          GNUPGHOME="$HOME/.config/gnupg";
-          EDITOR = "nvim";
-        };
-        initExtra = ''
-          export GPG_TTY="$(tty)"
-          export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
-          function venv() {
-            . ~/Documents/software/$1/venv/bin/activate
-          }
-        '';
-        history = {
-          path = ".cache/zsh_history";
-        };
-        oh-my-zsh = {
-          enable = true;
-          theme = "agnoster";
-          plugins = [];
-        };
-        shellAliases = {
-          movie = "/run/media/elf/stuff/movies/find.sh";
-          g = "git";
-          mixer = "ncpamixer";
-          music = "ncmpcpp";
-          open = "xdg-open";
-          pbcopy = "xclip -selection clipboard";
-          pbpaste = "xclip -selection clipboard -o";
-          pubkey = "cat ~/.ssh/id_rsa.pub | xclip -selection clipboard";
-          cp = "cp -i";
-          mv = "mv -i";
-        };
-      };
+      programs.zsh = import ./zsh.nix;
 
       programs.tmux = {
         enable = true;
@@ -369,6 +205,7 @@ in {
         aliases = {
           l = "log --decorate --oneline --graph --first-parent";
           s = "status";
+          c = "checkout";
           mb = "checkout -b";
         };
         extraConfig = {
