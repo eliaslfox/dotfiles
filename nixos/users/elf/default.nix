@@ -45,9 +45,9 @@ let
 in {
   home.packages =
     with pkgs; [
+      bind
       lzo
       btrbk
-      go-2fa
       discord
       smartmontools
       pulseeffects
