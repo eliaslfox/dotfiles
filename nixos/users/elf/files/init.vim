@@ -58,9 +58,11 @@ let g:gitgutter_override_sign_column_highlight = 0
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['/home/elf/.nix-profile/bin/javascript-typescript-stdio'],
-    \ 'typescript': ['/home/elf/.nix-profile/bin/javascript-typescript-stdio'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'go': ['gopls']
     \ }
+autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
 let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 0

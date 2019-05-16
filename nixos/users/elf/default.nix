@@ -45,6 +45,7 @@ let
 in {
   home.packages =
     with pkgs; [
+      nixops
       bind
       lzo
       btrbk
@@ -85,13 +86,13 @@ in {
       efitools
 
       # NodeJs
-      nodejs nodePackages.node2nix nodePackages.prettier 
+      nodejs nodePackages.node2nix nodePackages.prettier
       nodePackages.javascript-typescript-langserver
 
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
       rustup # Rust
       python35Packages.virtualenv # Python
-      go # Golang
+      go gotools # Golang
       gcc
 
       symlink-init

@@ -8,6 +8,7 @@
     PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
     GNUPGHOME="$HOME/.config/gnupg";
     EDITOR = "nvim";
+    GOPATH="$HOME/Documents/go";
   };
   initExtra = ''
     export GPG_TTY="$(tty)"
