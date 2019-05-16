@@ -43,6 +43,16 @@ in
         [audio]
         #output = tee name=t t. ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/mpd.fifo
         output = pulsesink server=127.0.0.1
+
+        [file]
+        enabled = true
+        media_dirs = /run/media/elf/stuff/music|Music
+        show_dotfiles = false
+        excluded_file_extensions =
+          .jpg
+          .jpeg
+        follow_symlinks = false
+        metadata_timeout = 1000
       '';
     };
 

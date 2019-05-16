@@ -73,6 +73,7 @@ in
         monospace = ["Fira Code Light"];
       };
       localConf = ''
+        <fontconfig>
         <match>
           <test name="family">
             <string>Helvetica</string>
@@ -89,6 +90,7 @@ in
             <string>Source Sans Pro</string>
           </edit>
         </match>
+        </fontconfig>
       '';
     };
     fonts = with pkgs; [
