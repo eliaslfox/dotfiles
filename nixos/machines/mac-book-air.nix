@@ -9,6 +9,9 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.kernelModules = [ "kvm-intel" "wl" ];
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 0;
+  };
 
   boot.loader = {
     grub = {
