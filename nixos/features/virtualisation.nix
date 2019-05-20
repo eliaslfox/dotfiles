@@ -22,6 +22,10 @@ in
     virtualisation.libvirtd = {
       enable = true;
       onShutdown = "shutdown";
+      qemuPackage = pkgs.qemu_kvm;
+      qemuVerbatimConfig = ''
+        user = "elf"
+      '';
     };
 
     users.extraUsers.elf.extraGroups = [ "docker" "libvirtd" ];
@@ -29,7 +33,7 @@ in
     home-manager.users.elf = {
       home.packages =
         with pkgs; [
-          qemu
+          qemu_kvm
           wine
           virtmanager
         ];

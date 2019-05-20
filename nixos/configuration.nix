@@ -114,6 +114,10 @@ in
     pulseaudio = {
       enable = true;
       support32Bit = true;
+      daemon.config = {
+        default-sample-rate = 44100;
+        alternate-sample-rate = 48000;
+      };
     };
     cpu = {
       amd.updateMicrocode = true;

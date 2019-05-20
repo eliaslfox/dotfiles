@@ -105,13 +105,6 @@
       ];
   };
 
-
-  fileSystems."/" =
-    { device = "/dev/mapper/vg-root";
-      fsType = "btrfs";
-      options = [ "subvol=rootfs" ];
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/c0aece9e-50e0-4413-871f-f2378ef2ba8d";
       fsType = "ext4";
