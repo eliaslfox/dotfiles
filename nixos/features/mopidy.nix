@@ -51,6 +51,11 @@ in
         excluded_file_extensions =
           .jpg
           .jpeg
+          .txt
+          .url
+          .png
+          .log
+          .cue
         follow_symlinks = false
         metadata_timeout = 1000
       '';

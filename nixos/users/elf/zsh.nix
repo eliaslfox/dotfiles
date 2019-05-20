@@ -9,6 +9,7 @@
     GNUPGHOME="$HOME/.config/gnupg";
     EDITOR = "nvim";
     GOPATH="$HOME/Documents/go";
+    NIXOPS_STATE="$HOME/.config/nixops/deployments.nixops";
   };
   initExtra = ''
     export GPG_TTY="$(tty)"

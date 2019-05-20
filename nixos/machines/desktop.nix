@@ -59,7 +59,7 @@
   };
 
   features = {
-    virtualisation.enable = false;
+    virtualisation.enable = true;
     horriblesubsd.enable = true;
     hoogle.enable = true;
     openssh.enable = true;
@@ -86,6 +86,7 @@
       option subnet-mask 255.255.255.0;
       option broadcast-address 192.168.100.255;
       option routers 192.168.100.1;
+      option domain-name-servers 1.1.1.1, 1.0.0.1;
 
       subnet 192.168.100.0 netmask 255.255.255.0 {
         range 192.168.100.100 192.168.100.200;

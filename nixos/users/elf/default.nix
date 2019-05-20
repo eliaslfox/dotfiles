@@ -26,6 +26,9 @@ let
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
 
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/nixops
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/nixops /home/elf/.nixops
+
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
 
   '';
@@ -45,6 +48,8 @@ let
 in {
   home.packages =
     with pkgs; [
+      bridge-utils
+      dmg2img
       nixops
       bind
       lzo

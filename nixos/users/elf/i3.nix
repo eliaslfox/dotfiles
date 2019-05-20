@@ -72,7 +72,7 @@ in
   extraConfig = ''
     default_border none
 
-    for_window [class="term-float"] border pixel 20, floating enable
-    for_window [title="term-float"] border pixel 20, floating enable
+    for_window [class="term-float"] border pixel 30, floating enable
+    for_window [title="term-float"] border pixel 30, floating enable
   '';
 }
