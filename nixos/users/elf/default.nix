@@ -1,51 +1,32 @@
 with import <nixpkgs> {};
 { config, pkgs }:
 let
-  symlink-init = pkgs.writeScriptBin "symlink-init" ''
-    #!/bin/sh
-    set -e
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/mozilla
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/mozilla /home/elf/.mozilla
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/stack
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/stack /home/elf/.stack
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/ghc
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/ghc /home/elf/.ghc
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/cabal
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/cabal /home/elf/.cabal
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/npmpcpp
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmpcpp /home/elf/.ncmpcpp
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/nixops
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/nixops /home/elf/.nixops
-
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmrc /home/elf/.npmrc
-
-  '';
-
-  ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''
-    #!/bin/sh
-    set -e
-
-    MPC=${pkgs.mpc_cli}/bin/mpc
-    IFS=$'\t' read album artist title \
-      <<< "$($MPC --format="%album%\t%artist%\t%title%")"
-
-    ${pkgs.libnotify}/bin/notify-send --app-name=ncmpcpp --icon=audio-x-generic \
-        "$title" "$artist\n$album"
-    '';
-
+  scripts = callPackage (import ./scripts.nix) {};
 in {
+  xdg = {
+    enable = true;
+    configFile = {
+      "alacritty/alacritty.yml".source = ./files/alacritty.yml;
+      "npm/npmrc".source = ./files/npmrc;
+      "i3status/config".source = ./files/i3status-config;
+      "gnupg/gpg.conf".source = ./files/gpg.conf;
+      "ncmpcpp/config".source = ./files/ncmpcpp-config;
+      "ssh/config".source = ./files/ssh-config;
+      "readline/inputrc".source = ./files/inputrc;
+    };
+    dataFile = {
+      "stack/config.yaml".source = ./files/stack-config.yaml;
+      "ghc/ghci.conf".source = ./files/ghci.conf;
+
+      /* Firefox */
+      "mozilla/firefox/profiles.ini".source = ./files/firefox/profiles.ini;
+      "mozilla/firefox/default/user.js".source = ./files/firefox/user.js;
+      "mozilla/firefox/default/chrome/userChrome.css".source = ./files/firefox/userChrome.css;
+      "mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
+      "mozilla/firefox/clean/chrome/userChrome.css".source = ./files/firefox/userChrome-clean.css;
+    };
+  };
+
   home.packages =
     with pkgs; [
       signal-desktop
@@ -73,7 +54,7 @@ in {
       vlc mpv
       pavucontrol
       pass
-      kitty alacritty
+      alacritty
       neofetch ranger cava
       gnupg
       tor-browser-bundle-bin
@@ -101,8 +82,8 @@ in {
       go gotools # Golang
       gcc
 
-      symlink-init
-      ncmpcpp-notify
+      scripts.symlink-init
+      scripts.ncmpcpp-notify
     ];
 
     gtk = {
@@ -123,16 +104,6 @@ in {
       '';
     };
 
-    xresources.extraConfig =
-      builtins.readFile (
-          pkgs.fetchFromGitHub {
-              owner = "solarized";
-              repo = "xresources";
-              rev = "025ceddbddf55f2eb4ab40b05889148aab9699fc";
-              sha256 = "0lxv37gmh38y9d3l8nbnsm1mskcv10g3i83j0kac0a2qmypv1k9f";
-          } + "/Xresources.dark"
-      );
-
     services.compton = {
       opacityRule = [
         "80:WM_CLASS@:s = \"term-float\""
@@ -140,6 +111,86 @@ in {
     };
 
     services.dunst = import ./dunst.nix;
+
+
+    xsession.windowManager.i3 = import ./i3.nix;
+
+    programs.command-not-found.enable = true;
+
+    programs.zsh = import ./zsh.nix;
+
+    programs.tmux = {
+      enable = true;
+      extraConfig = import ./files/tmux.nix;
+    };
+
+    programs.git = {
+      enable = true;
+      userName = "Elias Lawson-Fox";
+      userEmail = "me@eliaslfox.com";
+      ignores = [ "*~" "*.swp" ];
+      signing = {
+        signByDefault = true;
+        key = "0x8890C126C411ED9B";
+      };
+      aliases = {
+        l = "log --decorate --oneline --graph --first-parent";
+        s = "status";
+        c = "checkout";
+        mb = "checkout -b";
+      };
+      extraConfig = {
+        core = {
+          editor = "nvim";
+          whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
+        };
+        help = {
+          autocorrect = 1;
+        };
+        status = {
+          showStatus = true;
+          submoduleSummary = true;
+        };
+        push = {
+          default = "current";
+        };
+      };
+    };
+
+    programs.htop = {
+      enable = true;
+      colorScheme = 6;
+    };
+
+    programs.zathura.enable = true;
+
+
+    services.gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      defaultCacheTtl = 60;
+      maxCacheTtl = 120;
+    };
+
+    services.screen-locker = {
+      enable = true;
+      inactiveInterval = 10;
+      lockCmd = "/run/wrappers/bin/physlock";
+    };
+
+
+    systemd.user.startServices = true;
+    systemd.user.services.home-symlinks = {
+      Unit = {
+        Description = "Init symlinks in home folder";
+      };
+      Service = {
+        ExecStart = "${scripts.symlink-init}/bin/symlink-init";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
 
     nixpkgs.config = {
       packageOverrides = pkgs: {
@@ -163,111 +214,6 @@ in {
           mediaSupport = true;
           pulseaudioSupport = true;
         };
-      };
-    };
-
-    xsession.windowManager.i3 = import ./i3.nix;
-
-      home.file.".config/alacritty/alacritty.yml".source = ./files/alacritty.yml;
-      home.file.".config/kitty/kitty.conf".source = ./files/kitty.conf;
-      home.file.".config/npmrc".source = ./files/npmrc;
-      home.file.".local/share/stack/config.yaml".source = ./files/stack-config.yaml;
-      home.file.".config/i3status/config".source = ./files/i3status-config;
-      home.file.".local/share/ghc/ghci.conf".source = ./files/ghci.conf;
-      home.file.".config/gnupg/gpg.conf".source = ./files/gpg.conf;
-      home.file.".config/ncmpcpp/config".source = ./files/ncmpcpp-config;
-      home.file.".config/ssh/config".source = ./files/ssh-config;
-
-      home.file.".local/share/mozilla/firefox/profiles.ini".source = ./files/firefox/profiles.ini;
-
-      home.file.".local/share/mozilla/firefox/default/user.js".source = ./files/firefox/user.js;
-      home.file.".local/share/mozilla/firefox/default/chrome/userChrome.css".source = ./files/firefox/userChrome.css;
-
-      home.file.".local/share/mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
-      home.file.".local/share/mozilla/firefox/clean/chrome/userChrome.css".source = ./files/firefox/userChrome-clean.css;
-
-
-      programs.command-not-found.enable = true;
-
-      programs.urxvt = {
-        enable = true;
-        package = rxvt_unicode-with-plugins;
-        fonts = [ "xft:Fira Code:pixelsize=12:antialias=true:hint=true" ];
-        scroll.bar.enable = false;
-      };
-
-      programs.zsh = import ./zsh.nix;
-
-      programs.tmux = {
-        enable = true;
-        extraConfig = import ./files/tmux.nix;
-      };
-
-      programs.git = {
-        enable = true;
-        userName = "Elias Lawson-Fox";
-        userEmail = "me@eliaslfox.com";
-        ignores = [ "*~" "*.swp" ];
-        signing = {
-          signByDefault = true;
-          key = "0x8890C126C411ED9B";
-        };
-        aliases = {
-          l = "log --decorate --oneline --graph --first-parent";
-          s = "status";
-          c = "checkout";
-          mb = "checkout -b";
-        };
-        extraConfig = {
-          core = {
-            editor = "nvim";
-            whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
-          };
-          help = {
-            autocorrect = 1;
-          };
-          status = {
-            showStatus = true;
-            submoduleSummary = true;
-          };
-          push = {
-            default = "current";
-          };
-        };
-      };
-
-      programs.htop = {
-        enable = true;
-        colorScheme = 6;
-      };
-
-      programs.zathura.enable = true;
-
-
-      services.gpg-agent = {
-        enable = true;
-        enableSshSupport = true;
-        defaultCacheTtl = 60;
-        maxCacheTtl = 120;
-      };
-
-      services.screen-locker = {
-        enable = true;
-        inactiveInterval = 10;
-        lockCmd = "/run/wrappers/bin/physlock";
-      };
-
-
-    systemd.user.startServices = true;
-    systemd.user.services.home-symlinks = {
-      Unit = {
-        Description = "Init symlinks in home folder";
-      };
-      Service = {
-        ExecStart = "${symlink-init}/bin/symlink-init";
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
       };
     };
 }

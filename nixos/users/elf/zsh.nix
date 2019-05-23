@@ -4,30 +4,34 @@
   defaultKeymap = "viins";
   dotDir = ".config/zsh";
   sessionVariables = {
+    /* Basic config */
     DEFAULT_USER = "elf";
-    PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
-    GNUPGHOME="$HOME/.config/gnupg";
     EDITOR = "nvim";
+
+    /* Setup XDG */
+    XDG_CONFIG_HOME="$HOME/.config";
+    XDG_CACHE_HOME="$HOME/.cache";
+    XDG_DATA_HOME="$HOME/.local/share";
+
+    /* Use XDG */
+    GNUPGHOME="$XDG_CONFIG_HOME/gnupg";
+    NIXOPS_STATE="$XDG_CONFIG_HOME/nixops/deployments.nixops";
+    INPUTRC="$XDG_CONFIG_HOME/readline/inputrc";
+    NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc";
+
+    /* Handle temp ~ */
+    PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
     GOPATH="$HOME/Documents/go";
-    NIXOPS_STATE="$HOME/.config/nixops/deployments.nixops";
+
   };
   initExtra = ''
+    # Setup gpg agent
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-    function venv() {
-      . ~/Documents/software/$1/venv/bin/activate
-    }
-
-    function c() {
-      if [ -z $1 ]; then
-        clear
-      elif [ -d $1 ]; then
-        cd $1
-      else
-        cat $1
-      fi
-    }
+    # Use vim mode in zsh
+    bindkey -v
+    export KEYTIMEOUT=1
   '';
   history = {
     path = ".cache/zsh_history";
