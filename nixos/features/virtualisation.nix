@@ -7,36 +7,51 @@ let
 in
 {
   options.features.virtualisation = {
-    enable = mkEnableOption "enable virtualisation tools";
+    enableContainers = mkEnableOption "enable container based virtualisation";
+    enableKvm = mkEnableOption "enable kvm based virtualisation";
   };
-  config = mkIf cfg.enable {
-    virtualisation.docker = {
-      enable = true;
-      package = pkgs.docker-edge;
-      autoPrune = {
-        enable = true;
-        flags = [ "--all" ];
-      };
-    };
+  config =
+    mkMerge [
+      (mkIf cfg.enableContainers {
+        virtualisation.docker = {
+          enable = true;
+          package = pkgs.docker-edge;
+          autoPrune = {
+            enable = true;
+            flags = [ "--all" ];
+          };
+        };
 
-    virtualisation.libvirtd = {
-      enable = true;
-      onShutdown = "shutdown";
-      qemuPackage = pkgs.qemu_kvm;
-      qemuVerbatimConfig = ''
-        user = "elf"
-      '';
-    };
+        users.extraUsers.elf.extraGroups = [ "docker" ];
 
-    users.extraUsers.elf.extraGroups = [ "docker" "libvirtd" ];
+        home-manager.users.elf ={
+          home.packages =
+            with pkgs; [
+              docker-compose
+            ];
+        };
 
-    home-manager.users.elf = {
-      home.packages =
-        with pkgs; [
-          qemu_kvm
-          wine
-          virtmanager
-        ];
-    };
-  };
+      })
+
+      (mkIf cfg.enableKvm {
+        virtualisation.libvirtd = {
+          enable = true;
+          onShutdown = "shutdown";
+          qemuPackage = pkgs.qemu_kvm;
+          qemuVerbatimConfig = ''
+            user = "elf"
+          '';
+        };
+
+        users.extraUsers.elf.extraGroups = [ "libvirtd" ];
+
+        home-manager.users.elf ={
+          home.packages =
+            with pkgs; [
+              qemu_kvm
+              virtmanager
+            ];
+        };
+      })
+    ];
 }

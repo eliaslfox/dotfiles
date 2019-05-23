@@ -20,9 +20,6 @@
       grub = {
         device = "nodev";
         efiSupport = true;
-        enableCryptodisk = true;
-        memtest86.enable = true;
-        extraInitrd = "/boot/initrd.keys.gz";
        };
       efi = {
         canTouchEfiVariables = true;
@@ -38,34 +35,24 @@
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-
-      luks.devices = {
-        "root" = {
-           preLVM = true;
-           device = "/dev/disk/by-uuid/85a66fe9-830b-4944-b0b6-66364ddda85c";
-           keyFile = "/keyfile.bin";
-        };
-        "boot" = {
-          preLVM = true;
-          device = "/dev/disk/by-uuid/db967c64-6db9-42e9-be89-89f3731e6db3";
-    	  keyFile = "/keyfile.bin";
-        };
-        "stuff" = {
-          device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
-          keyFile = "/keyfile.bin";
-        };
-      };
+      luks.devices.root.device = "/dev/disk/by-uuid/6b7b59db-9c9d-45b4-9e83-14480de324d3";
+      luks.devices.stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
     };
   };
 
   features = {
-    virtualisation.enable = true;
+    virtualisation = {
+      enableContainers = true;
+      enableKvm = true;
+    };
     horriblesubsd.enable = true;
-    hoogle.enable = true;
-    openssh.enable = true;
+    hoogle.enable = false;
+    openssh.enable = false;
   };
 
   networking = {
+    hostName = "darling";
+    hostId = "c16785ae";
     firewall.extraCommands = ''
       # NAT forward enp4s0 to tun0
       iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
@@ -81,7 +68,7 @@
   };
 
   services.dhcpd4 = {
-    enable = true;
+    enable = false;
     extraConfig = ''
       option subnet-mask 255.255.255.0;
       option broadcast-address 192.168.100.255;
@@ -102,11 +89,17 @@
       with pkgs; [
         transmission-gtk
         steam
+        wine
       ];
   };
 
+  fileSystems."/efi" =
+    { device = "/dev/disk/by-uuid/3A56-C277";
+      fsType = "vfat";
+    };
+
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/c0aece9e-50e0-4413-871f-f2378ef2ba8d";
+    { device = "/dev/disk/by-uuid/9dcfd5d3-23bc-4086-9b2f-eca9d67187a2";
       fsType = "ext4";
     };
 

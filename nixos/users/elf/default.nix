@@ -48,6 +48,7 @@ let
 in {
   home.packages =
     with pkgs; [
+      signal-desktop
       bridge-utils
       dmg2img
       nixops

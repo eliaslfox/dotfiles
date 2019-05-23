@@ -25,7 +25,7 @@ in
   ];
 
   networking = {
-    nameservers = ["1.1.1.1" "1.0.0.1"];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
     enableIPv6 = false;
     firewall = {
       enable = true;
@@ -63,6 +63,7 @@ in
       wpa_supplicant
       vim
       curl wget
+      docker-compose
     ];
 
   fonts = {
@@ -132,8 +133,11 @@ in
   };
 
   documentation.dev.enable = true;
+
   programs.iotop.enable = true;
   programs.dconf.enable = true;
+
+  services.udisks2.enable = false;
   services.pcscd.enable = true;
   services.physlock = {
     enable = true;
@@ -144,7 +148,6 @@ in
   system.autoUpgrade.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix = {
-    gc.automatic = true;
     optimise.automatic = true;
   };
   system.stateVersion = "19.03";

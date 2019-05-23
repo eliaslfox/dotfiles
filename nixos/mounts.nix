@@ -1,57 +1,54 @@
 { ... }:
 
 {
-  /* Root File System */
-  fileSystems."/" = {
-    fsType = "tmpfs";
-  };
+  fileSystems."/" =
+    { device = "tmpfs";
+      fsType = "tmpfs";
+      options = [ "mode=0755" ];
+    };
 
-  /* Sys File Systems */
-  fileSystems."/bin" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=rootfs/bin" ];
-  };
-  fileSystems."/etc" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=rootfs/etc" ];
-  };
-  fileSystems."/nix" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=rootfs/nix" ];
-  };
-  fileSystems."/usr" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=rootfs/usr" ];
-  };
-  fileSystems."/var" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=rootfs/var" ];
-  };
+  fileSystems."/bin" =
+    { device = "zroot/rootfs/bin";
+      fsType = "zfs";
+    };
 
-  /* User File Systems */
-  fileSystems."/home/elf/Documents" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=home/elf/Documents" ];
-  };
-  fileSystems."/home/elf/.config" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=home/elf/.config" ];
-  };
-  fileSystems."/home/elf/.local" = {
-   device = "/dev/vg/root";
-   fsType = "btrfs";
-   options = [ "subvol=home/elf/.local" ];
-  };
-  fileSystems."/home/elf/.cache" = {
-    device = "/dev/vg/root";
-    fsType = "btrfs";
-    options = [ "subvol=home/elf/.cache" ];
-  };
+  fileSystems."/etc" =
+    { device = "zroot/rootfs/etc";
+      fsType = "zfs";
+    };
+
+  fileSystems."/nix" =
+    { device = "zroot/rootfs/nix";
+      fsType = "zfs";
+    };
+
+  fileSystems."/usr" =
+    { device = "zroot/rootfs/usr";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var" =
+    { device = "zroot/rootfs/var";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/elf/Documents" =
+    { device = "zroot/home/elf/Documents";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/elf/.cache" =
+    { device = "zroot/home/elf/.cache";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/elf/.config" =
+    { device = "zroot/home/elf/.config";
+      fsType = "zfs";
+    };
+
+  fileSystems."/home/elf/.local" =
+    { device = "zroot/home/elf/.local";
+      fsType = "zfs";
+    };
 }

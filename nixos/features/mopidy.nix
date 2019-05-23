@@ -56,6 +56,7 @@ in
           .png
           .log
           .cue
+          .m3u
         follow_symlinks = false
         metadata_timeout = 1000
       '';
