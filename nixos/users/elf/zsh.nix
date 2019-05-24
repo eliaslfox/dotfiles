@@ -32,6 +32,12 @@
     # Use vim mode in zsh
     bindkey -v
     export KEYTIMEOUT=1
+
+	# Use history search 
+    bindkey -M viins "^[OA" history-search-backward
+    bindkey -M vicmd "^[OA" history-search-backward
+	bindkey -M viins "^[OB" history-search-forward
+	bindkey -M vicmd "^[OB" history-search-forward
   '';
   history = {
     path = ".cache/zsh_history";
