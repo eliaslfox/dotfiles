@@ -13,7 +13,7 @@
     extraModprobeConfig = ''
       options vfio-pci ids=10de:1b80,10de:10f0";
       options kvm ignore_msrs=1
-      options kvm_amd nested=1
+      #options kvm_amd nested=1
     '';
 
     loader = {
