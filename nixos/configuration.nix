@@ -25,7 +25,7 @@ in
   ];
 
   networking = {
-    nameservers = ["1.1.1.1" "1.0.0.1"];
+    nameservers = ["8.8.8.8" "8.8.4.4"];
     enableIPv6 = false;
     firewall = {
       enable = true;
@@ -63,6 +63,7 @@ in
       wpa_supplicant
       vim
       curl wget
+      docker-compose
     ];
 
   fonts = {
@@ -72,12 +73,38 @@ in
       defaultFonts = {
         monospace = ["Fira Code Light"];
       };
+      localConf = ''
+        <fontconfig>
+        <match>
+          <test name="family">
+            <string>Helvetica</string>
+          </test>
+          <edit binding="same" mode="assign" name="family">
+            <string>Source Sans Pro</string>
+          </edit>
+        </match>
+        <match>
+          <test name="family">
+            <string>Arial</string>
+          </test>
+          <edit binding="same" mode="assign" name="family">
+            <string>Source Sans Pro</string>
+          </edit>
+        </match>
+        </fontconfig>
+      '';
     };
     fonts = with pkgs; [
+      # Base Fonts
+      source-sans-pro
+      source-serif-pro
+
+      # Programming
       powerline-fonts
       fira-code
       fira-code-symbols
 
+      # Emoji
       noto-fonts
       noto-fonts-extra
       noto-fonts-emoji
@@ -88,6 +115,10 @@ in
     pulseaudio = {
       enable = true;
       support32Bit = true;
+      daemon.config = {
+        default-sample-rate = 44100;
+        alternate-sample-rate = 48000;
+      };
     };
     cpu = {
       amd.updateMicrocode = true;
@@ -102,16 +133,21 @@ in
   };
 
   documentation.dev.enable = true;
+
   programs.iotop.enable = true;
   programs.dconf.enable = true;
+
+  services.udisks2.enable = false;
   services.pcscd.enable = true;
-  services.physlock.enable = true;
+  services.physlock = {
+    enable = true;
+    allowAnyUser = true;
+  };
 
   time.timeZone = "US/Pacific";
   system.autoUpgrade.enable = true;
   nixpkgs.config.allowUnfree = true;
   nix = {
-    gc.automatic = true;
     optimise.automatic = true;
   };
   system.stateVersion = "19.03";

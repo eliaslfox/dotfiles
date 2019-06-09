@@ -8,5 +8,6 @@ visualizer_sync_interval = "10"
 header_visibility = yes
 titles_visibility = yes
 statusbar_visibility = yes
+display_bitrate = yes
 
 execute_on_song_change = "/home/elf/.nix-profile/bin/ncmpcpp-notify"
