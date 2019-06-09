@@ -10,7 +10,6 @@ in
     	ref = "master";
       }}/nixos"
 
-    ./mounts.nix
     ./scripts.nix
     ./users
 
@@ -35,11 +34,7 @@ in
     };
     wireless = {
       enable = true;
-      networks = {
-        "${credentials.wifi.name}" = {
-          psk = credentials.wifi.psk;
-        };
-      };
+      networks = credentials.wifi;
     };
   };
 

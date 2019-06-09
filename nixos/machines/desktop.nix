@@ -3,6 +3,7 @@
 {
   imports = [
     ../xorg.nix
+    ../mounts.nix
   ];
 
   boot = {

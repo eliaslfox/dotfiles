@@ -2,6 +2,7 @@ with import <nixpkgs> {};
 { config, pkgs }:
 let
   scripts = callPackage (import ./scripts.nix) {};
+  unstable = import <nixos-unstable> {};
 in {
   xdg = {
     enable = true;
@@ -29,6 +30,7 @@ in {
 
   home.packages =
     with pkgs; [
+      unstable.firefox
       signal-desktop
       bridge-utils
       dmg2img
@@ -170,12 +172,6 @@ in {
       enableSshSupport = true;
       defaultCacheTtl = 60;
       maxCacheTtl = 120;
-    };
-
-    services.screen-locker = {
-      enable = true;
-      inactiveInterval = 10;
-      lockCmd = "/run/wrappers/bin/physlock";
     };
 
 

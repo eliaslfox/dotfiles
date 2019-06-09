@@ -1,3 +1,7 @@
+/*
+ * user.js
+ */
+
 /* UI Config */
 user_pref("full-screen-api.ignore-widgets", true);
 
@@ -5,7 +9,7 @@ user_pref("full-screen-api.ignore-widgets", true);
 
 // JS APIs
 user_pref("dom.serviceWorkers.enabled", false);
-ser_pref("geo.enabled", false);
+user_pref("geo.enabled", false);
 
 // getUserMedia
 user_pref("media.peerconnection.enabled", false);

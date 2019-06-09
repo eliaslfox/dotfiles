@@ -1,3 +1,7 @@
+/*
+ * userChrome.css
+ */
+
 #TabsToolbar {
     visibility: collapse;
 }
@@ -9,4 +13,3 @@
 #sidebar-header {
     visibility: collapse;
 }
-

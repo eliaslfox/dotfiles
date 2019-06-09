@@ -4,6 +4,8 @@
 
   imports = [
     ../laptop.nix
+    ../mounts-btrfs.nix
+    ../xorg.nix
   ];
   networking.hostName = "nico-ni";
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
@@ -25,15 +27,6 @@
   };
 
   services.xserver.videoDrivers = [ "intel" ];
-  programs.sway.enable = true;
-
-  home-manager.users.elf.xsession.windowManager.i3.config.startup = [
-    {
-      command = "${pkgs.dunst}/bin/dunst";
-      always = true;
-    }
-  ];
-  home-manager.users.elf.home.packages = [ pkgs.firefox-wayland ];
 
   boot.initrd.luks.devices.root = {
     preLVM = true;

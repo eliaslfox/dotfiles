@@ -3,6 +3,11 @@
 {
   services.xserver = {
     enable = true;
+    libinput = {
+      enable = true;
+      naturalScrolling = false;
+      tapping = true;
+    };
     desktopManager.xterm.enable = false;
     desktopManager.default = "none";
     displayManager.slim = {
@@ -20,7 +25,6 @@
       home.packages =
         with pkgs; [
           arandr
-          firefox
         ];
 
       xsession.enable = true;
@@ -31,6 +35,11 @@
       services.random-background = {
         enable = true;
         imageDirectory = "%h/Documents/backgrounds";
+      };
+      services.screen-locker = {
+        enable = true;
+        inactiveInterval = 10;
+        lockCmd = "/run/wrappers/bin/physlock";
       };
   };
 }
