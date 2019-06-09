@@ -23,6 +23,29 @@ in
     ./machine.nix
   ];
 
+  boot = {
+    /* gotta go fast */
+    kernelParams = [ "audit=0" ];
+
+    kernel.sysctl = {
+      /* Don't forward ipv4 packets */
+      "net.ipv4.ip_forward" = 0;
+
+      /* Swap to disk less */
+      "vm.swappiness" = 1;
+
+      /* Disable ipv6 */
+      "net.ipv6.conf.all.disable_ipv6" = 1;
+      "net.ipv6.conf.default.disable_ipv6" = 1;
+      "net.ipv6.conf.lo.disable_ipv6" = 1;
+    };
+
+    plymouth = {
+      enable = true;
+      theme = "tribar";
+    };
+  };
+
   networking = {
     nameservers = ["8.8.8.8" "8.8.4.4"];
     enableIPv6 = false;

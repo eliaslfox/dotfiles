@@ -7,9 +7,12 @@
   ];
 
   boot = {
-    kernelParams = [ "amd_iommu=on" "audit=0"];
+    kernelParams = [ "amd_iommu=on" ];
     kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-    extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+    extraModulePackages =
+      with config.boot.kernelPackages; [
+        broadcom_sta /* broadcom wireless drivers */
+      ];
     blacklistedKernelModules = [ "nvidia" ];
     extraModprobeConfig = ''
       options vfio-pci ids=10de:1b80,10de:10f0";
@@ -27,11 +30,6 @@
         efiSysMountPoint = "/efi";
       };
       timeout = null;
-    };
-
-    plymouth = {
-      enable = true;
-      theme = "tribar";
     };
 
     initrd = {

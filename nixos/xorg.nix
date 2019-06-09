@@ -7,6 +7,7 @@
       enable = true;
       naturalScrolling = false;
       tapping = true;
+      disableWhileTyping = true;
     };
     desktopManager.xterm.enable = false;
     desktopManager.default = "none";
