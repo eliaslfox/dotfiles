@@ -24,9 +24,6 @@
   services.xserver.videoDrivers = [ "intel" ];
   programs.sway.enable = true;
 
-  home-manager.users.elf.xsession.windowManager.i3.config.bars = [
-    { trayOutput = "eDP-1"; }
-  ];
   home-manager.users.elf.xsession.windowManager.i3.config.startup = [
     {
       command = "${pkgs.dunst}/bin/dunst";
