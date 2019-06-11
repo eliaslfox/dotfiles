@@ -30,6 +30,8 @@ in {
 
   home.packages =
     with pkgs; [
+      powertop
+      transmission-gtk
       unstable.firefox
       signal-desktop
       bridge-utils

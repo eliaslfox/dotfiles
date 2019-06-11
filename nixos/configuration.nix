@@ -6,8 +6,8 @@ in
 
   imports = [
     "${builtins.fetchGit {
-    	url = https://github.com/rycee/home-manager;
-    	ref = "master";
+        url = https://github.com/rycee/home-manager;
+        ref = "release-19.03";
       }}/nixos"
 
     ./scripts.nix
@@ -25,7 +25,7 @@ in
 
   boot = {
     /* gotta go fast */
-    kernelParams = [ "audit=0" ];
+    kernelParams = [ "audit=0" "ipv6.disable=1" ];
 
     kernel.sysctl = {
       /* Don't forward ipv4 packets */

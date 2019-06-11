@@ -86,10 +86,10 @@
   home-manager.users.elf = {
     home.packages =
       with pkgs; [
-        transmission-gtk
         steam
         wine
       ];
+    services.compton.enable = true;
   };
 
   fileSystems."/efi" =

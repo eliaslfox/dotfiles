@@ -24,13 +24,11 @@
       ];
     };
 
+    kernelParams = [ "acpi_osi=Darwin" ];
     kernelModules = [ "kvm-intel" "wl" ];
-
-    /*
-     * should reduce power consumption
-     * https://github.com/NixOS/nixos-hardware/blob/master/apple/macbook-air/6/default.nix#L10-L11
-     */
-    kernelParams = [ "acpi_osi=" ];
+    kernel.sysctl = {
+      "vm.dirty_writeback_centisecs" = 1500;
+    };
 
     extraModulePackages =
       with config.boot.kernelPackages; [
@@ -88,6 +86,19 @@
   nix.maxJobs = lib.mkDefault 4;
 
   /* use tlp for power managment */
-  powerManagement.cpuFreqGovernor = null;
-  services.tlp.enable = true;
+  powerManagement = {
+    cpuFreqGovernor = null;
+    powertop.enable = true;
+  };
+
+  services.thermald.enable = true;
+  services.tlp = {
+    enable = true;
+    extraConfig = ''
+      SATA_LINKPWR_ON_AC="med_power_with_dipm max_performance"
+      SATA_LINKPWR_ON_BAT="med_power_with_dipm max_performance"
+      MAX_LOST_WORK_SECS_ON_AC=15
+      MAX_LOST_WORK_SECS_ON_BAT=15
+    '';
+  };
 }

@@ -32,7 +32,6 @@
       xsession.windowManager.i3.enable = true;
 
       services.unclutter.enable = true;
-      services.compton.enable = true;
       services.random-background = {
         enable = true;
         imageDirectory = "%h/Documents/backgrounds";
