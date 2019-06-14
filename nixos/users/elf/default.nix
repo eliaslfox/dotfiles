@@ -28,8 +28,12 @@ in {
     };
   };
 
+  xresources.extraConfig = builtins.readFile ./files/Xresources;
+
   home.packages =
     with pkgs; [
+      whois
+      ncat
       powertop
       transmission-gtk
       unstable.firefox

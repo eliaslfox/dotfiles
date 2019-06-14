@@ -1,3 +1,5 @@
+Include ./config.local
+
 ChallengeResponseAuthentication no
 IdentitiesOnly yes
 PasswordAuthentication no

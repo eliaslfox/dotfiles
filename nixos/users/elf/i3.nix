@@ -34,6 +34,8 @@ in
 
       /* Manage bars */
       "Mod1+m" = "bar mode toggle";
+
+      "Mod1+d" = "exec ${pkgs.rofi}/bin/rofi -sidebar-mode -show run -auto-select -terminal ${pkgs.alacritty}/bin/alacritty -kb-mode-next Tab -kb-mode-previous Shift+Tab -kb-row-tab Control+Tab";
     };
     colors.focused = {
       background = "#285577";

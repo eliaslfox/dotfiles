@@ -87,18 +87,21 @@
 
   /* use tlp for power managment */
   powerManagement = {
-    cpuFreqGovernor = null;
+    cpuFreqGovernor = "power-save";
     powertop.enable = true;
+    scsiLinkPolicy = "med_power_with_dipm";
   };
 
   services.thermald.enable = true;
+  /*
   services.tlp = {
     enable = true;
     extraConfig = ''
-      SATA_LINKPWR_ON_AC="med_power_with_dipm max_performance"
+      SATA_LINKPWR_ON_AC="
       SATA_LINKPWR_ON_BAT="med_power_with_dipm max_performance"
       MAX_LOST_WORK_SECS_ON_AC=15
       MAX_LOST_WORK_SECS_ON_BAT=15
     '';
   };
+  */
 }
