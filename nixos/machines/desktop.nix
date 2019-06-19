@@ -2,8 +2,7 @@
 
 {
   imports = [
-    ../xorg.nix
-    ../mounts.nix
+    ../mounts-zfs.nix
   ];
 
   boot = {
@@ -29,12 +28,12 @@
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = null;
+      timeout = 10;
     };
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-      luks.devices.root.device = "/dev/disk/by-uuid/6b7b59db-9c9d-45b4-9e83-14480de324d3";
+      luks.devices.root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
       luks.devices.stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
     };
   };
@@ -51,7 +50,7 @@
 
   networking = {
     hostName = "darling";
-    hostId = "c16785ae";
+    hostId = "8425e349";
     firewall.extraCommands = ''
       # NAT forward enp4s0 to tun0
       iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
@@ -93,12 +92,12 @@
   };
 
   fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/3A56-C277";
+    { device = "/dev/nvme0n1p1";
       fsType = "vfat";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9dcfd5d3-23bc-4086-9b2f-eca9d67187a2";
+    { device = "/dev/nvme0n1p2";
       fsType = "ext4";
     };
 

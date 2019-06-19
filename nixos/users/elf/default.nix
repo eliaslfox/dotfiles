@@ -78,7 +78,7 @@ in {
         visualizerSupport = true;
       })
       (import ./nvim.nix)
-      efitools
+      efitools efibootmgr
 
       # NodeJs
       nodejs nodePackages.node2nix nodePackages.prettier
