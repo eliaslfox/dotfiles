@@ -1,8 +1,7 @@
-with import <nixpkgs> {};
-{ config, pkgs }:
+{ config, pkgs, ... }:
 let
-  scripts = callPackage (import ./scripts.nix) {};
-  unstable = import <nixos-unstable> {};
+  scripts = pkgs.callPackage (import ./scripts.nix) {};
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in {
   xdg = {
     enable = true;
@@ -32,6 +31,15 @@ in {
 
   home.packages =
     with pkgs; [
+      kodi
+      slack
+      httpie
+      pavucontrol
+      arduino
+      openscad
+      chromium
+      ripgrep
+      aircrackng wireshark-gtk
       whois
       ncat
       powertop
@@ -44,7 +52,7 @@ in {
       bind
       lzo
       btrbk
-      discord
+      unstable.discord
       smartmontools
       pulseeffects
       openssl
@@ -77,7 +85,8 @@ in {
       (ncmpcpp.override {
         visualizerSupport = true;
       })
-      (import ./nvim.nix)
+      (callPackage (import ./nvim.nix) {})
+      (callPackage (import ./emacs.nix) {})
       efitools efibootmgr
 
       # NodeJs
@@ -122,6 +131,18 @@ in {
 
 
     xsession.windowManager.i3 = import ./i3.nix;
+
+    programs.urxvt = {
+      enable = true;
+      fonts = [ "xft:FiraCodeLight:autohint=true" ];
+      keybindings = {
+        "Shift-Control-C" = "eval:selection_to_clipboard";
+        "Shift-Control-V" = "eval:paste_clipboard";
+      };
+      scroll = {
+        bar.enable = false;
+      };
+    };
 
     programs.command-not-found.enable = true;
 

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
-{
-  imports = [
+{ imports = [
+    ../xorg.nix
     ../mounts-zfs.nix
   ];
 
@@ -12,11 +12,12 @@
       with config.boot.kernelPackages; [
         broadcom_sta /* broadcom wireless drivers */
       ];
-    blacklistedKernelModules = [ "nvidia" ];
     extraModprobeConfig = ''
-      options vfio-pci ids=10de:1b80,10de:10f0";
+      options vfio-pci ids=10de:1c81,10de:0fb9";
       options kvm ignore_msrs=1
-      #options kvm_amd nested=1
+
+      softdep nvidia pre: vfio-pci
+      softdep nvidia* pre: vfio-pci
     '';
 
     loader = {
@@ -45,12 +46,19 @@
     };
     horriblesubsd.enable = true;
     hoogle.enable = false;
-    openssh.enable = false;
+    openssh.enable = true;
+  };
+
+  hardware = {
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
   };
 
   networking = {
     hostName = "darling";
     hostId = "8425e349";
+    wireless.interfaces = [ "wlp5s0" ];
+    dhcpcd.allowInterfaces = [ "wlp5s0" ];
     firewall.extraCommands = ''
       # NAT forward enp4s0 to tun0
       iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
@@ -66,7 +74,7 @@
   };
 
   services.dhcpd4 = {
-    enable = false;
+    enable = true;
     extraConfig = ''
       option subnet-mask 255.255.255.0;
       option broadcast-address 192.168.100.255;
@@ -86,7 +94,9 @@
     home.packages =
       with pkgs; [
         steam
-        wine
+        wineFull
+        cura
+        printrun
       ];
     services.compton.enable = true;
   };

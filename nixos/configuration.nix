@@ -91,6 +91,7 @@ in
       defaultFonts = {
         monospace = ["Fira Code Light"];
       };
+      /*
       localConf = ''
         <fontconfig>
         <match>
@@ -111,6 +112,7 @@ in
         </match>
         </fontconfig>
       '';
+      */
     };
     fonts = with pkgs; [
       # Base Fonts
@@ -154,6 +156,7 @@ in
 
   programs.iotop.enable = true;
   programs.dconf.enable = true;
+  programs.wireshark.enable = true;
 
   services.udisks2.enable = false;
   services.pcscd.enable = true;
