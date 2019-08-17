@@ -14,6 +14,7 @@ in {
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
       "readline/inputrc".source = ./files/inputrc;
+      "kitty/kitty.conf".source = ./files/kitty.conf;
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
@@ -28,16 +29,19 @@ in {
     };
   };
 
-  xresources.extraConfig = builtins.readFile ./files/Xresources;
+  /* xresources.extraConfig = builtins.readFile ./files/Xresources; */
 
   home.packages =
     with pkgs; [
+      steam
+      chromium
+      ripgrep
+      mitscheme
       whois
       ncat
       powertop
       transmission-gtk
       unstable.firefox
-      signal-desktop
       bridge-utils
       dmg2img
       nixops
@@ -63,7 +67,7 @@ in {
       pavucontrol
       pass
       alacritty
-      neofetch ranger cava
+      neofetch cava
       gnupg
       tor-browser-bundle-bin
       tree
@@ -124,6 +128,15 @@ in {
     xsession.windowManager.i3 = import ./i3.nix;
 
     programs.command-not-found.enable = true;
+
+    programs.rofi = {
+      enable = true;
+      theme = "solarized";
+      terminal = "${pkgs.kitty}/bin/kitty";
+      extraConfig = ''
+        modi: drun,window,ssh
+      '';
+    };
 
     programs.zsh = import ./zsh.nix;
 

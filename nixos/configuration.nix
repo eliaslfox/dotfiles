@@ -63,7 +63,7 @@ in
 
   features = {
     vpn = {
-      enable = false;
+      enable = true;
       credentials = credentials.vpn;
     };
     mopidy = {
@@ -71,6 +71,8 @@ in
       credentials = credentials.spotify;
     };
   };
+
+  services.udev.packages = [ pkgs.yubikey-personalization ];
 
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
@@ -151,13 +153,17 @@ in
     algorithm = "zstd";
   };
 
-  documentation.dev.enable = true;
+  documentation = {
+    dev.enable = true;
+    nixos.enable = true;
+    doc.enable = false;
+  };
 
   programs.iotop.enable = true;
   programs.dconf.enable = true;
 
   services.udisks2.enable = false;
-  services.pcscd.enable = true;
+  /* services.pcscd.enable = true; */
   services.physlock = {
     enable = true;
     allowAnyUser = true;
