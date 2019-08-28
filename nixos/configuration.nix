@@ -51,7 +51,7 @@ in
     enableIPv6 = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [];
+      allowedTCPPorts = [ 9001 ];
       allowedUDPPorts = [];
       allowPing = false;
     };
@@ -166,7 +166,6 @@ in
   programs.wireshark.enable = true;
 
   services.udisks2.enable = false;
-  /* services.pcscd.enable = true; */
   services.physlock = {
     enable = true;
     allowAnyUser = true;
