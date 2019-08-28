@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+{ pkgs, ... }:
 
 let
   customPackages.NeoSolarized = pkgs.vimUtils.buildVimPlugin {

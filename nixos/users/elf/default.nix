@@ -1,8 +1,7 @@
-with import <nixpkgs> {};
-{ config, pkgs }:
+{ config, pkgs, ... }:
 let
-  scripts = callPackage (import ./scripts.nix) {};
-  unstable = import <nixos-unstable> {};
+  scripts = pkgs.callPackage (import ./scripts.nix) {};
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in {
   xdg = {
     enable = true;
@@ -33,8 +32,17 @@ in {
 
   home.packages =
     with pkgs; [
-      steam
+      slic3r
+      kodi
+      slack
+      httpie
+      pavucontrol
+      arduino
+      openscad
       chromium
+      ripgrep
+      aircrackng wireshark-gtk
+      steam
       ripgrep
       mitscheme
       whois
@@ -48,7 +56,7 @@ in {
       bind
       lzo
       btrbk
-      discord
+      unstable.discord
       smartmontools
       pulseeffects
       openssl
@@ -81,8 +89,9 @@ in {
       (ncmpcpp.override {
         visualizerSupport = true;
       })
-      (import ./nvim.nix)
-      efitools
+      (callPackage (import ./nvim.nix) {})
+      (callPackage (import ./emacs.nix) {})
+      efitools efibootmgr
 
       # NodeJs
       nodejs nodePackages.node2nix nodePackages.prettier
@@ -126,6 +135,18 @@ in {
 
 
     xsession.windowManager.i3 = import ./i3.nix;
+
+    programs.urxvt = {
+      enable = true;
+      fonts = [ "xft:FiraCodeLight:autohint=true" ];
+      keybindings = {
+        "Shift-Control-C" = "eval:selection_to_clipboard";
+        "Shift-Control-V" = "eval:paste_clipboard";
+      };
+      scroll = {
+        bar.enable = false;
+      };
+    };
 
     programs.command-not-found.enable = true;
 

@@ -6,7 +6,7 @@
     isNormalUser = true;
     home = "/home/elf";
     description = "Elias Lawson-Fox";
-    extraGroups = [ "wheel" "video" "sound" "systemd-journal" ];
+    extraGroups = [ "wheel" "video" "sound" "systemd-journal" "wireshark" "dialout" ];
     uid = 1000;
     shell = pkgs.zsh;
     passwordFile = "/etc/nixos/passwords/elf";

@@ -22,7 +22,9 @@ in
           };
         };
 
+        /*
         users.extraUsers.elf.extraGroups = [ "docker" ];
+        */
 
         home-manager.users.elf ={
           home.packages =

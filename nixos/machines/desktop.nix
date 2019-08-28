@@ -1,9 +1,8 @@
 { config, lib, pkgs, ... }:
 
-{
-  imports = [
+{ imports = [
     ../xorg.nix
-    ../mounts.nix
+    ../mounts-zfs.nix
   ];
 
   boot = {
@@ -13,11 +12,12 @@
       with config.boot.kernelPackages; [
         broadcom_sta /* broadcom wireless drivers */
       ];
-    blacklistedKernelModules = [ "nvidia" ];
     extraModprobeConfig = ''
-      options vfio-pci ids=10de:1b80,10de:10f0";
+      options vfio-pci ids=10de:1c81,10de:0fb9";
       options kvm ignore_msrs=1
-      #options kvm_amd nested=1
+
+      softdep nvidia pre: vfio-pci
+      softdep nvidia* pre: vfio-pci
     '';
 
     loader = {
@@ -29,12 +29,12 @@
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = null;
+      timeout = 10;
     };
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-      luks.devices.root.device = "/dev/disk/by-uuid/6b7b59db-9c9d-45b4-9e83-14480de324d3";
+      luks.devices.root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
       luks.devices.stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
     };
   };
@@ -46,12 +46,19 @@
     };
     horriblesubsd.enable = true;
     hoogle.enable = false;
-    openssh.enable = false;
+    openssh.enable = true;
+  };
+
+  hardware = {
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
   };
 
   networking = {
     hostName = "darling";
-    hostId = "c16785ae";
+    hostId = "8425e349";
+    wireless.interfaces = [ "wlp5s0" ];
+    dhcpcd.allowInterfaces = [ "wlp5s0" ];
     firewall.extraCommands = ''
       # NAT forward enp4s0 to tun0
       iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
@@ -67,7 +74,7 @@
   };
 
   services.dhcpd4 = {
-    enable = false;
+    enable = true;
     extraConfig = ''
       option subnet-mask 255.255.255.0;
       option broadcast-address 192.168.100.255;
@@ -87,18 +94,20 @@
     home.packages =
       with pkgs; [
         steam
-        wine
+        wineFull
+        cura
+        printrun
       ];
     services.compton.enable = true;
   };
 
   fileSystems."/efi" =
-    { device = "/dev/disk/by-uuid/3A56-C277";
+    { device = "/dev/nvme0n1p1";
       fsType = "vfat";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9dcfd5d3-23bc-4086-9b2f-eca9d67187a2";
+    { device = "/dev/nvme0n1p2";
       fsType = "ext4";
     };
 

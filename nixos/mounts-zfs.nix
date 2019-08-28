@@ -8,27 +8,32 @@
     };
 
   fileSystems."/bin" =
-    { device = "zroot/rootfs/bin";
+    { device = "zroot/root/bin";
       fsType = "zfs";
     };
 
   fileSystems."/etc" =
-    { device = "zroot/rootfs/etc";
+    { device = "zroot/root/etc";
       fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "zroot/rootfs/nix";
+    { device = "zroot/root/nix";
       fsType = "zfs";
     };
 
   fileSystems."/usr" =
-    { device = "zroot/rootfs/usr";
+    { device = "zroot/root/usr";
+      fsType = "zfs";
+    };
+
+  fileSystems."/root" =
+    { device = "zroot/root/root";
       fsType = "zfs";
     };
 
   fileSystems."/var" =
-    { device = "zroot/rootfs/var";
+    { device = "zroot/root/var";
       fsType = "zfs";
     };
 

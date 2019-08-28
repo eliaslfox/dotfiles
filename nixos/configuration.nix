@@ -29,9 +29,7 @@ in
 
     kernel.sysctl = {
       /* Don't forward ipv4 packets */
-      "net.ipv4.ip_forward" = 0;
-
-      /* Swap to disk less */
+      "net.ipv4.ip_forward" = 0; /* Swap to disk less */
       "vm.swappiness" = 1;
 
       /* Disable ipv6 */
@@ -51,7 +49,7 @@ in
     enableIPv6 = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [];
+      allowedTCPPorts = [ 9001 ];
       allowedUDPPorts = [];
       allowPing = false;
     };
@@ -77,6 +75,7 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
+      iptables
       git
       tmux
       gnumake
@@ -93,6 +92,7 @@ in
       defaultFonts = {
         monospace = ["Fira Code Light"];
       };
+      /*
       localConf = ''
         <fontconfig>
         <match>
@@ -113,6 +113,7 @@ in
         </match>
         </fontconfig>
       '';
+      */
     };
     fonts = with pkgs; [
       # Base Fonts
@@ -161,9 +162,9 @@ in
 
   programs.iotop.enable = true;
   programs.dconf.enable = true;
+  programs.wireshark.enable = true;
 
   services.udisks2.enable = false;
-  /* services.pcscd.enable = true; */
   services.physlock = {
     enable = true;
     allowAnyUser = true;

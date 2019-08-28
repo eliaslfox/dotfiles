@@ -10,8 +10,8 @@ let
     (callPackage "${fetchFromGitHub {
       owner = "eliaslfox";
       repo = "horriblesubsd";
-      rev = "490a1be19eb3a1d7a7fe04b70c099d41b143bf47";
-      sha256 = "0x8szf1rhhzsacp69874wy3cgr7i1h7dxv3nfpkjqy2914hsszbg";
+      rev = "2c7ccdbbc93bfe8129362e7213ef8c9d0b4be4df";
+      sha256 = "1vflxz40siffnjvvd2fndgxnhpcbqfg3al846jm35zj7ra5krlc4";
     }}" {});
 in
 {
@@ -21,6 +21,9 @@ in
 
   config = mkIf cfg.enable {
     home-manager.users.elf = {
+      home.packages = [
+        horriblesubsd
+      ];
       systemd.user.services = {
         horriblesubsd = {
           Unit = {

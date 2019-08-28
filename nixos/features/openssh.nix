@@ -18,6 +18,7 @@ in
       challengeResponseAuthentication = false;
       passwordAuthentication = false;
       permitRootLogin = "no";
+      openFirewall = false;
     };
   };
 }

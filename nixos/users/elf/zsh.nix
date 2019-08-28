@@ -58,5 +58,6 @@
     pubkey = "cat ~/.ssh/id_rsa.pub | xclip -selection clipboard";
     cp = "cp -i";
     mv = "mv -i";
+    pass = "EDITOR=nano pass";
   };
 }
