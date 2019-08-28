@@ -29,9 +29,7 @@ in
 
     kernel.sysctl = {
       /* Don't forward ipv4 packets */
-      "net.ipv4.ip_forward" = 0;
-
-      /* Swap to disk less */
+      "net.ipv4.ip_forward" = 0; /* Swap to disk less */
       "vm.swappiness" = 1;
 
       /* Disable ipv6 */
@@ -77,6 +75,7 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
+      iptables
       git
       tmux
       gnumake
