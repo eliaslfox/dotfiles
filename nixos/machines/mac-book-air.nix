@@ -4,7 +4,6 @@
 
   imports = [
     ../laptop.nix
-    ../mounts-btrfs.nix
     ../xorg.nix
   ];
 
@@ -38,12 +37,15 @@
 
     loader = {
       grub = {
-        device = "/dev/sda";
+        device = "nodev";
         enable = true;
         efiSupport = true;
         memtest86.enable = true;
       };
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+	efiSysMountPoint = "/efi";
+      };
       timeout = null;
     };
   };
@@ -63,45 +65,37 @@
     '';
   };
 
-  boot.initrd.luks.devices.root = {
-    preLVM = true;
-    device = "/dev/sda3";
-  };
-
   fileSystems."/" =
-    { device = "/dev/vg/root";
-      fsType = "btrfs";
-      options = [ "subvol=rootfs" ];
+    { device = "/dev/disk/by-uuid/362c5acb-8440-4d40-9a23-f9df1080fba3";
+      fsType = "ext4";
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/sda2";
+  boot.initrd.luks.devices."enc-root".device = "/dev/disk/by-uuid/294cef0a-8a29-4d02-8c72-326e30ab04b5";
+
+  fileSystems."/efi" =
+    { device = "/dev/disk/by-uuid/EC04-533A";
       fsType = "vfat";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/b591147f-2468-43dc-b700-8db57095ba83";
+      fsType = "ext4";
+    };
+
+  boot.initrd.luks.devices."enc-boot".device = "/dev/disk/by-uuid/ff109062-968c-4190-9714-b2ec6a9b5e5d";
+  boot.initrd.luks.devices."enc-swap".device = "/dev/disk/by-uuid/bcee7a4f-f092-4e2c-af16-6ddc7a43317a";
+
   swapDevices =
-    [ { device = "/dev/vg/swap"; }
+    [ { device = "/dev/mapper/enc-swap"; }
     ];
 
   nix.maxJobs = lib.mkDefault 4;
 
-  /* use tlp for power managment */
   powerManagement = {
     cpuFreqGovernor = "power-save";
     powertop.enable = true;
-    scsiLinkPolicy = "med_power_with_dipm";
+    scsiLinkPolicy = "min_power";
   };
 
   services.thermald.enable = true;
-  /*
-  services.tlp = {
-    enable = true;
-    extraConfig = ''
-      SATA_LINKPWR_ON_AC="
-      SATA_LINKPWR_ON_BAT="med_power_with_dipm max_performance"
-      MAX_LOST_WORK_SECS_ON_AC=15
-      MAX_LOST_WORK_SECS_ON_BAT=15
-    '';
-  };
-  */
 }

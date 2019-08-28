@@ -10,8 +10,8 @@ in
     window.hideEdgeBorders = "both";
     keybindings = lib.mkOptionDefault {
       /* Spawn terminals */
-      "Mod1+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
-      "Mod1+Shift+Return" = "exec ${pkgs.alacritty}/bin/alacritty --class term-float --title term-float";
+      "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
+      "Mod1+Shift+Return" = "exec ${pkgs.kitty}/bin/kitty --class term-float";
 
       /* Commands missing from the default */
       "Mod1+a" = "focus parent";
@@ -35,7 +35,7 @@ in
       /* Manage bars */
       "Mod1+m" = "bar mode toggle";
 
-      "Mod1+d" = "exec ${pkgs.rofi}/bin/rofi -sidebar-mode -show run -auto-select -terminal ${pkgs.alacritty}/bin/alacritty -kb-mode-next Tab -kb-mode-previous Shift+Tab -kb-row-tab Control+Tab";
+      "Mod1+d" = "exec \"${pkgs.rofi}/bin/rofi -sidebar-mode -show drun -modi window,drun,ssh,run\"";
     };
     colors.focused = {
       background = "#285577";
