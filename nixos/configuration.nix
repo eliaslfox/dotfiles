@@ -65,7 +65,7 @@ in
       credentials = credentials.vpn;
     };
     mopidy = {
-      enable = false;
+      enable = true;
       credentials = credentials.spotify;
     };
   };
