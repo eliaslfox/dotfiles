@@ -31,6 +31,7 @@ in {
 
   home.packages =
     with pkgs; [
+      slic3r
       kodi
       slack
       httpie
