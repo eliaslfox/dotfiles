@@ -35,7 +35,7 @@ in
       /* Manage bars */
       "Mod1+m" = "bar mode toggle";
 
-      "Mod1+d" = "exec \"${pkgs.rofi}/bin/rofi -sidebar-mode -show drun -modi window,drun,ssh,run\"";
+      /* "Mod1+d" = "exec \"${pkgs.rofi}/bin/rofi -show run\""; */
     };
     colors.focused = {
       background = "#285577";

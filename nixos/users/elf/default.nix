@@ -152,7 +152,6 @@ in {
 
     programs.rofi = {
       enable = true;
-      theme = "solarized";
       terminal = "${pkgs.kitty}/bin/kitty";
       extraConfig = ''
         modi: drun,window,ssh
