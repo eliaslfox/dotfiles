@@ -19,6 +19,7 @@ in
     ./features/virtualisation.nix
     ./features/vpn.nix
     ./features/openssh.nix
+    ./features/iptables-notify.nix
 
     ./machine.nix
   ];
@@ -60,6 +61,7 @@ in
   };
 
   features = {
+    iptables-notify.enable = true;
     vpn = {
       enable = true;
       credentials = credentials.vpn;

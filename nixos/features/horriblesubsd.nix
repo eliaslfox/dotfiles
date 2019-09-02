@@ -13,6 +13,7 @@ let
       rev = "2c7ccdbbc93bfe8129362e7213ef8c9d0b4be4df";
       sha256 = "1vflxz40siffnjvvd2fndgxnhpcbqfg3al846jm35zj7ra5krlc4";
     }}" {});
+
 in
 {
   options.features.horriblesubsd = {
