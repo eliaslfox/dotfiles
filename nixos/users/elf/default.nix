@@ -201,6 +201,13 @@ in {
     programs.htop = {
       enable = true;
       colorScheme = 6;
+      hideThreads = true;
+      hideUserlandThreads = true;
+      meters = {
+        left = [ "AllCPUs" "Memory" "Swap" ];
+        right = [ "Tasks" "LoadAverage" "Uptime" "Hostname" ];
+      };
+      updateProcessNames = true;
     };
 
     programs.zathura.enable = true;
