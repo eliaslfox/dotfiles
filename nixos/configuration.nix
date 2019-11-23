@@ -53,6 +53,7 @@ in
       allowedTCPPorts = [ 9001 ];
       allowedUDPPorts = [];
       allowPing = false;
+      logReversePathDrops = true;
     };
     wireless = {
       enable = true;

@@ -42,6 +42,12 @@ in
       # Allow connecting to the vpn
       iptables -A OUTPUT -p udp -m udp --dport 1197 -j ACCEPT
       iptables -A OUTPUT -o tun0 -j ACCEPT
+
+      # Block arp requests other than those from routers
+      arptables -F
+      arptables -P INPUT DROP
+      arptables -A INPUT -s 192.168.42.1 -j ACCEPT
+      arptables -A INPUT -s 10.0.1.1 -j ACCEPT
     '';
 
     systemd.services = {

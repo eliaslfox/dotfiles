@@ -94,7 +94,7 @@ in {
       efitools efibootmgr
 
       # NodeJs
-      nodejs nodePackages.node2nix nodePackages.prettier
+      nodejs-11_x nodePackages.node2nix nodePackages.prettier
       nodePackages.javascript-typescript-langserver
 
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell

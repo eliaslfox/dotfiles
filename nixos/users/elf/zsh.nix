@@ -1,7 +1,6 @@
 {
   enable = true;
   enableCompletion = true;
-  defaultKeymap = "viins";
   dotDir = ".config/zsh";
   sessionVariables = {
     /* Basic config */
@@ -23,21 +22,12 @@
     PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
     GOPATH="$HOME/Documents/go";
 
+    PATH="/home/elf/.cache/npm/bin:$PATH";
   };
   initExtra = ''
     # Setup gpg agent
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-
-    # Use vim mode in zsh
-    bindkey -v
-    export KEYTIMEOUT=1
-
-	# Use history search 
-    bindkey -M viins "^[OA" history-search-backward
-    bindkey -M vicmd "^[OA" history-search-backward
-	bindkey -M viins "^[OB" history-search-forward
-	bindkey -M vicmd "^[OB" history-search-forward
   '';
   history = {
     path = ".cache/zsh_history";
