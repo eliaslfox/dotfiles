@@ -7,11 +7,18 @@
 
   boot = {
     kernelParams = [ "amd_iommu=on" ];
-    kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+    kernelModules = [ "wl" ];
     extraModulePackages =
       with config.boot.kernelPackages; [
         broadcom_sta /* broadcom wireless drivers */
       ];
+
+    /*
+    Settings needed for gpu passthrough
+    ===================================
+
+    kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+
     extraModprobeConfig = ''
       options vfio-pci ids=10de:1c81,10de:0fb9";
       options kvm ignore_msrs=1
@@ -19,6 +26,7 @@
       softdep nvidia pre: vfio-pci
       softdep nvidia* pre: vfio-pci
     '';
+    */
 
     loader = {
       grub = {
@@ -41,12 +49,12 @@
 
   features = {
     virtualisation = {
-      enableContainers = true;
-      enableKvm = true;
+      enableContainers = false;
+      enableKvm = false;
     };
     horriblesubsd.enable = true;
-    hoogle.enable = false;
-    openssh.enable = true;
+    hoogle.enable = true;
+    openssh.enable = false;
   };
 
   hardware = {
@@ -93,10 +101,12 @@
   home-manager.users.elf = {
     home.packages =
       with pkgs; [
+        /*
         steam
         wineFull
         cura
         printrun
+        */
       ];
     services.compton.enable = true;
   };

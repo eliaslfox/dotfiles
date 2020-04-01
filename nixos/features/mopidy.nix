@@ -57,6 +57,8 @@ in
           .log
           .cue
           .m3u
+          .ini
+          .bmp
         follow_symlinks = false
         metadata_timeout = 1000
       '';

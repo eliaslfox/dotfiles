@@ -5,6 +5,7 @@
 /* UI Config */
 user_pref("full-screen-api.ignore-widgets", true);
 user_pref("widget.content.gtk-theme-override", "Adwaita:light");
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 
 /* Security Config */
 

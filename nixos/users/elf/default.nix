@@ -22,8 +22,7 @@ in {
       /* Firefox */
       "mozilla/firefox/profiles.ini".source = ./files/firefox/profiles.ini;
       "mozilla/firefox/default/user.js".source = ./files/firefox/user.js;
-      "mozilla/firefox/default/chrome/userChrome.css".source = ./files/firefox/userChrome.css;
-      "mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
+      "mozilla/firefox/default/chrome/userChrome.css".source = ./files/firefox/userChrome.css; "mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
       "mozilla/firefox/clean/chrome/userChrome.css".source = ./files/firefox/userChrome-clean.css;
     };
   };
@@ -32,6 +31,7 @@ in {
 
   home.packages =
     with pkgs; [
+      yubikey-manager
       slic3r
       kodi
       slack
@@ -41,7 +41,7 @@ in {
       openscad
       chromium
       ripgrep
-      aircrackng wireshark-gtk
+      aircrackng wireshark-qt
       steam
       ripgrep
       mitscheme
@@ -71,13 +71,14 @@ in {
       irssi
       xclip
       ncpamixer
-      vlc mpv
+      vlc
+      mpv
       pavucontrol
       pass
       alacritty
       neofetch cava
       gnupg
-      tor-browser-bundle-bin
+      unstable.tor-browser-bundle-bin
       tree
       unzip
       unrar
@@ -94,7 +95,7 @@ in {
       efitools efibootmgr
 
       # NodeJs
-      nodejs-11_x nodePackages.node2nix nodePackages.prettier
+      nodejs nodePackages.node2nix nodePackages.prettier
       nodePackages.javascript-typescript-langserver
 
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
@@ -172,7 +173,7 @@ in {
       ignores = [ "*~" "*.swp" ];
       signing = {
         signByDefault = true;
-        key = "0x8890C126C411ED9B";
+        key = "0x2E9DA81892721D77";
       };
       aliases = {
         l = "log --decorate --oneline --graph --first-parent";

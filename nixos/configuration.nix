@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   credentials = import ./credentials.nix;
 in
@@ -7,7 +7,7 @@ in
   imports = [
     "${builtins.fetchGit {
         url = https://github.com/rycee/home-manager;
-        ref = "release-19.03";
+        ref = "release-19.09";
       }}/nixos"
 
     ./scripts.nix
@@ -74,6 +74,7 @@ in
   };
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
+  services.pcscd.enable = true;
 
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
