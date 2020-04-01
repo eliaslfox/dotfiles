@@ -33,7 +33,6 @@ in {
     with pkgs; [
       yubikey-manager
       slic3r
-      kodi
       slack
       httpie
       pavucontrol
@@ -51,7 +50,7 @@ in {
       transmission-gtk
       unstable.firefox
       bridge-utils
-      dmg2img
+      /* dmg2img */
       nixops
       bind
       lzo
@@ -59,9 +58,7 @@ in {
       unstable.discord
       smartmontools
       pulseeffects
-      openssl
       imagemagick
-      w3m
       psmisc
       mpc_cli
       feh

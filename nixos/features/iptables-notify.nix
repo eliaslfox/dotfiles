@@ -9,8 +9,8 @@ let
       (pkgs.callPackage "${pkgs.fetchFromGitHub {
         owner = "eliaslfox";
         repo = "iptables-notify";
-        rev = "6c2d7ccf70c38fb900cebe310dda3dcbc3f153fe";
-        sha256 = "1jpq1bc9bdv834w9ja4dyba158382y4qk0ij29fphqfl7kp494aw";
+        rev = "254c79e69a374da0bc2da150df4dcede2d7526ed";
+        sha256 = "15a3h4bn7339hgxp8k245n4lk64b9cs5s01mnr9sjx4zkqnvy1lg";
       }}" {});
 in
 {
