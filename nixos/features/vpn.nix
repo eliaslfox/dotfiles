@@ -43,12 +43,15 @@ in
       iptables -A OUTPUT -p udp -m udp --dport 1197 -j ACCEPT
       iptables -A OUTPUT -o tun0 -j ACCEPT
 
-      # Block arp requests other than those from routers
-      arptables -F
-      arptables -P INPUT DROP
-      arptables -A INPUT -s 192.168.42.1 -j ACCEPT
-      arptables -A INPUT -s 10.0.1.1 -j ACCEPT
     '';
+    /*
+      # Block arp requests other than those from routers
+      ${pkgs.iptables-nftables-compat}/bin/arptables -F
+      ${pkgs.iptables-nftables-compat}/bin/arptables -P INPUT DROP
+      ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -s 192.168.42.1 -j ACCEPT
+      ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -s 10.0.1.1 -j ACCEPT
+    '';
+    */
 
     systemd.services = {
       openvpn-reconnect = {

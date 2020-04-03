@@ -30,15 +30,15 @@ in
   config = mkIf cfg.enable {
     services.mopidy = {
       enable = true;
-      extensionPackages = [ pkgs.mopidy-spotify ];
+      /* extensionPackages = [ pkgs.mopidy-spotify ]; */
       configuration = ''
-        [spotify]
-        bitrate = 320
-        volume_normalization = false
-        username = ${cfg.credentials.username}
-        password = ${cfg.credentials.password}
-        client_id = ${cfg.credentials.client_id}
-        client_secret = ${cfg.credentials.client_secret}
+        #[spotify]
+        #bitrate = 320
+        #volume_normalization = false
+        #username = ${cfg.credentials.username}
+        #password = ${cfg.credentials.password}
+        #client_id = ${cfg.credentials.client_id}
+        #client_secret = ${cfg.credentials.client_secret}
 
         [audio]
         #output = tee name=t t. ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/mpd.fifo

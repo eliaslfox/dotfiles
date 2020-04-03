@@ -24,11 +24,13 @@
 
     PATH="/home/elf/.cache/npm/bin:$PATH";
   };
+  /*
   initExtra = ''
     # Setup gpg agent
     export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
+  */
   history = {
     path = ".cache/zsh_history";
   };
