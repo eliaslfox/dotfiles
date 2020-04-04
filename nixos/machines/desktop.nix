@@ -109,7 +109,7 @@
         printrun
         */
       ];
-    services.compton.enable = true;
+    services.picom.enable = true;
   };
 
   fileSystems."/efi" =

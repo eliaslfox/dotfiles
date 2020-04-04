@@ -17,7 +17,7 @@
       enable = true;
     };
     windowManager.i3.enable = true;
-    /* displayManager.defaultSession = "none+i3";  */
+    displayManager.defaultSession = "none+i3";
   };
   services.autorandr.enable = true;
 

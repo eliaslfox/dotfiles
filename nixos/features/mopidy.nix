@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.features.mopidy;
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+
 in
 {
   options.features.mopidy = {
@@ -28,18 +30,15 @@ in
     };
   };
   config = mkIf cfg.enable {
+    nixpkgs.config = {
+      packageOverrides = pkgs: {
+        mopidy = unstable.mopidy;
+      };
+    };
     services.mopidy = {
       enable = true;
-      /* extensionPackages = [ pkgs.mopidy-spotify ]; */
+      extensionPackages = [ unstable.mopidy-mpd ];
       configuration = ''
-        #[spotify]
-        #bitrate = 320
-        #volume_normalization = false
-        #username = ${cfg.credentials.username}
-        #password = ${cfg.credentials.password}
-        #client_id = ${cfg.credentials.client_id}
-        #client_secret = ${cfg.credentials.client_secret}
-
         [audio]
         #output = tee name=t t. ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/mpd.fifo
         output = pulsesink server=127.0.0.1
@@ -56,11 +55,22 @@ in
           .png
           .log
           .cue
+          .CUE
           .m3u
           .ini
           .bmp
+          .pdf
         follow_symlinks = false
         metadata_timeout = 1000
+
+        [mpd]
+        enabled = true
+        hostname = 127.0.0.1
+        port = 6600
+        password =
+        max_connections = 20
+        connection_timeout = 60
+        zeroconf =
       '';
     };
 

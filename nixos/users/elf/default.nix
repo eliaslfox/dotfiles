@@ -10,6 +10,7 @@ in {
       "npm/npmrc".source = ./files/npmrc;
       "i3status/config".source = ./files/i3status-config;
       "gnupg/gpg.conf".source = ./files/gpg.conf;
+      "gnupg/gpg-agent.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg-agent.conf".text; /* write the config file to the XDG config directory */
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
       "readline/inputrc".source = ./files/inputrc;
@@ -26,6 +27,7 @@ in {
       "mozilla/firefox/clean/chrome/userChrome.css".source = ./files/firefox/userChrome-clean.css;
     };
   };
+
 
   /* xresources.extraConfig = builtins.readFile ./files/Xresources; */
 
@@ -123,7 +125,7 @@ in {
       '';
     };
 
-    services.compton = {
+    services.picom = {
       opacityRule = [
         "80:WM_CLASS@:s = \"term-float\""
       ];
