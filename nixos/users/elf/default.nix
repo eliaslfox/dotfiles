@@ -105,6 +105,7 @@ in {
 
       scripts.symlink-init
       scripts.ncmpcpp-notify
+      scripts.mopidy-audio-pipe
     ];
 
     gtk = {
@@ -228,6 +229,17 @@ in {
       };
       Service = {
         ExecStart = "${scripts.symlink-init}/bin/symlink-init";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+    systemd.user.services.mopidy-audio-pipe = {
+      Unit = {
+        Description = "Pipe audio for ncmpcpp vizualizer";
+      };
+      Service = {
+        ExecStart = "${scripts.mopidy-audio-pipe}/bin/mopidy-audio-pipe";
       };
       Install = {
         WantedBy = [ "default.target" ];

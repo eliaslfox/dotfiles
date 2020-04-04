@@ -41,4 +41,17 @@
     ${pkgs.libnotify}/bin/notify-send --app-name=ncmpcpp --icon=audio-x-generic \
         "$title" "$artist\n$album"
     '';
+
+    mopidy-audio-pipe = pkgs.writeScriptBin "mopidy-audio-pipe" ''
+      #!/bin/sh
+      set -e
+
+      if [ -f /tmp/mpd.fifo ]; then
+        ${pkgs.coreutils}/bin/mkfifo /tmp/mpd.fifo
+      fi
+     
+      while :; do
+        ${pkgs.coreutils}/bin/yes $’\n’ | ${pkgs.netcat}/bin/nc -lu 127.0.0.1 5555 > /tmp/mpd.fifo;
+      done
+    '';
 }
