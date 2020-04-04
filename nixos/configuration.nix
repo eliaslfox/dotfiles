@@ -150,7 +150,7 @@ in
       amd.updateMicrocode = true;
       intel.updateMicrocode = true;
     };
-    opengl.driSupport32Bit = true;
+    /* opengl.driSupport32Bit = true; */
   };
 
   zramSwap= {

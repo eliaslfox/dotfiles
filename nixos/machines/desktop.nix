@@ -6,7 +6,7 @@
   ];
 
   boot = {
-    kernelParams = [ "amd_iommu=on" ];
+    kernelPackages = pkgs.linuxPackages_hardened;
     kernelModules = [ "wl" ];
     extraModulePackages =
       with config.boot.kernelPackages; [
@@ -17,6 +17,7 @@
     Settings needed for gpu passthrough
     ===================================
 
+    kernelParams = [ "amd_iommu=on" ];
     kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
 
     extraModprobeConfig = ''
