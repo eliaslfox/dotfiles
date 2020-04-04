@@ -12,6 +12,7 @@ in {
       "gnupg/gpg.conf".source = ./files/gpg.conf;
       "gnupg/gpg-agent.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg-agent.conf".text; /* write the config file to the XDG config directory */
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
+      "ncmpcpp/config-viz".source = ./files/ncmpcpp-viz-config;
       "ssh/config".source = ./files/ssh-config;
       "readline/inputrc".source = ./files/inputrc;
       "kitty/kitty.conf".source = ./files/kitty.conf;

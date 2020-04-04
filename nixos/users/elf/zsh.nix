@@ -38,6 +38,7 @@
     g = "git";
     mixer = "ncpamixer";
     music = "ncmpcpp";
+    viz = "ncmpcpp -c ~/.config/ncmpcpp/config-viz";
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
     pbpaste = "xclip -selection clipboard -o";

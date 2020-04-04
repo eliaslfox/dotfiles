@@ -19,6 +19,7 @@ in
     ./features/virtualisation.nix
     ./features/vpn.nix
     ./features/openssh.nix
+    ./features/tor.nix
     ./features/iptables-notify.nix
 
     ./machine.nix

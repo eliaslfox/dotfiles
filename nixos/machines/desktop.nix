@@ -56,6 +56,7 @@
     horriblesubsd.enable = true;
     hoogle.enable = true;
     openssh.enable = false;
+    tor.enable = true;
   };
 
   hardware = {

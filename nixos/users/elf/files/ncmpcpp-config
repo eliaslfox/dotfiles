@@ -1,17 +1,4 @@
-visualizer_fifo_path = "/tmp/mpd.fifo"
-visualizer_output_name = "my_fifo"
-visualizer_in_stereo = "yes"
-visualizer_type = "spectrum"
-visualizer_look = "▋▋"
-visualizer_sync_interval = "10"
-
-header_visibility = no
-titles_visibility = no
-statusbar_visibility = no
 display_bitrate = yes
-progressbar_look = "  "
-
-progressbar_color = black:b
-progressbar_elapsed_color = black:b
+progressbar_look = "── "
 
 execute_on_song_change = "/home/elf/.nix-profile/bin/ncmpcpp-notify"
