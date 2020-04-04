@@ -21,16 +21,10 @@
     /* Handle temp ~ */
     PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
     GOPATH="$HOME/Documents/go";
-
-    PATH="/home/elf/.cache/npm/bin:$PATH";
   };
-  /*
   initExtra = ''
-    # Setup gpg agent
-    export GPG_TTY="$(tty)"
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
-  */
   history = {
     path = ".cache/zsh_history";
   };
@@ -47,9 +41,6 @@
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
     pbpaste = "xclip -selection clipboard -o";
-    pubkey = "cat ~/.ssh/id_rsa.pub | xclip -selection clipboard";
-    cp = "cp -i";
-    mv = "mv -i";
     pass = "EDITOR=nano pass";
   };
 }
