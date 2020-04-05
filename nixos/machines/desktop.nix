@@ -122,6 +122,7 @@ in
       ];
     services.picom.enable = true;
 
+    /*
     systemd.user.services.mopidy-audio-pipe = {
       Unit = {
         Description = "Pipe audio for ncmpcpp vizualizer";
@@ -133,6 +134,7 @@ in
         WantedBy = [ "default.target" ];
       };
     };
+    */
 
   };
 

@@ -41,8 +41,8 @@ in
       configuration = ''
         [audio]
         #output = tee name=t t. ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/mpd.fifo
-        output = tee name=t ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! udpsink port=5555
-        #output = pulsesink server=127.0.0.1
+        #output = tee name=t ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! udpsink port=5555
+        output = pulsesink server=127.0.0.1
 
         [file]
         enabled = true
