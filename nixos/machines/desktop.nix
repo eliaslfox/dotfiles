@@ -98,7 +98,16 @@
     interfaces = [ "enp4s0" ];
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    xrandrHeads = [
+      "HDMI-0"
+      {
+        output = "DP-0";
+        primary = true;
+      }
+    ];
+  };
 
   home-manager.users.elf = {
     home.packages =
