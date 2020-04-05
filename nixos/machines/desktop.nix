@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  scripts = pkgs.callPackage (import ../users/elf/scripts.nix) {};
+in
 { imports = [
     ../xorg.nix
     ../mounts-zfs.nix
@@ -112,14 +115,25 @@
   home-manager.users.elf = {
     home.packages =
       with pkgs; [
-        /*
         steam
         wineFull
         cura
         printrun
-        */
       ];
     services.picom.enable = true;
+
+    systemd.user.services.mopidy-audio-pipe = {
+      Unit = {
+        Description = "Pipe audio for ncmpcpp vizualizer";
+      };
+      Service = {
+        ExecStart = "${scripts.mopidy-audio-pipe}/bin/mopidy-audio-pipe";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+    };
+
   };
 
   fileSystems."/efi" =

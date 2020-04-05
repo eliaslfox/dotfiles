@@ -11,7 +11,7 @@ with import <nixpkgs> {};
       geometry = "300x5-30+30";
       transparency = 20;
       monitor = 0;
-      follow = "keyboard";
+      follow = "none";
       sticky_history = "yes";
       line_height = 0;
       seperator_height = 2;

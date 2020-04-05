@@ -44,7 +44,6 @@ in {
       chromium
       ripgrep
       aircrackng wireshark-qt
-      steam
       ripgrep
       mitscheme
       whois
@@ -235,19 +234,7 @@ in {
         WantedBy = [ "default.target" ];
       };
     };
-    systemd.user.services.mopidy-audio-pipe = {
-      Unit = {
-        Description = "Pipe audio for ncmpcpp vizualizer";
-      };
-      Service = {
-        ExecStart = "${scripts.mopidy-audio-pipe}/bin/mopidy-audio-pipe";
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-    };
-
-    nixpkgs.config = {
+        nixpkgs.config = {
       packageOverrides = pkgs: {
         steam = pkgs.steam.override {
           extraPkgs = pkgs: with pkgs; [
