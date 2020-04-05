@@ -7,7 +7,7 @@
 
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
-    kernelModules = [ "wl" ];
+    kernelModules = [ "wl" "kvm_amd" ];
     extraModulePackages =
       with config.boot.kernelPackages; [
         broadcom_sta /* broadcom wireless drivers */
@@ -50,8 +50,8 @@
 
   features = {
     virtualisation = {
-      enableContainers = false;
-      enableKvm = false;
+      enableContainers = true;
+      enableKvm = true;
     };
     horriblesubsd.enable = true;
     hoogle.enable = true;
