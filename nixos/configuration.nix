@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, lib, ... }:
 let
   credentials = import ./credentials.nix;
 in
@@ -51,7 +51,8 @@ in
     enableIPv6 = false;
     firewall = {
       enable = true;
-      allowedUDPPorts = [];
+      allowedUDPPorts = lib.mkForce [];
+      allowedTCPPorts = lib.mkForce [];
       allowPing = false;
       logReversePathDrops = true;
     };
