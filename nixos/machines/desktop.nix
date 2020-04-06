@@ -57,9 +57,9 @@ in
       enableKvm = true;
     };
     horriblesubsd.enable = true;
-    hoogle.enable = true;
+    hoogle.enable = false;
     openssh.enable = false;
-    tor.enable = true;
+    tor.enable = false;
   };
 
   hardware = {
