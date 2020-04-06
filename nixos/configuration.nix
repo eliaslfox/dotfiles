@@ -51,7 +51,6 @@ in
     enableIPv6 = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 9001 ];
       allowedUDPPorts = [];
       allowPing = false;
       logReversePathDrops = true;
