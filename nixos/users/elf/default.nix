@@ -34,21 +34,19 @@ in {
 
   home.packages =
     with pkgs; [
+      ascii
       yubikey-manager
       slic3r
       slack
       httpie
       pavucontrol
       arduino
-      openscad
       chromium
       ripgrep
       aircrackng wireshark-qt
-      ripgrep
       mitscheme
       whois
       ncat
-      powertop
       transmission-gtk
       unstable.firefox
       bridge-utils
@@ -59,15 +57,8 @@ in {
       btrbk
       unstable.discord
       smartmontools
-      pulseeffects
-      imagemagick
       psmisc
-      mpc_cli
       feh
-      pywal
-      mosh
-      screen
-      irssi
       xclip
       ncpamixer
       vlc
@@ -77,7 +68,7 @@ in {
       alacritty
       neofetch cava
       gnupg
-      unstable.tor-browser-bundle-bin
+      tor-browser-bundle-bin
       tree
       unzip
       unrar
