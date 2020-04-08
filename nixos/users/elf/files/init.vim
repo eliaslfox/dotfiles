@@ -1,29 +1,39 @@
+" base config
 set nocompatible
+filetype plugin indent on
 set termguicolors
 colorscheme NeoSolarized
 
 " general settings
 set updatetime=100
-set hidden
 set nowrap
+set backspace=indent,eol,start
+set encoding=utf8
+set scrolloff=2
+set fileformats=unix,dos
+
+" ui
+set cursorline
+set ruler
+
+" fuzzy finding
 set wildmenu
 set wildmode=full
-set backspace=indent,eol,start
-set cursorline
-set encoding=utf8
-set hlsearch
-set smartcase
-set ruler
+set path+=**
+
+" file browser
+let g:netrw_banner=0
+let g:netrw_liststyle=3
+let g:netrw_altv=1
+let g:netrw_list_hide=netrw_gitignore#Hide()
+
+" search
 set showmatch
-set scrolloff=2
-
-
-" Search
+set hlsearch
 set incsearch
 set ignorecase
 set smartcase
 set gdefault
-
 
 " disable arrow keys
 noremap <Up> <NOP>
@@ -32,14 +42,12 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 " sane indenting settings
-filetype plugin indent on
 set autoindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
-set fileformats=unix,dos
 
 " tack undo
 set undofile
@@ -78,4 +86,5 @@ let g:ale_fixers = {
 let g:ale_linters = {
     \ 'javascript': [],
     \ 'typescript': [],
+    \ 'haskell': []
     \ }
