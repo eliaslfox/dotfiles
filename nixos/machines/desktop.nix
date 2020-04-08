@@ -10,11 +10,7 @@ in
 
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
-    kernelModules = [ "wl" "kvm_amd" ];
-    extraModulePackages =
-      with config.boot.kernelPackages; [
-        broadcom_sta /* broadcom wireless drivers */
-      ];
+    kernelModules = [ "kvm_amd" ];
 
     /*
     Settings needed for gpu passthrough
@@ -70,8 +66,8 @@ in
   networking = {
     hostName = "darling";
     hostId = "8425e349";
-    wireless.interfaces = [ "wlp5s0" ];
-    dhcpcd.allowInterfaces = [ "wlp5s0" ];
+    wireless.interfaces = [ "wlp6s0" ];
+    dhcpcd.allowInterfaces = [ "wlp6s0" ];
     firewall.extraCommands = ''
       # NAT forward enp4s0 to tun0
       iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE

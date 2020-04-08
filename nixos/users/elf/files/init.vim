@@ -1,24 +1,16 @@
 " base config
-set nocompatible
-filetype plugin indent on
 set termguicolors
 colorscheme NeoSolarized
 
 " general settings
 set updatetime=100
 set nowrap
-set backspace=indent,eol,start
-set encoding=utf8
 set scrolloff=2
-set fileformats=unix,dos
-
-" ui
 set cursorline
-set ruler
 
 " fuzzy finding
-set wildmenu
 set wildmode=full
+set wildoptions+=pum
 set path+=**
 
 " file browser
@@ -31,7 +23,6 @@ let g:netrw_list_hide=netrw_gitignore#Hide()
 set showmatch
 set hlsearch
 set incsearch
-set ignorecase
 set smartcase
 set gdefault
 
@@ -41,27 +32,25 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-" sane indenting settings
-set autoindent
+" indenting settings
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
-set smarttab
 
-" tack undo
+" track undo
 set undofile
 set undodir=~/.cache/neovim/undo
 set writebackup
 set backupdir=~/.cache/neovim/backup
 set directory=~/.cache/neovim/swap
 
-
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 let g:airline#extensions#ale#enabled = 1
 
 let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_map_keys = 0
 
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {
