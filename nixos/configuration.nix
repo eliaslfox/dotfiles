@@ -182,10 +182,16 @@ in
   };
 
   time.timeZone = "US/Pacific";
+
   system.autoUpgrade.enable = true;
-  nixpkgs.config.allowUnfree = true;
-  nix = {
-    optimise.automatic = true;
-  };
+  nix.optimise.automatic = true;
   system.stateVersion = "19.03";
+
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "nvidia-settings"
+    "nvidia-x11"
+    "nvidia-persistenced"
+
+    "discord"
+  ];
 }

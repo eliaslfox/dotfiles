@@ -38,7 +38,6 @@ in {
       ascii
       yubikey-manager
       slic3r
-      slack
       httpie
       pavucontrol
       arduino
@@ -49,7 +48,7 @@ in {
       whois
       ncat
       transmission-gtk
-      unstable.firefox
+      firefox
       bridge-utils
       /* dmg2img */
       nixops
@@ -72,7 +71,6 @@ in {
       tor-browser-bundle-bin
       tree
       unzip
-      unrar
       libnotify
       nix-prefetch-git
       pciutils usbutils acpi

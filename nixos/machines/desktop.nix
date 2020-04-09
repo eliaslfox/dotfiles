@@ -62,7 +62,6 @@ in
   };
 
   hardware = {
-    enableAllFirmware = true;
     enableRedistributableFirmware = true;
   };
 
@@ -114,7 +113,6 @@ in
   home-manager.users.elf = {
     home.packages =
       with pkgs; [
-        steam
         wineFull
         cura
         printrun
