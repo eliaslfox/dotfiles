@@ -34,6 +34,7 @@ in {
 
   home.packages =
     with pkgs; [
+      python38Packages.speedtest-cli
       ascii
       yubikey-manager
       slic3r

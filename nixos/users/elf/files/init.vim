@@ -45,13 +45,18 @@ set writebackup
 set backupdir=~/.cache/neovim/backup
 set directory=~/.cache/neovim/swap
 
+" airline
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 let g:airline#extensions#ale#enabled = 1
 
+" gitgutter
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_map_keys = 0
 
+"
+" language server
+"
 let g:deoplete#enable_at_startup = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
@@ -61,6 +66,12 @@ let g:LanguageClient_serverCommands = {
     \ }
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
 
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
+
+"
+" ale
+"
 let g:ale_fix_on_save = 1
 let g:ale_sign_column_always = 0
 let g:ale_change_sign_column_color = 1
@@ -70,10 +81,12 @@ let g:ale_sign_warning = '⚑'
 
 let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'go': ['gofmt', 'goimports']
     \ }
 
 let g:ale_linters = {
     \ 'javascript': [],
     \ 'typescript': [],
-    \ 'haskell': []
+    \ 'haskell': [],
+    \ 'go': []
     \ }

@@ -11,6 +11,9 @@ in
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
     kernelModules = [ "kvm_amd" ];
+    extraModprobeConfig = ''
+      options iwlwifi 11n_disable=1
+    '';
 
     /*
     Settings needed for gpu passthrough

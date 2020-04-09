@@ -47,7 +47,7 @@ in
   };
 
   networking = {
-    nameservers = ["8.8.8.8" "8.8.4.4"];
+    /* nameservers = ["8.8.8.8" "8.8.4.4"]; */
     enableIPv6 = false;
     firewall = {
       enable = true;
@@ -56,9 +56,16 @@ in
       allowPing = false;
       logReversePathDrops = true;
     };
+    /*
     wireless = {
+      enable = false;
+     networks = credentials.wifi;
+    };
+    */
+    networkmanager = {
       enable = true;
-      networks = credentials.wifi;
+      dns = "none";
+      insertNameservers = [ "209.222.18.222" "209.222.18.218" ]; /* pia nameservers */
     };
   };
 
@@ -151,7 +158,6 @@ in
       amd.updateMicrocode = true;
       intel.updateMicrocode = true;
     };
-    /* opengl.driSupport32Bit = true; */
   };
 
   zramSwap= {
