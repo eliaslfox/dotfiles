@@ -51,6 +51,12 @@ user_pref("dom.enable_resource_timing", false);
 user_pref("dom.telephony.enabled", false);
 user_pref("device.sensors.enabled", false);
 
++// Disable Plugins
++user_pref("media.gmp-gmpopenh264.enabled", false);
++user_pref("media.gmp-gmpopenh264.visible", false);
++user_pref("media.gmp-widevinecdm.enabled", false);
++user_pref("media.gmp-widevinecdm.visible", false);
+
 // spoof dual core cpu
 user_pref("dom.maxHardwareConcurrency", 2);
 
