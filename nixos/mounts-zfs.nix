@@ -17,6 +17,15 @@
       fsType = "zfs";
     };
 
+  fileSystems."/persist" =
+    { device = "zroot/root/persist";
+      fsType = "zfs";
+    };
+
+  environment.etc."NetworkManager/system-connections" = {
+    source = "/persist/etc/NetworkManager/system-connections/";
+  };
+
   fileSystems."/var" =
     { device = "zroot/root/var";
       fsType = "zfs";
