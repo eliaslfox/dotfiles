@@ -1,5 +1,9 @@
 { pkgs, config, lib, ... }:
 
+let
+  credentials = import ../credentials.nix;
+in
+
 {
   users.mutableUsers = false;
   users.extraUsers.elf = {
@@ -9,10 +13,10 @@
     extraGroups = [ "wheel" "video" "sound" "systemd-journal" "wireshark" "dialout" "networkmanager" ];
     uid = 1000;
     shell = pkgs.zsh;
-    passwordFile = "/etc/nixos/passwords/elf";
+    hashedPassword = credentials.users.elf;
   };
   users.extraUsers.root = {
-    passwordFile = "/etc/nixos/passwords/root";
+    hashedPassword = credentials.users.root;
   };
   home-manager.users.elf = import ./elf { config = config; pkgs = pkgs; };
 }

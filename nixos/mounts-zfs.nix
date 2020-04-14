@@ -7,23 +7,8 @@
       options = [ "mode=0755" ];
     };
 
-  fileSystems."/bin" =
-    { device = "zroot/root/bin";
-      fsType = "zfs";
-    };
-
-  fileSystems."/etc" =
-    { device = "zroot/root/etc";
-      fsType = "zfs";
-    };
-
   fileSystems."/nix" =
     { device = "zroot/root/nix";
-      fsType = "zfs";
-    };
-
-  fileSystems."/usr" =
-    { device = "zroot/root/usr";
       fsType = "zfs";
     };
 
