@@ -7,7 +7,7 @@ in
   imports = [
     "${builtins.fetchGit {
         url = https://github.com/rycee/home-manager;
-        ref = "master";
+        ref = "release-20.03";
       }}/nixos"
 
     ./scripts.nix
