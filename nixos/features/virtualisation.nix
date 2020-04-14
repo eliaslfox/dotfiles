@@ -30,7 +30,6 @@ in
               docker-compose
             ];
         };
-
       })
 
       (mkIf cfg.enableKvm {

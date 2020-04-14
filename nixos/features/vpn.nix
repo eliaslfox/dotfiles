@@ -62,14 +62,14 @@ in
       pia = {
         config = ''
           cd /home/elf/Documents/dotfiles/vpn
-	      auth-nocache
-	      config US\ Silicon\ Valley.ovpn
-	     '';
-	     autoStart = true;
-	     authUserPass = {
-           username = cfg.credentials.username;
-	       password = cfg.credentials.password;
-	     };
+          auth-nocache
+          config US\ Silicon\ Valley.ovpn
+        '';
+        autoStart = true;
+        authUserPass = {
+          username = cfg.credentials.username;
+          password = cfg.credentials.password;
+        };
       };
     };
   };

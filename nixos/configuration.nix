@@ -48,6 +48,7 @@ in
 
   networking = {
     /* nameservers = ["8.8.8.8" "8.8.4.4"]; */
+    nameservers = [ "209.222.18.222" "209.222.18.218" ];
     enableIPv6 = false;
     firewall = {
       enable = true;
@@ -58,14 +59,19 @@ in
     };
     /*
     wireless = {
-      enable = false;
-     networks = credentials.wifi;
+      enable = true;
+      networks = credentials.wifi;
+      interfaces = [ "wlp6s0" ];
+      extraConfig = ''
+        country=US
+      '';
     };
     */
     networkmanager = {
       enable = true;
       dns = "none";
-      insertNameservers = [ "209.222.18.222" "209.222.18.218" ]; /* pia nameservers */
+      wifi.powersave = false;
+      insertNameservers = [ "209.222.18.222" "209.222.18.218" ];
     };
   };
 
@@ -87,6 +93,7 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
+      iw
       iptables
       git
       tmux
