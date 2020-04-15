@@ -2,8 +2,8 @@
 
 {
   symlink-init = pkgs.writeScriptBin "symlink-init" ''
-    #!/bin/sh
-    set -e
+    #!${pkgs.bash}/bin/bash
+    set -euo pipefail
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
@@ -25,14 +25,11 @@
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/nixops
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/nixops /home/elf/.nixops
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''
-    #!/bin/sh
-    set -e
+    #!${pkgs.bash}/bin/bash
+    set -euo pipefail
 
     MPC=${pkgs.mpc_cli}/bin/mpc
     IFS=$'\t' read album artist title \
@@ -43,13 +40,13 @@
     '';
 
     mopidy-audio-pipe = pkgs.writeScriptBin "mopidy-audio-pipe" ''
-      #!/bin/sh
-      set -e
+      #!${pkgs.bash}/bin/bash
+      set -euo pipefail
 
       if [ -f /tmp/mpd.fifo ]; then
         ${pkgs.coreutils}/bin/mkfifo /tmp/mpd.fifo
       fi
-     
+
       while :; do
         ${pkgs.coreutils}/bin/yes $’\n’ | ${pkgs.netcat}/bin/nc -lu 127.0.0.1 5555 > /tmp/mpd.fifo;
       done

@@ -22,9 +22,11 @@
     PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
     GOPATH="$HOME/Documents/go";
   };
+  /*
   initExtra = ''
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
+  */
   history = {
     path = ".cache/zsh_history";
   };
