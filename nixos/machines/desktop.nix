@@ -10,7 +10,6 @@ in
 
   boot = {
     kernelPackages = pkgs.linuxPackages_hardened;
-    kernelModules = [ "kvm_amd" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
     '';
@@ -53,7 +52,7 @@ in
   features = {
     virtualisation = {
       enableContainers = true;
-      enableKvm = true;
+      enableKvm = false;
     };
     horriblesubsd.enable = true;
     hoogle.enable = false;

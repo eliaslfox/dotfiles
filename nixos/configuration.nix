@@ -47,7 +47,6 @@ in
   };
 
   networking = {
-    /* nameservers = ["8.8.8.8" "8.8.4.4"]; */
     nameservers = [ "209.222.18.222" "209.222.18.218" ];
     enableIPv6 = false;
     firewall = {
@@ -56,22 +55,14 @@ in
       allowedTCPPorts = lib.mkForce [];
       allowPing = false;
       logReversePathDrops = true;
+      logRefusedPackets = true;
     };
-    /*
     wireless = {
       enable = true;
       networks = credentials.wifi;
-      interfaces = [ "wlp6s0" ];
       extraConfig = ''
         country=US
       '';
-    };
-    */
-    networkmanager = {
-      enable = true;
-      dns = "none";
-      wifi.powersave = false;
-      insertNameservers = [ "209.222.18.222" "209.222.18.218" ];
     };
   };
 
@@ -81,10 +72,7 @@ in
       enable = true;
       credentials = credentials.vpn;
     };
-    mopidy = {
-      enable = true;
-      credentials = credentials.spotify;
-    };
+    mopidy.enable = true;
   };
 
   services.udev.packages = [ pkgs.yubikey-personalization ];

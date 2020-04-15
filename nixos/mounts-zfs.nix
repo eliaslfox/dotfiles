@@ -1,36 +1,36 @@
 { ... }:
 
 {
+  /* mount a tmpfs on / */
   fileSystems."/" =
     { device = "tmpfs";
       fsType = "tmpfs";
       options = [ "mode=0755" ];
     };
 
+  /* mount the nix store */
   fileSystems."/nix" =
     { device = "zroot/root/nix";
       fsType = "zfs";
     };
 
+  /* mount persisted directories */
   fileSystems."/root" =
     { device = "zroot/root/root";
       fsType = "zfs";
     };
 
-  fileSystems."/persist" =
-    { device = "zroot/root/persist";
+  fileSystems."/var/lib/docker" =
+    { device = "zroot/root/var/lib/docker";
       fsType = "zfs";
     };
 
-  environment.etc."NetworkManager/system-connections" = {
-    source = "/persist/etc/NetworkManager/system-connections/";
-  };
-
-  fileSystems."/var" =
-    { device = "zroot/root/var";
+  fileSystems."/var/log/journal" =
+    { device = "zroot/root/var/log/journal";
       fsType = "zfs";
     };
 
+  /* mount persisted user directories */
   fileSystems."/home/elf/Documents" =
     { device = "zroot/home/elf/Documents";
       fsType = "zfs";
