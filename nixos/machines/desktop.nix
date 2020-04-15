@@ -83,6 +83,7 @@ in
     ];
   };
 
+  /*
   services.dhcpd4 = {
     enable = true;
     extraConfig = ''
@@ -97,6 +98,7 @@ in
     '';
     interfaces = [ "enp4s0" ];
   };
+  */
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];

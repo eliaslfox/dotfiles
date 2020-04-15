@@ -31,7 +31,9 @@ in
 
     kernel.sysctl = {
       /* Don't forward ipv4 packets */
-      "net.ipv4.ip_forward" = 0; /* Swap to disk less */
+      "net.ipv4.ip_forward" = 0;
+
+      /* Swap to disk less */
       "vm.swappiness" = 1;
 
       /* Disable ipv6 */
@@ -64,6 +66,9 @@ in
         country=US
       '';
     };
+    dhcpcd.extraConfig = ''
+      nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
+    '';
   };
 
   features = {
@@ -78,6 +83,8 @@ in
   services.udev.packages = [ pkgs.yubikey-personalization ];
   services.pcscd.enable = true;
 
+  services.udisks2.enable = false;
+
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
@@ -89,7 +96,6 @@ in
       wpa_supplicant
       vim
       curl wget
-      docker-compose
     ];
 
   fonts = {
@@ -99,7 +105,6 @@ in
       defaultFonts = {
         monospace = ["Fira Code Light"];
       };
-      /*
       localConf = ''
         <fontconfig>
         <match>
@@ -120,7 +125,6 @@ in
         </match>
         </fontconfig>
       '';
-      */
     };
     fonts = with pkgs; [
       # Base Fonts
@@ -170,7 +174,6 @@ in
   programs.dconf.enable = true;
   programs.wireshark.enable = true;
 
-  services.udisks2.enable = false;
   services.physlock = {
     enable = true;
     allowAnyUser = true;
