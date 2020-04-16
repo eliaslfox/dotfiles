@@ -163,7 +163,14 @@ in {
       updateProcessNames = true;
     };
 
-    programs.gpg.enable = true;
+    programs.gpg = {
+      enable = true;
+      settings = {
+        default-key = "0x2E9DA81892721D77";
+        trusted-key = "0x2E9DA81892721D77";
+      };
+    };
+
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
