@@ -259,4 +259,6 @@ in {
         };
       };
     };
+
+  home.stateVersion = "20.03";
 }
