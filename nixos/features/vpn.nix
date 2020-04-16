@@ -35,9 +35,9 @@ in
       iptables -A OUTPUT -d 192.168.0.0/16 -j ACCEPT
       iptables -A OUTPUT -d 10.0.0.0/8 -j ACCEPT
 
-      # Name Servers
-      iptables -A OUTPUT -d 209.222.18.222 -j ACCEPT
-      iptables -A OUTPUT -d 209.222.18.218 -j ACCEPT
+      # Name Servers for Bootstrapping
+      iptables -A OUTPUT -d 8.8.8.8 -j ACCEPT
+      iptables -A OUTPUT -d 8.8.4.4 -j ACCEPT
 
       # Allow connecting to the vpn
       iptables -A OUTPUT -p udp -m udp --dport 1197 -j ACCEPT
@@ -64,8 +64,12 @@ in
           cd /home/elf/Documents/dotfiles/vpn
           auth-nocache
           config US\ Silicon\ Valley.ovpn
+
+          pull-filter ignore "dhcp-option DNS"
+          dhcp-option DNS 127.0.0.1
         '';
         autoStart = true;
+        updateResolvConf = true;
         authUserPass = {
           username = cfg.credentials.username;
           password = cfg.credentials.password;

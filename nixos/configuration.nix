@@ -46,7 +46,7 @@ in
   };
 
   networking = {
-    nameservers = [ "209.222.18.222" "209.222.18.218" ];
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
     enableIPv6 = false;
     firewall = {
       enable = true;
@@ -66,6 +66,11 @@ in
     dhcpcd.extraConfig = ''
       nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
     '';
+  };
+
+  services.dnscrypt-proxy2 = {
+    enable = true;
+    configFile = ./dnscrypt-proxy.toml;
   };
 
   features = {
