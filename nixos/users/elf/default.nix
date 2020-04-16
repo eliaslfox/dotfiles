@@ -6,16 +6,15 @@ in {
   xdg = {
     enable = true;
     configFile = {
-      "alacritty/alacritty.yml".source = ./files/alacritty.yml;
       "npm/npmrc".source = ./files/npmrc;
       "i3status/config".source = ./files/i3status-config;
-      "gnupg/gpg.conf".source = ./files/gpg.conf;
-      "gnupg/gpg-agent.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg-agent.conf".text; /* write the config file to the XDG config directory */
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
-      "ncmpcpp/config-viz".source = ./files/ncmpcpp-viz-config;
       "ssh/config".source = ./files/ssh-config;
-      "readline/inputrc".source = ./files/inputrc;
       "kitty/kitty.conf".source = ./files/kitty.conf;
+
+      "gnupg/gpg-agent.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg-agent.conf".text;
+      "gnupg/gpg.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg.conf".text;
+
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
@@ -29,18 +28,15 @@ in {
     };
   };
 
-
-  /* xresources.extraConfig = builtins.readFile ./files/Xresources; */
-
   home.packages =
     with pkgs; [
+      zathura
       python38Packages.speedtest-cli
       ascii
       yubikey-manager
       slic3r
       httpie
       pavucontrol
-      arduino
       chromium
       ripgrep
       aircrackng wireshark-qt
@@ -50,7 +46,6 @@ in {
       transmission-gtk
       firefox
       bridge-utils
-      /* dmg2img */
       nixops
       bind
       lzo
@@ -63,9 +58,7 @@ in {
       ncpamixer
       vlc
       mpv
-      pavucontrol
       pass
-      alacritty
       neofetch cava
       gnupg
       tor-browser-bundle-bin
@@ -76,26 +69,23 @@ in {
       pciutils usbutils acpi
       file
       youtube-dl
-      (ncmpcpp.override {
-        visualizerSupport = true;
-      })
+      ncmpcpp
       (callPackage (import ./nvim.nix) {})
       (callPackage (import ./emacs.nix) {})
       efitools efibootmgr
 
       # NodeJs
-      nodejs nodePackages.node2nix nodePackages.prettier
+      nodejs nodePackages.prettier
       nodePackages.javascript-typescript-langserver
 
       ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
       rustup # Rust
-      python35Packages.virtualenv # Python
+      python38Packages.virtualenv # Python
       go gotools # Golang
       gcc
 
       scripts.symlink-init
       scripts.ncmpcpp-notify
-      scripts.mopidy-audio-pipe
     ];
 
     gtk = {
@@ -124,37 +114,9 @@ in {
 
     services.dunst = import ./dunst.nix;
 
-
     xsession.windowManager.i3 = import ./i3.nix;
 
-    programs.urxvt = {
-      enable = true;
-      fonts = [ "xft:FiraCodeLight:autohint=true" ];
-      keybindings = {
-        "Shift-Control-C" = "eval:selection_to_clipboard";
-        "Shift-Control-V" = "eval:paste_clipboard";
-      };
-      scroll = {
-        bar.enable = false;
-      };
-    };
-
-    programs.command-not-found.enable = true;
-
-    programs.rofi = {
-      enable = true;
-      terminal = "${pkgs.kitty}/bin/kitty";
-      extraConfig = ''
-        modi: drun,window,ssh
-      '';
-    };
-
     programs.zsh = import ./zsh.nix;
-
-    programs.tmux = {
-      enable = true;
-      extraConfig = import ./files/tmux.nix;
-    };
 
     programs.git = {
       enable = true;
@@ -201,16 +163,13 @@ in {
       updateProcessNames = true;
     };
 
-    programs.zathura.enable = true;
-
-
+    programs.gpg.enable = true;
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
       defaultCacheTtl = 60;
       maxCacheTtl = 120;
     };
-
 
     systemd.user.startServices = true;
     systemd.user.services.home-symlinks = {
@@ -224,7 +183,8 @@ in {
         WantedBy = [ "default.target" ];
       };
     };
-        nixpkgs.config = {
+
+    nixpkgs.config = {
       packageOverrides = pkgs: {
         steam = pkgs.steam.override {
           extraPkgs = pkgs: with pkgs; [
@@ -240,11 +200,6 @@ in {
             fontconfig
             xorg.libxcb
           ];
-        };
-        tor-browser-bundle-bin = pkgs.tor-browser-bundle-bin.override {
-          audioSupport = true;
-          mediaSupport = true;
-          pulseaudioSupport = true;
         };
       };
     };
