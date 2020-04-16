@@ -10,7 +10,6 @@ in {
       "i3status/config".source = ./files/i3status-config;
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
-      "kitty/kitty.conf".source = ./files/kitty.conf;
 
       "gnupg/gpg-agent.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg-agent.conf".text;
       "gnupg/gpg.conf".text = config.home-manager.users.elf.home.file.".gnupg/gpg.conf".text;
@@ -70,8 +69,8 @@ in {
       file
       youtube-dl
       ncmpcpp
-      (callPackage (import ./nvim.nix) {})
-      (callPackage (import ./emacs.nix) {})
+      (callPackage ./nvim.nix {})
+      (callPackage ./emacs.nix {})
       efitools efibootmgr
 
       # NodeJs
@@ -115,6 +114,56 @@ in {
     services.dunst = import ./dunst.nix;
 
     xsession.windowManager.i3 = import ./i3.nix;
+
+    programs.kitty = {
+      enable = true;
+      font = {
+        name = "Fira Code Light";
+        package = pkgs.fira-code;
+      };
+      settings = {
+        bold_font = "Fira Code Regular";
+        font_size = 11;
+        foreground = "#839496";
+        background = "#002b36";
+        selection_foreground = "#93a1a1";
+        selection_background = "#073642";
+        remember_window_size = "no";
+        initial_window_width = 530;
+        initial_window_height = 320;
+        # black
+        color0 = "#073642";
+        color8 = "#002b36";
+
+        # red
+        color1 = "#dc322f";
+        color9 = "#cb4b16";
+
+        # green
+        color2 = "#859900";
+        color10 = "#586e75";
+
+        # yellow
+        color3 = "#b58900";
+        color11 = "#657b83";
+
+        # blue
+        color4 = "#268bd2";
+        color12 = "#839496";
+
+        # magenta
+        color5 = "#d33682";
+        color13 = "#6c71c4";
+
+        # cyan
+        color6 = "#2aa198";
+        color14 = "#93a1a1";
+
+        # white
+        color7 = "#839496";
+        color15 = "#fdf6e3";
+      };
+    };
 
     programs.zsh = import ./zsh.nix;
 

@@ -13,13 +13,10 @@ in
     ./scripts.nix
     ./users
 
-    ./features/hoogle.nix
     ./features/horriblesubsd.nix
     ./features/mopidy.nix
     ./features/virtualisation.nix
     ./features/vpn.nix
-    ./features/openssh.nix
-    ./features/tor.nix
     ./features/iptables-notify.nix
 
     ./machine.nix

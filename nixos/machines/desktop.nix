@@ -55,9 +55,6 @@ in
       enableKvm = false;
     };
     horriblesubsd.enable = true;
-    hoogle.enable = false;
-    openssh.enable = false;
-    tor.enable = false;
   };
 
   hardware = {
@@ -83,7 +80,6 @@ in
     ];
   };
 
-  /*
   services.dhcpd4 = {
     enable = true;
     extraConfig = ''
@@ -98,7 +94,6 @@ in
     '';
     interfaces = [ "enp4s0" ];
   };
-  */
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
@@ -119,21 +114,6 @@ in
         printrun
       ];
     services.picom.enable = true;
-
-    /*
-    systemd.user.services.mopidy-audio-pipe = {
-      Unit = {
-        Description = "Pipe audio for ncmpcpp vizualizer";
-      };
-      Service = {
-        ExecStart = "${scripts.mopidy-audio-pipe}/bin/mopidy-audio-pipe";
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-    };
-    */
-
   };
 
   fileSystems."/efi" =
