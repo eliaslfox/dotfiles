@@ -48,6 +48,10 @@ in
       ${pkgs.iptables-nftables-compat}/bin/arptables -P INPUT DROP
       ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -s 192.168.42.1 -j ACCEPT
       ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -s 10.0.1.1 -j ACCEPT
+
+      # Allow all arp requests over ethernet for internet sharing
+      ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -i enp4s0 -j ACCEPT
+
     '';
 
     systemd.services = {

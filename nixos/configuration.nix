@@ -52,7 +52,7 @@ in
       enable = true;
       allowedUDPPorts = lib.mkForce [];
       allowedTCPPorts = lib.mkForce [];
-      allowPing = false;
+      allowPing = true;
       logReversePathDrops = true;
       logRefusedPackets = true;
     };
