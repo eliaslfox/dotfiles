@@ -124,13 +124,17 @@ in {
       settings = {
         bold_font = "Fira Code Regular";
         font_size = 11;
+        enable_audio_bell = "no";
+
         foreground = "#839496";
         background = "#002b36";
         selection_foreground = "#93a1a1";
         selection_background = "#073642";
+
         remember_window_size = "no";
         initial_window_width = 530;
         initial_window_height = 320;
+
         # black
         color0 = "#073642";
         color8 = "#002b36";

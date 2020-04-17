@@ -166,12 +166,6 @@ in
     algorithm = "zstd";
   };
 
-  documentation = {
-    dev.enable = true;
-    nixos.enable = true;
-    doc.enable = false;
-  };
-
   programs.iotop.enable = true;
   programs.dconf.enable = true;
   programs.wireshark.enable = true;
@@ -179,6 +173,11 @@ in
   services.physlock = {
     enable = true;
     allowAnyUser = true;
+  };
+
+  documentation = {
+    dev.enable = true;
+    doc.enable = false;
   };
 
   time.timeZone = "US/Pacific";

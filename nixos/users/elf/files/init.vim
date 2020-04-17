@@ -40,10 +40,10 @@ set expandtab
 
 " track undo
 set undofile
-set undodir=~/.cache/neovim/undo
+set undodir=~/.local/share/neovim/undo
 set writebackup
-set backupdir=~/.cache/neovim/backup
-set directory=~/.cache/neovim/swap
+set backupdir=~/.local/share/neovim/backup
+set directory=~/.local/share/neovim/swap
 
 " airline
 let g:airline_powerline_fonts = 1
