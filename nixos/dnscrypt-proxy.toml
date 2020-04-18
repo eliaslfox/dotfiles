@@ -27,6 +27,12 @@ cache_max_ttl = 86400
 cache_neg_min_ttl = 60
 cache_neg_max_ttl = 600
 
+[local_doh]
+listen_addresses = ['127.0.0.1:3000']
+path = "/dns-query"
+cert_file = "/etc/dnscrypt.pem"
+cert_key_file = "/etc/dnscrypt.pem"
+
 [sources]
   [sources.'public-resolvers']
   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']

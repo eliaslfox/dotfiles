@@ -73,6 +73,8 @@ in
     configFile = ./dnscrypt-proxy.toml;
   };
 
+  environment.etc."dnscrypt.pem".source = ./dnscrypt.pem;
+
   features = {
     iptables-notify.enable = true;
     vpn = {
