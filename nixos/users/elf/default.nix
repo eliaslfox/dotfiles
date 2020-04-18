@@ -85,6 +85,8 @@ in {
 
       scripts.symlink-init
       scripts.ncmpcpp-notify
+
+      tlaplusToolbox tlaplus tlaps
     ];
 
     gtk = {
