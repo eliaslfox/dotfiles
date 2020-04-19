@@ -18,6 +18,7 @@ in
     ./features/virtualisation.nix
     ./features/vpn.nix
     ./features/iptables-notify.nix
+    ./features/tftpd.nix
 
     ./machine.nix
   ];

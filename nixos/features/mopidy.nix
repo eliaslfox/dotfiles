@@ -72,6 +72,9 @@ in
         max_connections = 20
         connection_timeout = 60
         zeroconf =
+
+        [http]
+        enabled = false
       '';
     };
 

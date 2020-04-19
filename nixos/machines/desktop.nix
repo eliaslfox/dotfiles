@@ -61,6 +61,7 @@ in
       enableKvm = false;
     };
     horriblesubsd.enable = true;
+    tftpd.enable = true;
   };
 
   hardware = {

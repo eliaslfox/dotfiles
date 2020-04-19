@@ -24,6 +24,9 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall.extraCommands = ''
+      # Setup
+      PATH="$PATH:${pkgs.iptables-nftables-compat}/bin"
+
       # Block all outgoing traffic
       iptables -P OUTPUT DROP
 
@@ -44,14 +47,13 @@ in
       iptables -A OUTPUT -o tun0 -j ACCEPT
 
       # Block arp requests other than those from routers
-      ${pkgs.iptables-nftables-compat}/bin/arptables -F
-      ${pkgs.iptables-nftables-compat}/bin/arptables -P INPUT DROP
-      ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -s 192.168.42.1 -j ACCEPT
-      ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -s 10.0.1.1 -j ACCEPT
+      arptables -F
+      arptables -P INPUT DROP
+      arptables -A INPUT -s 192.168.42.1 -j ACCEPT
+      arptables -A INPUT -s 10.0.1.1 -j ACCEPT
 
       # Allow all arp requests over ethernet for internet sharing
-      ${pkgs.iptables-nftables-compat}/bin/arptables -A INPUT -i enp4s0 -j ACCEPT
-
+      arptables -A INPUT -i enp4s0 -j ACCEPT
     '';
 
     systemd.services = {
