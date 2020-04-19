@@ -81,6 +81,8 @@ in
       # Allow DHCP and DNS requests over ethernet
       iptables -I INPUT -p udp --dport 67 -i enp4s0 -j ACCEPT
       iptables -I INPUT -p udp --dport 53 -i enp4s0 -j ACCEPT
+      iptables -I INPUT -p tcp --dport 53 -i enp4s0 -j ACCEPT
+
 
     '';
     interfaces."enp4s0".ipv4.addresses = [
@@ -137,7 +139,7 @@ in
   fileSystems."/run/media/elf/stuff" =
     { device = "/dev/mapper/stuff";
       fsType = "btrfs";
-      options = ["subvol=stuff"];
+      options = ["subvol=stuff" "compress=zstd" ];
     };
 
   fileSystems."/run/media/elf/backup" =
