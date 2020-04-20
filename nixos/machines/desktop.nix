@@ -9,6 +9,7 @@ in
   ];
 
   boot = {
+    kernelModules = [ "kvm_amd" ];
     kernelPackages = pkgs.linuxPackages_hardened;
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
@@ -58,10 +59,10 @@ in
   features = {
     virtualisation = {
       enableContainers = true;
-      enableKvm = false;
+      enableKvm = true;
     };
     horriblesubsd.enable = true;
-    tftpd.enable = true;
+    tftpd.enable = false;
   };
 
   hardware = {
@@ -109,10 +110,18 @@ in
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     xrandrHeads = [
-      "HDMI-0"
       {
         output = "DP-0";
         primary = true;
+        monitorConfig = ''
+          Option "pos" "1920x0"
+        '';
+      }
+      {
+        output = "HDMI-0";
+        monitorConfig = ''
+          Option "pos" "0x0"
+        '';
       }
     ];
   };

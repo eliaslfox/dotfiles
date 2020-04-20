@@ -29,6 +29,8 @@ in {
 
   home.packages =
     with pkgs; [
+      tftp-hpa
+
       zathura
       python38Packages.speedtest-cli
       ascii

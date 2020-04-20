@@ -93,6 +93,7 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
+      iptables-nftables-compat
       iw
       iptables
       git

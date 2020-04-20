@@ -11,11 +11,18 @@ in
   };
 
   config = mkIf cfg.enable {
+    /*
     services.xinetd.enable = true;
 
     services.tftpd = {
       enable = true;
       path = "/tmp/tftp";
+    };
+    */
+
+    services.atftpd = {
+      enable = true;
+      root = "/tmp/tftp";
     };
   };
 }

@@ -25,6 +25,12 @@
       fsType = "zfs";
     };
 
+  fileSystems."/var/lib/libvirt" =
+    { device = "zroot/root/var/lib/libvirt";
+      fsType = "zfs";
+    };
+
+
   fileSystems."/var/log/journal" =
     { device = "zroot/root/var/log/journal";
       fsType = "zfs";
