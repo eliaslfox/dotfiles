@@ -59,7 +59,7 @@ in
   features = {
     virtualisation = {
       enableContainers = true;
-      enableKvm = true;
+      enableKvm = false;
     };
     horriblesubsd.enable = true;
     tftpd.enable = false;
@@ -109,21 +109,6 @@ in
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    xrandrHeads = [
-      {
-        output = "DP-0";
-        primary = true;
-        monitorConfig = ''
-          Option "pos" "1920x0"
-        '';
-      }
-      {
-        output = "HDMI-0";
-        monitorConfig = ''
-          Option "pos" "0x0"
-        '';
-      }
-    ];
   };
 
   home-manager.users.elf = {

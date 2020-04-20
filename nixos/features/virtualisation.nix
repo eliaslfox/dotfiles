@@ -20,9 +20,10 @@ in
             enable = true;
             flags = [ "--all" ];
           };
+          storageDriver = "zfs";
         };
 
-        users.extraUsers.elf.extraGroups = [ "docker" ];
+        /* users.extraUsers.elf.extraGroups = [ "docker" ]; */
 
         home-manager.users.elf ={
           home.packages =
@@ -42,7 +43,7 @@ in
           '';
         };
 
-        users.extraUsers.elf.extraGroups = [ "libvirtd" ];
+        /* users.extraUsers.elf.extraGroups = [ "libvirtd" ]; */
 
         home-manager.users.elf ={
           home.packages =

@@ -24,8 +24,10 @@ in
   ];
 
   boot = {
-    /* gotta go fast */
-    kernelParams = [ "audit=0" "ipv6.disable=1" ];
+    kernelParams = [
+      /* Disable ipv6 */
+      "ipv6.disable=1"
+    ];
 
     kernel.sysctl = {
       /* Don't forward ipv4 packets */
@@ -38,7 +40,16 @@ in
       "net.ipv6.conf.all.disable_ipv6" = 1;
       "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.lo.disable_ipv6" = 1;
+
+      /* Disable userspace eBPF */
+      "kernel.unprivileged_bpf_disabled" = 1;
     };
+
+    extraModprobeConfig = ''
+      # Disable overlayfs 
+      blacklist overlayfs
+      install overlayfs /bin/false
+    '';
 
     plymouth = {
       enable = true;
@@ -189,6 +200,10 @@ in
   system.autoUpgrade.enable = true;
   nix.optimise.automatic = true;
   system.stateVersion = "19.03";
+
+  security.sudo.extraConfig = ''
+    Defaults  lecture="never"
+  '';
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-settings"
