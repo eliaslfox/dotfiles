@@ -10,15 +10,11 @@
       sendEventsMode = "disabled-on-external-mouse";
       accelSpeed = "1.75";
     };
-    desktopManager = {
-      xterm.enable = false;
-    };
+    desktopManager.xterm.enable = true;
     displayManager.lightdm = {
       enable = true;
     };
-    windowManager.i3.enable = true;
-    displayManager.defaultSession = "none+i3";
-    exportConfiguration = true;
+    displayManager.defaultSession = "xterm";
   };
 
   home-manager.users.elf = {
