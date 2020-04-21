@@ -67,9 +67,12 @@ in
     services.openvpn.servers = {
       pia = {
         config = ''
-          cd /home/elf/Documents/dotfiles/vpn
+          config /home/elf/Documents/dotfiles/vpn/US\ Silicon\ Valley.ovpn
+
           auth-nocache
-          config US\ Silicon\ Valley.ovpn
+          user nobody
+          group nogroup
+          script-security 2
 
           pull-filter ignore "dhcp-option DNS"
           dhcp-option DNS 127.0.0.1

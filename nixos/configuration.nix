@@ -46,7 +46,7 @@ in
     };
 
     extraModprobeConfig = ''
-      # Disable overlayfs 
+      # Disable overlayfs
       blacklist overlayfs
     '';
 
@@ -105,7 +105,6 @@ in
     with pkgs; [
       iptables-nftables-compat
       iw
-      iptables
       git
       tmux
       gnumake
