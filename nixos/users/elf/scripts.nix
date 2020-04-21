@@ -27,6 +27,7 @@
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
   '';
 
+  /*
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
@@ -38,6 +39,7 @@
     ${pkgs.libnotify}/bin/notify-send --app-name=ncmpcpp --icon=audio-x-generic \
         "$title" "$artist\n$album"
     '';
+    */
 
     mopidy-audio-pipe = pkgs.writeScriptBin "mopidy-audio-pipe" ''
       #!${pkgs.bash}/bin/bash
@@ -49,6 +51,18 @@
 
       while :; do
         ${pkgs.coreutils}/bin/yes $’\n’ | ${pkgs.netcat}/bin/nc -lu 127.0.0.1 5555 > /tmp/mpd.fifo;
+      done
+    '';
+
+    mpd-notifyd = pkgs.writeScriptBin "mpd-notifyd" ''
+      #!${pkgs.bash}/bin/bash
+      set -euo pipefail
+
+      ${pkgs.mpc_cli}/bin/mpc idleloop | while read -r cmd; do
+        if [ $cmd == "mixer" ]; then
+          ${pkgs.coreutils}/bin/sleep .1
+          ${pkgs.libnotify}/bin/notify-send "$(${pkgs.mpc_cli}/bin/mpc --format "%title%\n%artist%\n%album%" | ${pkgs.coreutils}/bin/head -3)" --icon=audio-x-generic
+        fi
       done
     '';
 }
