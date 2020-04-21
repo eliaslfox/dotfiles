@@ -10,7 +10,12 @@ in
     isNormalUser = true;
     home = "/home/elf";
     description = "Elias Lawson-Fox";
-    extraGroups = [ "wheel" "video" "sound" "systemd-journal" "wireshark" "dialout" "networkmanager" ];
+    extraGroups = [
+      "wheel"
+      "systemd-journal"
+      "wireshark"
+      "dialout" # USB serial access for arduino
+    ];
     uid = 1000;
     shell = pkgs.zsh;
     hashedPassword = credentials.users.elf;

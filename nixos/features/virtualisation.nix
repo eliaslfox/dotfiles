@@ -43,7 +43,7 @@ in
           '';
         };
 
-        /* users.extraUsers.elf.extraGroups = [ "libvirtd" ]; */
+        users.extraUsers.elf.extraGroups = [ "libvirtd" ];
 
         home-manager.users.elf ={
           home.packages =

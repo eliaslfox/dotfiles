@@ -129,6 +129,7 @@ in
         wineFull
         cura
         printrun
+        qemu_kvm
       ];
     services.picom.enable = true;
   };
