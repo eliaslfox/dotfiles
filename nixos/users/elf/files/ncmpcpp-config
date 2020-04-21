@@ -1,4 +1,4 @@
 display_bitrate = yes
 progressbar_look = "── "
 
-#execute_on_song_change = "/home/elf/.nix-profile/bin/ncmpcpp-notify"
+execute_on_song_change = "/home/elf/.nix-profile/bin/ncmpcpp-notify"

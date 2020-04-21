@@ -85,6 +85,7 @@ in {
       gcc
 
       scripts.symlink-init
+      scripts.ncmpcpp-notify
 
       tlaplusToolbox tlaplus tlaps
     ];
@@ -240,18 +241,6 @@ in {
       };
       Service = {
         ExecStart = "${scripts.symlink-init}/bin/symlink-init";
-      };
-      Install = {
-        WantedBy = [ "default.target" ];
-      };
-    };
-
-    systemd.user.services.mpd-notifyd = {
-      Unit = {
-        Description = "Send notification on song change";
-      };
-      Service = {
-        ExecStart = "${scripts.mpd-notifyd}/bin/mpd-notifyd";
       };
       Install = {
         WantedBy = [ "default.target" ];
