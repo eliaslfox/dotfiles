@@ -18,8 +18,8 @@
     };
     windowManager.i3.enable = true;
     displayManager.defaultSession = "none+i3";
+    exportConfiguration = true;
   };
-  services.autorandr.enable = true;
 
   home-manager.users.elf = {
     home.packages =

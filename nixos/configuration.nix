@@ -48,7 +48,6 @@ in
     extraModprobeConfig = ''
       # Disable overlayfs 
       blacklist overlayfs
-      install overlayfs /bin/false
     '';
 
     plymouth = {
@@ -199,7 +198,7 @@ in
 
   system.autoUpgrade.enable = true;
   nix.optimise.automatic = true;
-  system.stateVersion = "19.03";
+  system.stateVersion = "20.03";
 
   security.sudo.extraConfig = ''
     Defaults  lecture="never"

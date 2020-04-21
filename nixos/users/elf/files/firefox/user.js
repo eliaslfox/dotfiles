@@ -17,7 +17,7 @@ user_pref("browser.urlbar.update1.searchTips", false);
 /* ESNI */
 user_pref("network.trr.custom_uri", "https://127.0.0.1:3000/dns-query");
 user_pref("network.trr.uri", "https://127.0.0.1:3000/dns-query");
-user_pref("network.trr.mode", 2);
+user_pref("network.trr.mode", 3);
 user_pref("network.security.esni.enabled", true);
 
 

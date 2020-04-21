@@ -109,6 +109,18 @@ in
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    xrandrHeads = [
+      {
+        output = "DP-5";
+      }
+      {
+        output = "DP-0";
+        primary = true;
+      }
+    ];
+    screenSection = ''
+    Option    "metamodes" "DP-5: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-0: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On, AllowGSYNCCompatible=On}"
+    '';
   };
 
   home-manager.users.elf = {
