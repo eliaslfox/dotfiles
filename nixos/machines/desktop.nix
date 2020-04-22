@@ -153,11 +153,12 @@ in
     };
   };
 
-  security.allowSimultaneousMultithreading = true;
-  security.virtualisation.flushL1DataCache = lib.mkForce null;
-  security.lockKernelModules = false;
-  security.allowUserNamespaces = true;
-
+  security = {
+    allowSimultaneousMultithreading = true;
+    virtualisation.flushL1DataCache = lib.mkForce null;
+    lockKernelModules = false;
+    allowUserNamespaces = true;
+  };
 
   nix = {
     maxJobs = lib.mkDefault 12;
