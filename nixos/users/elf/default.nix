@@ -29,6 +29,7 @@ in {
 
   home.packages =
     with pkgs; [
+      openssl
       tftp-hpa
       zathura
       python38Packages.speedtest-cli
@@ -118,6 +119,7 @@ in {
 
     xsession.windowManager.i3 = import ./i3.nix;
 
+    programs.command-not-found.enable = true;
     programs.kitty = {
       enable = true;
       font = {
