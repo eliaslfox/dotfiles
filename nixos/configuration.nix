@@ -192,15 +192,21 @@ in
     doc.enable = false;
   };
 
-  time.timeZone = "US/Pacific";
-
-  system.autoUpgrade.enable = true;
-  nix.optimise.automatic = true;
-  system.stateVersion = "20.03";
-
   security.sudo.extraConfig = ''
     Defaults  lecture="never"
   '';
+
+  time.timeZone = "US/Pacific";
+
+  nix.autoOptimiseStore = true;
+
+  system = {
+    stateVersion = "20.03";
+    autoUpgrade = {
+      enable = true;
+      flags = [ "-I" "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix" ];
+    };
+  };
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-settings"
