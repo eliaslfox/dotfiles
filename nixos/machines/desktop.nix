@@ -121,23 +121,36 @@ in
   fileSystems."/efi" =
     { device = "/dev/nvme0n1p1";
       fsType = "vfat";
+      options = [ "ro" "noexec" ];
     };
 
   fileSystems."/boot" =
     { device = "/dev/nvme0n1p2";
       fsType = "ext4";
+      options = [ "ro" "noexec" ];
     };
 
   fileSystems."/run/media/elf/stuff" =
     { device = "/dev/mapper/stuff";
       fsType = "btrfs";
-      options = ["subvol=stuff" "compress=zstd" ];
+      options = ["subvol=stuff" "compress=zstd" "noexec" ];
     };
 
   fileSystems."/run/media/elf/backup" =
   { device = "/dev/mapper/backup";
     fsType = "btrfs";
-    options = [ "subvol=backup" "noauto" "compress=lzo"];
+    options = [ "subvol=backup" "noauto" "compress=lzo" "noexec"];
+  };
+
+  services.zfs = {
+    autoScrub = {
+      enable = true;
+      pools = [ "zroot" ];
+    };
+    autoSnapshot = {
+      enable = true;
+      flags = "-k -p --utc";
+    };
   };
 
   security.allowSimultaneousMultithreading = true;
