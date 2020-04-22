@@ -4,13 +4,13 @@ let
   scripts = pkgs.callPackage (import ../users/elf/scripts.nix) {};
 in
 { imports = [
+    <nixpkgs/nixos/modules/profiles/hardened.nix>
     ../xorg.nix
     ../mounts-zfs.nix
   ];
 
   boot = {
     kernelModules = [ "kvm_amd" ];
-    kernelPackages = pkgs.linuxPackages_hardened;
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
     '';
@@ -20,22 +20,6 @@ in
       "net.ipv4.conf.enp4s0.forwarding" = 1;
       "net.ipv4.conf.tun0.forwarding" = 1;
     };
-
-    /*
-    Settings needed for gpu passthrough
-    ===================================
-
-    kernelParams = [ "amd_iommu=on" ];
-    kernelModules = [ "kvm_amd" "wl" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
-
-    extraModprobeConfig = ''
-      options vfio-pci ids=10de:1c81,10de:0fb9";
-      options kvm ignore_msrs=1
-
-      softdep nvidia pre: vfio-pci
-      softdep nvidia* pre: vfio-pci
-    '';
-    */
 
     loader = {
       grub = {
@@ -155,6 +139,12 @@ in
     fsType = "btrfs";
     options = [ "subvol=backup" "noauto" "compress=lzo"];
   };
+
+  security.allowSimultaneousMultithreading = true;
+  security.virtualisation.flushL1DataCache = lib.mkForce null;
+  security.lockKernelModules = false;
+  security.allowUserNamespaces = true;
+
 
   nix = {
     maxJobs = lib.mkDefault 12;

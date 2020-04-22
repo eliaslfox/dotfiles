@@ -23,33 +23,10 @@ in
           storageDriver = "zfs";
         };
 
-        /* users.extraUsers.elf.extraGroups = [ "docker" ]; */
-
         home-manager.users.elf ={
           home.packages =
             with pkgs; [
               docker-compose
-            ];
-        };
-      })
-
-      (mkIf cfg.enableKvm {
-        virtualisation.libvirtd = {
-          enable = true;
-          onShutdown = "shutdown";
-          qemuPackage = pkgs.qemu_kvm;
-          qemuVerbatimConfig = ''
-            user = "elf"
-          '';
-        };
-
-        users.extraUsers.elf.extraGroups = [ "libvirtd" ];
-
-        home-manager.users.elf ={
-          home.packages =
-            with pkgs; [
-              qemu_kvm
-              virtmanager
             ];
         };
       })
