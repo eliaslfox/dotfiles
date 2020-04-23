@@ -8,7 +8,7 @@ in
     focus.newWindow = "none";
     fonts = [ "FiraCode 8" ];
     window.hideEdgeBorders = "both";
-    floating.titlebar = false;
+    floating.titlebar = true;
     keybindings = lib.mkOptionDefault {
       /* Spawn terminals */
       "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
