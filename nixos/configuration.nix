@@ -214,5 +214,7 @@ in
     "nvidia-persistenced"
 
     "discord"
+
+    "broadcom-sta"
   ];
 }

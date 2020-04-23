@@ -29,6 +29,7 @@ in {
 
   home.packages =
     with pkgs; [
+      xorg.xhost
       openssl
       tftp-hpa
       zathura

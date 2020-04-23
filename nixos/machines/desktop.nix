@@ -10,7 +10,7 @@ in
   ];
 
   boot = {
-    kernelModules = [ "kvm_amd" ];
+    kernelModules = [ "kvm_amd" "wl" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
     '';
@@ -25,6 +25,7 @@ in
       grub = {
         device = "nodev";
         efiSupport = true;
+        useOSProber = true;
        };
       efi = {
         canTouchEfiVariables = true;
@@ -32,6 +33,11 @@ in
       };
       timeout = 10;
     };
+
+    extraModulePackages =
+      with config.boot.kernelPackages; [
+        broadcom_sta /* broadcom wireless drivers */
+      ];
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
