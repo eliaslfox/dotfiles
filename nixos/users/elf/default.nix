@@ -113,7 +113,9 @@ in {
     services.picom = {
       opacityRule = [
         "80:WM_CLASS@:s = \"term-float\""
+        "90:WM_CLASS@:s = \"discord\""
       ];
+      menuOpacity = "0.8";
     };
 
     services.dunst = import ./dunst.nix;

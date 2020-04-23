@@ -8,6 +8,7 @@ in
     focus.newWindow = "none";
     fonts = [ "FiraCode 8" ];
     window.hideEdgeBorders = "both";
+    floating.titlebar = false;
     keybindings = lib.mkOptionDefault {
       /* Spawn terminals */
       "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
@@ -34,8 +35,6 @@ in
 
       /* Manage bars */
       "Mod1+m" = "bar mode toggle";
-
-      /* "Mod1+d" = "exec \"${pkgs.rofi}/bin/rofi -show run\""; */
     };
     colors.focused = {
       background = "#285577";
@@ -71,6 +70,9 @@ in
       }
     ];
   };
+  config.startup = [
+    { command = "${pkgs.feh}/bin/feh --bg-scale ~/Documents/backgrounds/background.png"; always = true; notification = false; }
+  ];
   extraConfig = ''
     default_border none
 
