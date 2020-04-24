@@ -5,8 +5,8 @@
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
 
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
+    #${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
+    #${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/mozilla
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/mozilla /home/elf/.mozilla
@@ -20,11 +20,12 @@
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/cabal
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/cabal /home/elf/.cabal
 
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/npmpcpp
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/npmpcpp /home/elf/.ncmpcpp
-
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
+
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/keychain
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/keychain /home/elf/.keychain
+
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''

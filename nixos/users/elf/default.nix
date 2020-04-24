@@ -113,7 +113,6 @@ in {
     services.picom = {
       opacityRule = [
         "80:WM_CLASS@:s = \"term-float\""
-        "90:WM_CLASS@:s = \"discord\""
       ];
       menuOpacity = "0.8";
     };
@@ -121,6 +120,14 @@ in {
     services.dunst = import ./dunst.nix;
 
     xsession.windowManager.i3 = import ./i3.nix;
+
+    programs.keychain = {
+      enable = true;
+      keys = [];
+      enableBashIntegration = false;
+      enableFishIntegration = false;
+      enableXsessionIntegration = false;
+    };
 
     programs.command-not-found.enable = true;
     programs.kitty = {
@@ -249,26 +256,6 @@ in {
       };
       Install = {
         WantedBy = [ "default.target" ];
-      };
-    };
-
-    nixpkgs.config = {
-      packageOverrides = pkgs: {
-        steam = pkgs.steam.override {
-          extraPkgs = pkgs: with pkgs; [
-            gnome3.gtk
-            zlib
-            dbus
-            freetype
-            glib
-            atk
-            cairo
-            gdk_pixbuf
-            pango
-            fontconfig
-            xorg.libxcb
-          ];
-        };
       };
     };
 
