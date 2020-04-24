@@ -31,7 +31,7 @@
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   '';
   history = {
-    path = ".cache/zsh_history";
+    path = "/home/elf/.cache/zsh_history";
     extended = true;
   };
   oh-my-zsh = {
@@ -41,6 +41,9 @@
   };
   shellAliases = {
     history="omz_history";
+    ls="ls --color=tty";
+    grep="grep --text --color=auto";
+
     movie = "/run/media/elf/stuff/movies/find.sh";
     mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
