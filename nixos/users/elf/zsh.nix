@@ -16,8 +16,9 @@
     /* Use XDG */
     GNUPGHOME="$HOME/.config/gnupg";
     NIXOPS_STATE="$HOME/.config/nixops/deployments.nixops";
-    INPUTRC="$HOME/.config/readline/inputrc";
     NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc";
+    STACK_ROOT="$HOME/.local/share/stack";
+    XCOMPOSECACHE="$HOME/.cache/compose-cache";
 
     /* Handle temp ~ */
     PASSWORD_STORE_DIR = "$HOME/Documents/password-store";

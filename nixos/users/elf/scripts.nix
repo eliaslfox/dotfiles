@@ -5,14 +5,8 @@
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
 
-    #${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam-install
-    #${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam-install /home/elf/.steam
-
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/mozilla
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/mozilla /home/elf/.mozilla
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/stack
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/stack /home/elf/.stack
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/ghc
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/ghc /home/elf/.ghc
@@ -25,7 +19,6 @@
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/keychain
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/keychain /home/elf/.keychain
-
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''
@@ -51,5 +44,12 @@
       while :; do
         ${pkgs.coreutils}/bin/yes $’\n’ | ${pkgs.netcat}/bin/nc -lu 127.0.0.1 5555 > /tmp/mpd.fifo;
       done
+    '';
+
+    set-bg = pkgs.writeScriptBin "set-bg" ''
+      #!${pkgs.bash}/bin/bash
+      set -euo pipefail
+
+      ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/Documents/backgrounds/background.png
     '';
 }

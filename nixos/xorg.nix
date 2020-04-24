@@ -28,9 +28,10 @@
     xsession.windowManager.i3.enable = true;
 
     services.unclutter.enable = true;
+
     services.screen-locker = {
       enable = true;
-      inactiveInterval = 20;
+      inactiveInterval = 10;
       lockCmd = "/run/wrappers/bin/physlock";
     };
   };

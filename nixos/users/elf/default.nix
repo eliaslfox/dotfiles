@@ -259,5 +259,17 @@ in {
       };
     };
 
+    systemd.user.services.set-bg = {
+      Unit = {
+        Description = "Set background";
+      };
+      Service = {
+        ExecStart = "${scripts.set-bg}/bin/set-bg";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
+
   home.stateVersion = "20.03";
 }

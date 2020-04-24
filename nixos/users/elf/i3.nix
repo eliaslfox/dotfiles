@@ -70,9 +70,6 @@ in
       }
     ];
   };
-  config.startup = [
-    { command = "${pkgs.feh}/bin/feh --bg-scale ~/Documents/backgrounds/background.png"; always = true; notification = false; }
-  ];
   extraConfig = ''
     default_border none
 
