@@ -32,7 +32,7 @@
   fileSystems."/home/elf/Documents" =
     { device = "zroot/home/elf/Documents";
       fsType = "zfs";
-      options = [ "noatime" "noexec" ];
+      options = [ "noatime" ];
     };
 
   fileSystems."/home/elf/.cache" =

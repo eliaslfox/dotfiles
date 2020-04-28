@@ -10,7 +10,7 @@ in
   ];
 
   boot = {
-    kernelModules = [ "kvm_amd" "wl" ];
+    kernelModules = [ "kvm_amd" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
     '';
@@ -36,23 +36,20 @@ in
 
     extraModulePackages =
       with config.boot.kernelPackages; [
-        broadcom_sta /* broadcom wireless drivers */
+        wireguard
       ];
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-      luks.devices.root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
-      luks.devices.stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
+      luks.devices = {
+        root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
+        stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
+      };
     };
   };
 
   features = {
-    virtualisation = {
-      enableContainers = true;
-      enableKvm = false;
-    };
     horriblesubsd.enable = true;
-    tftpd.enable = false;
   };
 
   hardware = {
@@ -64,6 +61,7 @@ in
     hostId = "8425e349";
     wireless.interfaces = [ "wlp6s0" ];
     dhcpcd.allowInterfaces = [ "wlp6s0" ];
+    /*
     firewall.extraCommands = ''
       # NAT forward enp4s0 to tun0
       iptables -t nat -A POSTROUTING -o tun0 -j MASQUERADE
@@ -77,11 +75,15 @@ in
 
 
     '';
+    */
+    /*
     interfaces."enp4s0".ipv4.addresses = [
       { address = "192.168.100.1"; prefixLength = 24; }
     ];
+    */
   };
 
+  /*
   services.dhcpd4 = {
     enable = true;
     extraConfig = ''
@@ -96,6 +98,7 @@ in
     '';
     interfaces = [ "enp4s0" ];
   };
+  */
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
@@ -118,7 +121,6 @@ in
       with pkgs; [
         wineFull
         cura
-        printrun
         qemu_kvm
       ];
     services.picom.enable = true;

@@ -29,28 +29,25 @@ in {
 
   home.packages =
     with pkgs; [
+      john
+      unixtools.xxd
+      llvmPackages.bintools
       xorg.xhost
       openssl
-      tftp-hpa
       zathura
-      python38Packages.speedtest-cli
       ascii
       yubikey-manager
-      slic3r
       httpie
       pavucontrol
       chromium
       ripgrep
       aircrackng wireshark-qt
-      mitscheme
       whois
       ncat
       transmission-gtk
       firefox
       bridge-utils
-      nixops
-      bind
-      lzo
+      unstable.nixops # Unstable to avoid python2 dep
       btrbk
       unstable.discord
       smartmontools
@@ -68,28 +65,37 @@ in {
       unzip
       libnotify
       nix-prefetch-git
-      pciutils usbutils acpi
+      pciutils usbutils
       file
       youtube-dl
       ncmpcpp
-      (callPackage ./nvim.nix {})
-      (callPackage ./emacs.nix {})
       efitools efibootmgr
 
-      # NodeJs
-      nodejs nodePackages.prettier
-      nodePackages.javascript-typescript-langserver
+      # Editors
+      (callPackage ./nvim.nix {})
+      #(callPackage ./emacs.nix {})
 
-      ghc haskellPackages.ghcid cabal-install stack cabal2nix # Haskell
-      rustup # Rust
-      python38Packages.virtualenv # Python
-      go gotools # Golang
+      # NodeJs (use unstable to avoid python2 dep from node-gyp)
+      unstable.nodePackages.prettier
+      unstable.nodePackages.javascript-typescript-langserver
+      unstable.nodejs
+
+      # Haskell
+      ghc haskellPackages.ghcid cabal-install stack
+
+      # Python
+      python38Packages.virtualenv
+
+      # Rust
+      unstable.rust-analyzer-unwrapped cargo rustc rustfmt # Rust
+
+      # C
       gcc
 
-      scripts.symlink-init
-      scripts.ncmpcpp-notify
+      # TLA
+      tlaplusToolbox
 
-      tlaplusToolbox tlaplus tlaps
+      scripts.ncmpcpp-notify
     ];
 
     gtk = {

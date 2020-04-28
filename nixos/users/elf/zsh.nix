@@ -30,6 +30,10 @@
   initExtra = ''
     unalias -m '*'
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+    function movie() {
+      tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
+    }
   '';
   history = {
     path = "/home/elf/.cache/zsh_history";
@@ -45,7 +49,6 @@
     ls="ls --color=tty";
     grep="grep --text --color=auto";
 
-    movie = "/run/media/elf/stuff/movies/find.sh";
     mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     open = "xdg-open";

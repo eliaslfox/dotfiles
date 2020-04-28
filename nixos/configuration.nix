@@ -63,7 +63,7 @@ in
       enable = true;
       allowedUDPPorts = lib.mkForce [];
       allowedTCPPorts = lib.mkForce [];
-      allowPing = true;
+      allowPing = false;
       logReversePathDrops = true;
       logRefusedPackets = true;
     };
@@ -103,13 +103,17 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
+      manpages
+      dnsutils
       iw
       git
       tmux
       gnumake
       wpa_supplicant
-      vim
-      curl wget
+      curl
+      wget
+      wireguard
+      dhcpcd
     ];
 
   fonts = {
@@ -161,7 +165,6 @@ in
     u2f.enable = true;
     pulseaudio = {
       enable = true;
-      support32Bit = true;
       daemon.config = {
         default-sample-rate = 44100;
         alternate-sample-rate = 48000;
@@ -214,7 +217,5 @@ in
     "nvidia-persistenced"
 
     "discord"
-
-    "broadcom-sta"
   ];
 }

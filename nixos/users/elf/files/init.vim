@@ -58,8 +58,12 @@ let g:gitgutter_map_keys = 0
 " language server
 "
 let g:deoplete#enable_at_startup = 1
+
+"let g:SuperTabClosePreviewOnPopupClose = 1
+set completeopt-=preview
+
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rust-analyzer'],
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'go': ['gopls']
@@ -81,12 +85,14 @@ let g:ale_sign_warning = '⚑'
 
 let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'go': ['gofmt', 'goimports']
+    \ 'go': ['gofmt', 'goimports'],
+    \ 'rust': ['rustfmt']
     \ }
 
 let g:ale_linters = {
     \ 'javascript': [],
     \ 'typescript': [],
     \ 'haskell': [],
-    \ 'go': []
+    \ 'go': [],
+    \ 'rust': []
     \ }

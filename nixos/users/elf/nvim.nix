@@ -3,6 +3,8 @@
 pkgs.neovim.override {
   vimAlias = true;
   withPython3 = true;
+  withPython = false;
+  withRuby = false;
   configure.vam.knownPlugins = pkgs.vimPlugins;
   configure.vam.pluginDictionaries = [
     /* UI */

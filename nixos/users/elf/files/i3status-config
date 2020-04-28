@@ -80,7 +80,7 @@ volume master {
 }
 
 run_watch DHCP {
-    pidfile = "/var/run/dhclient*.pid"
+    pidfile = "/run/dhcpcd.pid"
 }
 
 cpu_usage {
