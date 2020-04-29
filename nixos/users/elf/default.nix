@@ -47,7 +47,7 @@ in {
       transmission-gtk
       firefox
       bridge-utils
-      unstable.nixops # Unstable to avoid python2 dep
+      nixops # Unstable to avoid python2 dep
       btrbk
       unstable.discord
       smartmontools
@@ -76,9 +76,9 @@ in {
       #(callPackage ./emacs.nix {})
 
       # NodeJs (use unstable to avoid python2 dep from node-gyp)
-      unstable.nodePackages.prettier
-      unstable.nodePackages.javascript-typescript-langserver
-      unstable.nodejs
+      nodePackages.prettier
+      nodePackages.javascript-typescript-langserver
+      nodejs
 
       # Haskell
       ghc haskellPackages.ghcid cabal-install stack
@@ -87,7 +87,7 @@ in {
       python38Packages.virtualenv
 
       # Rust
-      unstable.rust-analyzer-unwrapped cargo rustc rustfmt # Rust
+      rust-analyzer-unwrapped cargo rustc rustfmt # Rust
 
       # C
       gcc

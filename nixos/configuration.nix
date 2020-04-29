@@ -40,9 +40,6 @@ in
       "net.ipv6.conf.all.disable_ipv6" = 1;
       "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.lo.disable_ipv6" = 1;
-
-      /* Disable userspace eBPF */
-      "kernel.unprivileged_bpf_disabled" = 1;
     };
 
     extraModprobeConfig = ''
@@ -60,7 +57,7 @@ in
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
     enableIPv6 = false;
     firewall = {
-      enable = true;
+      enable = false;
       allowedUDPPorts = lib.mkForce [];
       allowedTCPPorts = lib.mkForce [];
       allowPing = false;
@@ -68,12 +65,13 @@ in
       logRefusedPackets = true;
     };
     wireless = {
-      enable = true;
+      enable = false;
       networks = credentials.wifi;
       extraConfig = ''
         country=US
       '';
     };
+    dhcpcd.enable = false;
     dhcpcd.extraConfig = ''
       nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
     '';
@@ -87,9 +85,9 @@ in
   environment.etc."dnscrypt.pem".source = ./dnscrypt.pem;
 
   features = {
-    iptables-notify.enable = true;
+    iptables-notify.enable = false;
     vpn = {
-      enable = true;
+      enable = false;
       credentials = credentials.vpn;
     };
     mopidy.enable = true;
@@ -103,6 +101,7 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages =
     with pkgs; [
+      dhcp
       manpages
       dnsutils
       iw
