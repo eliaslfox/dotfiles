@@ -2,6 +2,7 @@
 let
   scripts = pkgs.callPackage (import ./scripts.nix) {};
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+
 in {
   xdg = {
     enable = true;
@@ -29,6 +30,8 @@ in {
 
   home.packages =
     with pkgs; [
+      steam
+      dnsutils
       john
       unixtools.xxd
       llvmPackages.bintools
@@ -47,7 +50,7 @@ in {
       transmission-gtk
       firefox
       bridge-utils
-      nixops # Unstable to avoid python2 dep
+      unstable.nixops
       btrbk
       unstable.discord
       smartmontools
@@ -75,10 +78,10 @@ in {
       (callPackage ./nvim.nix {})
       #(callPackage ./emacs.nix {})
 
-      # NodeJs (use unstable to avoid python2 dep from node-gyp)
-      nodePackages.prettier
-      nodePackages.javascript-typescript-langserver
-      nodejs
+      # NodeJs
+      unstable.nodePackages.prettier
+      unstable.nodePackages.javascript-typescript-langserver
+      unstable.nodejs
 
       # Haskell
       ghc haskellPackages.ghcid cabal-install stack
@@ -87,7 +90,7 @@ in {
       python38Packages.virtualenv
 
       # Rust
-      rust-analyzer-unwrapped cargo rustc rustfmt # Rust
+      unstable.rust-analyzer-unwrapped cargo rustc rustfmt
 
       # C
       gcc

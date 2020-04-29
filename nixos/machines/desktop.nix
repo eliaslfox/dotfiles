@@ -2,16 +2,22 @@
 
 let
   scripts = pkgs.callPackage (import ../users/elf/scripts.nix) {};
+
 in
 { imports = [
-    <nixpkgs/nixos/modules/profiles/hardened.nix>
+    <nixos/nixos/modules/profiles/hardened.nix>
     ../xorg.nix
     ../mounts-zfs.nix
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest_hardened;
-    
+    kernelPackages = pkgs.linuxPackagesFor (pkgs.linuxPackages_latest_hardened.kernel.override {
+      features.ia32Emulation = true;
+      structuredExtraConfig = {
+        IA32_EMULATION = { tristate = "y"; };
+      };
+    });
+
     kernelModules = [ "kvm_amd" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
@@ -40,7 +46,8 @@ in
   };
 
   features = {
-    horriblesubsd.enable = true;
+    mopidy.enable = true;
+    steam.enable = true;
   };
 
   hardware = {
@@ -116,6 +123,7 @@ in
     allowSimultaneousMultithreading = true;
     lockKernelModules = false;
     allowUserNamespaces = true;
+    chromiumSuidSandbox.enable = true;
   };
 
   nix = {
