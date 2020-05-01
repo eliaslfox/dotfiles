@@ -1,8 +1,6 @@
-with import <nixpkgs> {};
-let
-  borderColor = "#002b36";
-in
-{
+with import <nixpkgs> { };
+let borderColor = "#002b36";
+in {
   enable = true;
   config = {
     focus.newWindow = "none";
@@ -10,15 +8,15 @@ in
     window.hideEdgeBorders = "both";
     floating.titlebar = true;
     keybindings = lib.mkOptionDefault {
-      /* Spawn terminals */
+      # Spawn terminals
       "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
       "Mod1+Shift+Return" = "exec ${pkgs.kitty}/bin/kitty --class term-float";
 
-      /* Commands missing from the default */
+      # Commands missing from the default
       "Mod1+a" = "focus parent";
       "Mod1+e" = "layout toggle split";
 
-      /* Vim Mode */
+      # Vim Mode
       "Mod1+c" = "split h";
 
       "Mod1+h" = "focus left";
@@ -33,7 +31,7 @@ in
       "Mod1+l" = "focus right";
       "Mod1+Shift+l" = "move right";
 
-      /* Manage bars */
+      # Manage bars
       "Mod1+m" = "bar mode toggle";
     };
     colors.focused = {
@@ -64,11 +62,7 @@ in
       indicator = "#000000";
       text = "#ffffff";
     };
-    bars = [
-      {
-        trayOutput = "none";
-      }
-    ];
+    bars = [{ trayOutput = "none"; }];
   };
   extraConfig = ''
     default_border none

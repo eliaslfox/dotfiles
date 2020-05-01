@@ -4,29 +4,29 @@
   dotDir = ".config/zsh";
   autocd = false;
   sessionVariables = {
-    /* Basic config */
+    # Basic config
     DEFAULT_USER = "elf";
     EDITOR = "nvim";
 
-    /* Setup XDG */
-    XDG_CONFIG_HOME="$HOME/.config";
-    XDG_CACHE_HOME="$HOME/.cache";
-    XDG_DATA_HOME="$HOME/.local/share";
+    # Setup XDG
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_DATA_HOME = "$HOME/.local/share";
 
-    /* Use XDG */
-    GNUPGHOME="$HOME/.config/gnupg";
-    NIXOPS_STATE="$HOME/.config/nixops/deployments.nixops";
-    NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc";
-    STACK_ROOT="$HOME/.local/share/stack";
-    RUSTUP_HOME="$HOME/.local/share/rustup";
-    CARGO_HOME="$HOME/.local/share/cargo";
+    # Use XDG
+    GNUPGHOME = "$HOME/.config/gnupg";
+    NIXOPS_STATE = "$HOME/.config/nixops/deployments.nixops";
+    NPM_CONFIG_USERCONFIG = "$HOME/.config/npm/npmrc";
+    STACK_ROOT = "$HOME/.local/share/stack";
+    RUSTUP_HOME = "$HOME/.local/share/rustup";
+    CARGO_HOME = "$HOME/.local/share/cargo";
 
-    /* Handle temp ~ */
+    # Handle temp ~
     PASSWORD_STORE_DIR = "$HOME/Documents/.password-store";
-    GOPATH="$HOME/Documents/go";
+    GOPATH = "$HOME/Documents/go";
 
-    /* Don't create files */
-    LESSHISTFILE="-";
+    # Don't create files
+    LESSHISTFILE = "-";
   };
   initExtra = ''
     unalias -m '*'
@@ -51,12 +51,12 @@
   oh-my-zsh = {
     enable = true;
     theme = "agnoster";
-    plugins = [];
+    plugins = [ ];
   };
   shellAliases = {
-    history="omz_history";
-    ls="ls --color=tty";
-    grep="grep --text --color=auto";
+    history = "omz_history";
+    ls = "ls --color=tty";
+    grep = "grep --text --color=auto";
 
     mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";

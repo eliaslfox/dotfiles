@@ -2,7 +2,7 @@
 
 {
   kernel.sysctl = {
-    /* Enable packet forwarding on these interfaces for internet sharing */
+    # Enable packet forwarding on these interfaces for internet sharing
     "net.ipv4.conf.enp4s0.forwarding" = 1;
     "net.ipv4.conf.tun0.forwarding" = 1;
   };
@@ -17,9 +17,10 @@
     iptables -I INPUT -p udp --dport 53 -i enp4s0 -j ACCEPT
     iptables -I INPUT -p tcp --dport 53 -i enp4s0 -j ACCEPT
   '';
-  interfaces."enp4s0".ipv4.addresses = [
-    { address = "192.168.100.1"; prefixLength = 24; }
-  ];
+  interfaces."enp4s0".ipv4.addresses = [{
+    address = "192.168.100.1";
+    prefixLength = 24;
+  }];
   services.dhcpd4 = {
     enable = true;
     extraConfig = ''

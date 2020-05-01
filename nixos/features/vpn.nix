@@ -2,21 +2,15 @@
 
 with lib;
 
-let
-  cfg = config.features.vpn;
-in
-{
+let cfg = config.features.vpn;
+in {
   options.features.vpn = {
     enable = mkEnableOption "config for vpn";
     credentials = mkOption {
       type = types.submodule {
         options = {
-          username = mkOption {
-            type = types.str;
-          };
-          password = mkOption {
-            type = types.str;
-          };
+          username = mkOption { type = types.str; };
+          password = mkOption { type = types.str; };
         };
       };
     };
@@ -61,7 +55,7 @@ in
       openvpn-reconnect = {
         description = "Restart OpenVPN after suspend";
         script = "${pkgs.procps}/bin/pkill --signal SIGHUP --exact openvpn";
-        wantedBy = ["sleep.target"];
+        wantedBy = [ "sleep.target" ];
       };
     };
 

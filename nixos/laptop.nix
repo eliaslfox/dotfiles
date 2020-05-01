@@ -1,18 +1,16 @@
-{  pkgs, ... }:
+{ pkgs, ... }:
 
 let
-  lowBatteryNotifier = pkgs.writeScript "lowBatteryNotifier"
-    ''
-      #!/bin/sh
-      set -euf -o pipefail
+  lowBatteryNotifier = pkgs.writeScript "lowBatteryNotifier" ''
+    #!/bin/sh
+    set -euf -o pipefail
 
-      BAT_PCT=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '[0-9]+(?=%)'`
-      BAT_STA=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '\w+(?=,)'`
-      test $BAT_PCT -le 10 && test $BAT_STA = "Discharging" && DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical 'Low Battery' "Battery is at $BAT_PCT%"
-    '';
+    BAT_PCT=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '[0-9]+(?=%)'`
+    BAT_STA=`${pkgs.acpi}/bin/acpi -b | ${pkgs.gnugrep}/bin/grep -P -o '\w+(?=,)'`
+    test $BAT_PCT -le 10 && test $BAT_STA = "Discharging" && DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical 'Low Battery' "Battery is at $BAT_PCT%"
+  '';
 
-in
-{
+in {
   services.upower.enable = true;
 
   services.udev.extraRules = ''
@@ -22,8 +20,6 @@ in
   programs.light.enable = true;
   services.cron = {
     enable = true;
-    systemCronJobs = [
-      "* * * * * elf ${lowBatteryNotifier}"
-    ];
+    systemCronJobs = [ "* * * * * elf ${lowBatteryNotifier}" ];
   };
 }

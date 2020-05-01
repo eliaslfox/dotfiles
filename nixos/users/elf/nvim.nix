@@ -7,13 +7,13 @@ pkgs.neovim.override {
   withRuby = false;
   configure.vam.knownPlugins = pkgs.vimPlugins;
   configure.vam.pluginDictionaries = [
-    /* UI */
+    # UI
     "NeoSolarized"
     "vim-airline"
     "vim-airline-themes"
     "supertab"
 
-    /* Language Agnostic Plugins */
+    # Language Agnostic Plugins
     {
       name = "deoplete-nvim";
       command = ":UpdateRemotePlugins";
@@ -22,7 +22,7 @@ pkgs.neovim.override {
     "neoformat"
     "gitgutter"
 
-    /* Language Plugins */
+    # Language Plugins
     "ghcid"
     "vim-nix"
     "vim-javascript"

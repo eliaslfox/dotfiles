@@ -1,10 +1,8 @@
 { pkgs, config, lib, ... }:
 
-let
-  credentials = import ../credentials.nix;
-in
+let credentials = import ../credentials.nix;
 
-{
+in {
   users.mutableUsers = false;
   users.extraUsers.elf = {
     isNormalUser = true;
@@ -20,8 +18,9 @@ in
     shell = pkgs.zsh;
     hashedPassword = credentials.users.elf;
   };
-  users.extraUsers.root = {
-    hashedPassword = credentials.users.root;
+  users.extraUsers.root = { hashedPassword = credentials.users.root; };
+  home-manager.users.elf = import ./elf {
+    config = config;
+    pkgs = pkgs;
   };
-  home-manager.users.elf = import ./elf { config = config; pkgs = pkgs; };
 }

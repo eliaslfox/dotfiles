@@ -1,20 +1,20 @@
 { pkgs, config, lib, ... }:
-let
-  credentials = import ./credentials.nix;
-in
-{
+let credentials = import ./credentials.nix;
+in {
 
   imports = [
-    "${builtins.fetchGit {
-        url = https://github.com/rycee/home-manager;
+    "${
+      builtins.fetchGit {
+        url = "https://github.com/rycee/home-manager";
         ref = "release-20.03";
-      }}/nixos"
+      }
+    }/nixos"
 
     ./scripts.nix
     ./users
 
     ./features/mopidy.nix
-    ./features/virtualisation.nix
+    ./features/docker.nix
     ./features/steam.nix
 
     ./machine.nix
@@ -22,18 +22,18 @@ in
 
   boot = {
     kernelParams = [
-      /* Disable ipv6 */
+      # Disable ipv6
       "ipv6.disable=1"
     ];
 
     kernel.sysctl = {
-      /* Don't forward ipv4 packets */
+      # Don't forward ipv4 packets
       "net.ipv4.ip_forward" = 0;
 
-      /* Swap to disk less */
+      # Swap to disk less
       "vm.swappiness" = 1;
 
-      /* Disable ipv6 */
+      # Disable ipv6
       "net.ipv6.conf.all.disable_ipv6" = 1;
       "net.ipv6.conf.default.disable_ipv6" = 1;
       "net.ipv6.conf.lo.disable_ipv6" = 1;
@@ -55,8 +55,8 @@ in
     enableIPv6 = false;
     firewall = {
       enable = false;
-      allowedUDPPorts = lib.mkForce [];
-      allowedTCPPorts = lib.mkForce [];
+      allowedUDPPorts = lib.mkForce [ ];
+      allowedTCPPorts = lib.mkForce [ ];
       allowPing = false;
       logReversePathDrops = true;
       logRefusedPackets = true;
@@ -70,10 +70,9 @@ in
     };
     wireguard.enable = true;
     dhcpcd.enable = false;
-    /*
-    dhcpcd.extraConfig = ''
-      nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
-    '';
+    /* dhcpcd.extraConfig = ''
+         nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
+       '';
     */
   };
 
@@ -90,20 +89,18 @@ in
       '';
     };
     pathsToLink = [ "/share/zsh" ];
-    systemPackages =
-      with pkgs; [
-        dhcp
-        manpages
-        iw
-        git
-        tmux
-        gnumake
-        wpa_supplicant
-        curl
-        wget
-      ];
-    };
-
+    systemPackages = with pkgs; [
+      dhcp
+      manpages
+      iw
+      git
+      tmux
+      gnumake
+      wpa_supplicant
+      curl
+      wget
+    ];
+  };
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
   services.pcscd.enable = true;
@@ -114,9 +111,7 @@ in
     enableDefaultFonts = true;
     enableFontDir = true;
     fontconfig = {
-      defaultFonts = {
-        monospace = ["Fira Code Light"];
-      };
+      defaultFonts = { monospace = [ "Fira Code Light" ]; };
       localConf = ''
         <fontconfig>
         <match>
@@ -163,7 +158,7 @@ in
         default-sample-rate = 44100;
         alternate-sample-rate = 48000;
       };
-      configFile = "${pkgs.callPackage ./pulse.nix {}}/default.pa";
+      configFile = "${pkgs.callPackage ./pulse.nix { }}/default.pa";
     };
     cpu = {
       amd.updateMicrocode = true;
@@ -171,7 +166,7 @@ in
     };
   };
 
-  zramSwap= {
+  zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
@@ -202,19 +197,23 @@ in
     stateVersion = "20.03";
     autoUpgrade = {
       enable = true;
-      flags = [ "-I" "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix" ];
+      flags = [
+        "-I"
+        "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix"
+      ];
     };
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "nvidia-settings"
-    "nvidia-x11"
-    "nvidia-persistenced"
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-settings"
+      "nvidia-x11"
+      "nvidia-persistenced"
 
-    "discord"
+      "discord"
 
-    "steam"
-    "steam-original"
-    "steam-runtime"
-  ];
+      "steam"
+      "steam-original"
+      "steam-runtime"
+    ];
 }

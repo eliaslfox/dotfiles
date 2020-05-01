@@ -6,34 +6,23 @@ let
   cfg = config.features.mopidy;
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 
-in
-{
+in {
   options.features.mopidy = {
     enable = mkEnableOption "the mopidy music daemon";
     credentials = mkOption {
       type = types.submodule {
         options = {
-          username = mkOption {
-            type = types.str;
-          };
-          password = mkOption {
-            type = types.str;
-          };
-          client_id = mkOption {
-            type = types.str;
-          };
-          client_secret = mkOption {
-            type = types.str;
-          };
+          username = mkOption { type = types.str; };
+          password = mkOption { type = types.str; };
+          client_id = mkOption { type = types.str; };
+          client_secret = mkOption { type = types.str; };
         };
       };
     };
   };
   config = mkIf cfg.enable {
     nixpkgs.config = {
-      packageOverrides = pkgs: {
-        mopidy = unstable.mopidy;
-      };
+      packageOverrides = pkgs: { mopidy = unstable.mopidy; };
     };
     services.mopidy = {
       enable = true;

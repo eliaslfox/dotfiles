@@ -28,25 +28,25 @@
 
     ${pkgs.libnotify}/bin/notify-send --app-name=ncmpcpp --icon=audio-x-generic \
         "$title" "$artist\n$album"
-    '';
+  '';
 
-    mopidy-audio-pipe = pkgs.writeScriptBin "mopidy-audio-pipe" ''
-      #!${pkgs.bash}/bin/bash
-      set -euo pipefail
+  mopidy-audio-pipe = pkgs.writeScriptBin "mopidy-audio-pipe" ''
+    #!${pkgs.bash}/bin/bash
+    set -euo pipefail
 
-      if [ -f /tmp/mpd.fifo ]; then
-        ${pkgs.coreutils}/bin/mkfifo /tmp/mpd.fifo
-      fi
+    if [ -f /tmp/mpd.fifo ]; then
+      ${pkgs.coreutils}/bin/mkfifo /tmp/mpd.fifo
+    fi
 
-      while :; do
-        ${pkgs.coreutils}/bin/yes $’\n’ | ${pkgs.netcat}/bin/nc -lu 127.0.0.1 5555 > /tmp/mpd.fifo;
-      done
-    '';
+    while :; do
+      ${pkgs.coreutils}/bin/yes $’\n’ | ${pkgs.netcat}/bin/nc -lu 127.0.0.1 5555 > /tmp/mpd.fifo;
+    done
+  '';
 
-    set-bg = pkgs.writeScriptBin "set-bg" ''
-      #!${pkgs.bash}/bin/bash
-      set -euo pipefail
+  set-bg = pkgs.writeScriptBin "set-bg" ''
+    #!${pkgs.bash}/bin/bash
+    set -euo pipefail
 
-      ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/Documents/backgrounds/background.png
-    '';
+    ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/Documents/backgrounds/background.png
+  '';
 }

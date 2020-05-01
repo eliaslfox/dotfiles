@@ -2,13 +2,9 @@
 
 with lib;
 
-let
-  cfg = config.features.steam;
-in
-{
-  options.features.steam = {
-    enable = mkEnableOption "steam";
-  };
+let cfg = config.features.steam;
+in {
+  options.features.steam = { enable = mkEnableOption "steam"; };
 
   config = mkIf cfg.enable {
     hardware = {

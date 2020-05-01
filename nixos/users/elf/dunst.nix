@@ -1,5 +1,4 @@
-with import <nixpkgs> {};
-{
+with import <nixpkgs> { }; {
   enable = true;
   iconTheme = {
     name = "Adwaita";

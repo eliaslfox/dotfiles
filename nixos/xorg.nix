@@ -11,18 +11,12 @@
       accelSpeed = "1.75";
     };
     desktopManager.xterm.enable = true;
-    displayManager.lightdm = {
-      enable = true;
-    };
+    displayManager.lightdm = { enable = true; };
     displayManager.defaultSession = "xterm";
   };
 
   home-manager.users.elf = {
-    home.packages =
-      with pkgs; [
-        libinput
-        arandr
-      ];
+    home.packages = with pkgs; [ libinput arandr ];
 
     xsession.enable = true;
     xsession.windowManager.i3.enable = true;
