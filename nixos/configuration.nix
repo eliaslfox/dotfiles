@@ -82,26 +82,33 @@ in
     configFile = ./dnscrypt-proxy.toml;
   };
 
-  environment.etc."dnscrypt.pem".source = ./dnscrypt.pem;
+  environment = {
+    etc = {
+      "dnscrypt.pem".source = ./dnscrypt.pem;
+      "bashrc.local".text = ''
+        export HISTFILE=~/.cache/bash_history
+      '';
+    };
+    pathsToLink = [ "/share/zsh" ];
+    systemPackages =
+      with pkgs; [
+        dhcp
+        manpages
+        iw
+        git
+        tmux
+        gnumake
+        wpa_supplicant
+        curl
+        wget
+      ];
+    };
+
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
   services.pcscd.enable = true;
 
   services.udisks2.enable = false;
-
-  environment.pathsToLink = [ "/share/zsh" ];
-  environment.systemPackages =
-    with pkgs; [
-      dhcp
-      manpages
-      iw
-      git
-      tmux
-      gnumake
-      wpa_supplicant
-      curl
-      wget
-    ];
 
   fonts = {
     enableDefaultFonts = true;
@@ -156,6 +163,7 @@ in
         default-sample-rate = 44100;
         alternate-sample-rate = 48000;
       };
+      configFile = "${pkgs.callPackage ./pulse.nix {}}/default.pa";
     };
     cpu = {
       amd.updateMicrocode = true;

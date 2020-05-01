@@ -30,6 +30,7 @@ in {
 
   home.packages =
     with pkgs; [
+      nixfmt
       steam
       dnsutils
       john
@@ -90,7 +91,7 @@ in {
       python38Packages.virtualenv
 
       # Rust
-      unstable.rust-analyzer-unwrapped cargo rustc rustfmt
+      unstable.rust-analyzer-unwrapped /*cargo rustc*/ rustup /*rustfmt*/
 
       # C
       gcc
@@ -129,14 +130,6 @@ in {
     services.dunst = import ./dunst.nix;
 
     xsession.windowManager.i3 = import ./i3.nix;
-
-    programs.keychain = {
-      enable = true;
-      keys = [];
-      enableBashIntegration = false;
-      enableFishIntegration = false;
-      enableXsessionIntegration = false;
-    };
 
     programs.command-not-found.enable = true;
     programs.kitty = {

@@ -55,12 +55,19 @@ let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_map_keys = 0
 
 "
-" language server
+" Deoplete
 "
 let g:deoplete#enable_at_startup = 1
-
-"let g:SuperTabClosePreviewOnPopupClose = 1
 set completeopt-=preview
+
+"
+" Language Client
+"
+let g:LanguageClient_diagnosticsDisplay = {
+    \ 2: {
+        \ 'signText':'⚑'
+        \ }
+    \ }
 
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rust-analyzer'],
@@ -68,31 +75,27 @@ let g:LanguageClient_serverCommands = {
     \ 'typescript': ['javascript-typescript-stdio'],
     \ 'go': ['gopls']
     \ }
+
 autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+autocmd BufWritePre *.rs :call LanguageClient#textDocument_formatting_sync()
 
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> K :call LanguageClient_contextMenu()<CR>
 
+command Noh :sign unplace * " This clears sign errors for when they get stuck
+
 "
-" ale
+" Neoformat
 "
-let g:ale_fix_on_save = 1
-let g:ale_sign_column_always = 0
-let g:ale_change_sign_column_color = 1
+let g:neoformat_basic_format_trim = 1
+let g:neoformat_run_all_formatters = 1
 
-let g:ale_sign_error = '⤫'
-let g:ale_sign_warning = '⚑'
+let g:neoformat_enabled_rust = ['rustfmt']
+let g:neoformat_enabled_go = ['gofmt', 'goimports']
+let g:neoformat_enabled_javascript = ['prettier']
+let g:neoformat_enabled_nix = ['nixfmt']
 
-let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'go': ['gofmt', 'goimports'],
-    \ 'rust': ['rustfmt']
-    \ }
-
-let g:ale_linters = {
-    \ 'javascript': [],
-    \ 'typescript': [],
-    \ 'haskell': [],
-    \ 'go': [],
-    \ 'rust': []
-    \ }
+augroup fmt
+    autocmd!
+    autocmd BufWritePre * undojoin | Neoformat
+augroup end

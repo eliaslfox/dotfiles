@@ -46,7 +46,6 @@
       fsType = "zfs";
       options = [
         "noatime"
-        # "noexec" this breaks Discord
       ];
     };
 

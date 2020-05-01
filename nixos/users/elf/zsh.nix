@@ -18,10 +18,11 @@
     NIXOPS_STATE="$HOME/.config/nixops/deployments.nixops";
     NPM_CONFIG_USERCONFIG="$HOME/.config/npm/npmrc";
     STACK_ROOT="$HOME/.local/share/stack";
-    XCOMPOSECACHE="$HOME/.cache/compose-cache";
+    RUSTUP_HOME="$HOME/.local/share/rustup";
+    CARGO_HOME="$HOME/.local/share/cargo";
 
     /* Handle temp ~ */
-    PASSWORD_STORE_DIR = "$HOME/Documents/password-store";
+    PASSWORD_STORE_DIR = "$HOME/Documents/.password-store";
     GOPATH="$HOME/Documents/go";
 
     /* Don't create files */
@@ -36,7 +37,7 @@
     }
 
     function physexec() {
-      sudo ip netns exec phys su elf 
+      sudo ip netns exec phys su elf
     }
 
     function netns() {

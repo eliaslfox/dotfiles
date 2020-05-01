@@ -19,7 +19,7 @@ pkgs.neovim.override {
       command = ":UpdateRemotePlugins";
     }
     "LanguageClient-neovim"
-    "ale"
+    "neoformat"
     "gitgutter"
 
     /* Language Plugins */

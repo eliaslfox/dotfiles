@@ -16,9 +16,6 @@
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
-
-    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/keychain
-    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/keychain /home/elf/.keychain
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''
