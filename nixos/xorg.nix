@@ -11,12 +11,14 @@
       accelSpeed = "1.75";
     };
     desktopManager.xterm.enable = true;
-    displayManager.lightdm = { enable = true; };
-    displayManager.defaultSession = "xterm";
+    displayManager = {
+      gdm = { enable = true; };
+      defaultSession = "xterm";
+    };
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ libinput arandr ];
+    home.packages = with pkgs; [ libinput arandr xorg.xprop ];
 
     xsession.enable = true;
     xsession.windowManager.i3.enable = true;
@@ -25,7 +27,7 @@
 
     services.screen-locker = {
       enable = true;
-      inactiveInterval = 10;
+      inactiveInterval = 15;
       lockCmd = "/run/wrappers/bin/physlock";
     };
   };

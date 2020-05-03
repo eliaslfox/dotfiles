@@ -60,12 +60,12 @@ in {
       wpa_supplicant-wg0 = {
         description = "Start wireless";
         after = [
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "physical-netns.service"
+          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
+          "wg0.service"
         ];
         requires = [
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "physical-netns.service"
+          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
+          "wg0.service"
         ];
         before = [ "network.target" ];
         wants = [ "network.target" ];
@@ -78,18 +78,19 @@ in {
       dhclient-wg0 = {
         description = "DHCP Client";
         after = [
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "physical-netns.service"
+          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
+          "wg0.service"
         ];
         requires = [
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "physical-netns.service"
+          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
+          "wg0.service"
         ];
         before = [ "network.target" ];
         wants = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.dhcp pkgs.iproute ];
         script = "ip netns exec physical dhclient -d wlp6s0";
+        serviceConfig = { PartOf = "wpa_supplicant-wg0.service"; };
       };
     };
 

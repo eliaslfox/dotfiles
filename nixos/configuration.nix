@@ -50,7 +50,7 @@ in {
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
     enableIPv6 = false;
     firewall = {
-      enable = false;
+      enable = true;
       allowedUDPPorts = lib.mkForce [ ];
       allowedTCPPorts = lib.mkForce [ ];
       allowPing = false;

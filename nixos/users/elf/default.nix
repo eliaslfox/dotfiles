@@ -216,11 +216,17 @@ in {
       core = {
         editor = "nvim";
         whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
+        pager = ''
+          ${unstable.gitAndTools.delta}/bin/delta --plus-color="#012800" --minus-color="#340001" --theme=none --hunk-style=plain'';
       };
       help = { autocorrect = 1; };
       status = {
         showStatus = true;
         submoduleSummary = true;
+      };
+      interactive = {
+        diffFilter =
+          "${unstable.gitAndTools.delta}/bin/delta --color-only --theme=none";
       };
       push = { default = "current"; };
     };
