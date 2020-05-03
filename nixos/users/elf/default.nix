@@ -31,10 +31,7 @@ in {
   home.file.".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
 
   home.packages = with pkgs; [
-    # core utils 2.0
     exa
-    unstable.bat
-
     zoom-us
     nixfmt
     steam

@@ -61,7 +61,6 @@
     history = "omz_history";
     grep = "grep --text --color=auto";
     ls = "exa";
-    cat = "bat";
 
     mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
