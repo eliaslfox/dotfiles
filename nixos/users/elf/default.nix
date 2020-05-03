@@ -31,7 +31,11 @@ in {
   home.file.".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
 
   home.packages = with pkgs; [
+    # coreutils 2.0
     exa
+    ripgrep
+    fd
+
     zoom-us
     nixfmt
     steam
@@ -47,7 +51,6 @@ in {
     httpie
     pavucontrol
     chromium
-    ripgrep
     aircrackng
     wireshark-qt
     whois
