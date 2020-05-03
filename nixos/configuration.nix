@@ -181,8 +181,6 @@ in {
 
   time.timeZone = "US/Pacific";
 
-  nix.autoOptimiseStore = true;
-
   system = {
     stateVersion = "20.03";
     autoUpgrade = {
@@ -192,6 +190,19 @@ in {
         "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix"
       ];
     };
+  };
+
+  nix = {
+    autoOptimiseStore = true;
+    gc = {
+      automatic = true;
+      dates = "*:0/10";
+    };
+    nixPath = [
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+      "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix"
+      "/nix/var/nix/profiles/per-user/root/channels"
+    ];
   };
 
   nixpkgs.config.allowUnfreePredicate = pkg:
