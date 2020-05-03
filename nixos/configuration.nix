@@ -38,6 +38,7 @@ in {
     extraModprobeConfig = ''
       # Disable overlayfs
       blacklist overlayfs
+      install overlayfs ${pkgs.coreutils}/bin/false
     '';
 
     plymouth = {
