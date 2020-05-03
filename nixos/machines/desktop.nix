@@ -47,7 +47,11 @@ in {
   features = {
     mopidy.enable = true;
     steam.enable = true;
-    wireguard.enable = true;
+    wireguard = {
+      enable = true;
+      wirelessInterface = "wlp6s0";
+      ethernetInterface = "enp4s0";
+    };
   };
 
   hardware = { enableRedistributableFirmware = true; };

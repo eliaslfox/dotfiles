@@ -7,7 +7,20 @@ let
   credentials = pkgs.callPackage ../credentials.nix { };
   wg = credentials.wireguard;
 in {
-  options.features.wireguard = { enable = mkEnableOption "wireguard vpn"; };
+  options.features.wireguard = {
+    enable = mkEnableOption "wireguard vpn";
+    ethernetInterface = mkOption {
+      type = types.str;
+      description = "The id of your ethernet interface";
+      example = "eth0";
+    };
+    wirelessInterface = mkOption {
+      type = types.str;
+      description =
+        "The id of your wireless interface. This is the only interface that will have dhcp enabled.";
+      example = "wlan0";
+    };
+  };
 
   config = mkIf cfg.enable {
     systemd.services = {
@@ -28,13 +41,21 @@ in {
         description = "Setup wireguard";
         after = [
           "physical-netns.service"
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "enp4s0"}.device"
+          "sys-subsystem-net-devices-${
+            utils.escapeSystemdPath cfg.ethernetInterface
+          }.device"
+          "sys-subsystem-net-devices-${
+            utils.escapeSystemdPath cfg.wirelessInterface
+          }.device"
         ];
         requires = [
           "physical-netns.service"
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath "enp4s0"}.device"
+          "sys-subsystem-net-devices-${
+            utils.escapeSystemdPath cfg.ethernetInterface
+          }.device"
+          "sys-subsystem-net-devices-${
+            utils.escapeSystemdPath cfg.wirelessInterface
+          }.device"
         ];
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.iproute pkgs.wireguard pkgs.iw ];
@@ -51,7 +72,7 @@ in {
             ip addr add ${wg.address} dev wg0
             ip route add default dev wg0
 
-            ip link set enp4s0 netns physical
+            ip link set ${cfg.ethernetInterface} netns physical
             iw phy phy0 set netns name physical
           '';
         };
@@ -59,37 +80,25 @@ in {
 
       wpa_supplicant-wg0 = {
         description = "Start wireless";
-        after = [
-          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "wg0.service"
-        ];
-        requires = [
-          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "wg0.service"
-        ];
+        after = [ "wg0.service" ];
+        requires = [ "wg0.service" ];
         before = [ "network.target" ];
         wants = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.wpa_supplicant pkgs.iproute ];
         script =
-          "ip netns exec physical wpa_supplicant -c${credentials.wpa_config} -iwlp6s0 -Dnl80211";
+          "ip netns exec physical wpa_supplicant -c${credentials.wpa_config} -i${cfg.wirelessInterface} -Dnl80211";
       };
 
       dhclient-wg0 = {
         description = "DHCP Client";
-        after = [
-          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "wg0.service"
-        ];
-        requires = [
-          #"sys-subsystem-net-devices-${utils.escapeSystemdPath "wlp6s0"}.device"
-          "wg0.service"
-        ];
+        after = [ "wg0.service" ];
+        requires = [ "wg0.service" ];
         before = [ "network.target" ];
         wants = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.dhcp pkgs.iproute ];
-        script = "ip netns exec physical dhclient -d wlp6s0";
+        script = "ip netns exec physical dhclient -d ${cfg.wirelessInterface}";
         serviceConfig = { PartOf = "wpa_supplicant-wg0.service"; };
       };
     };
