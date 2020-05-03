@@ -4,15 +4,13 @@ with lib;
 
 let
   cfg = config.features.wireguard;
-  credentials = import ../credentials.nix;
+  credentials = pkgs.callPackage ../credentials.nix { };
   wg = credentials.wireguard;
 in {
   options.features.wireguard = { enable = mkEnableOption "wireguard vpn"; };
 
   config = mkIf cfg.enable {
     systemd.services = {
-      "wpa_supplicant".enable = false;
-
       physical-netns = {
         description = "Network namespace for physical devices";
         wantedBy = [ "multi-user.target" ];
@@ -74,7 +72,7 @@ in {
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.wpa_supplicant pkgs.iproute ];
         script =
-          "ip netns exec physical wpa_supplicant -c/etc/wpa_supplicant.conf -iwlp6s0 -Dnl80211";
+          "ip netns exec physical wpa_supplicant -c${credentials.wpa_config} -iwlp6s0 -Dnl80211";
       };
 
       dhclient-wg0 = {
@@ -94,8 +92,6 @@ in {
         script = "ip netns exec physical dhclient -d wlp6s0";
       };
     };
-
-    environment.etc."wpa_supplicant.conf".text = credentials.wpa_config;
 
     powerManagement.resumeCommands = ''
       ${config.systemd.package}/bin/systemctl try-restart wpa_supplicant-wg0

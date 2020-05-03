@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }:
-let credentials = import ./credentials.nix;
+let credentials = pkgs.callPackage ./credentials.nix { };
 in {
 
   imports = [
