@@ -12,7 +12,7 @@
   fileSystems."/nix" = {
     device = "zroot/root/nix";
     fsType = "zfs";
-    options = [ "noatime" ];
+    options = [ "noatime" "nosuid" ];
   };
 
   # mount persisted directories
@@ -32,7 +32,7 @@
   fileSystems."/home/elf/Documents" = {
     device = "zroot/home/elf/Documents";
     fsType = "zfs";
-    options = [ "noatime" ];
+    options = [ "noatime" "nosuid" ];
   };
 
   fileSystems."/home/elf/.cache" = {
@@ -44,12 +44,12 @@
   fileSystems."/home/elf/.config" = {
     device = "zroot/home/elf/.config";
     fsType = "zfs";
-    options = [ "noatime" ];
+    options = [ "noatime" "nosuid" ];
   };
 
   fileSystems."/home/elf/.local" = {
     device = "zroot/home/elf/.local";
     fsType = "zfs";
-    options = [ "noatime" ];
+    options = [ "noatime" "nosuid" ];
   };
 }

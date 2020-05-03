@@ -27,6 +27,10 @@
 
     # Don't create files
     LESSHISTFILE = "-";
+
+    # Misc Config
+    EXA_STRICT = "1";
+    BAT_THEME = "Solarized (dark)";
   };
   initExtra = ''
     unalias -m '*'
@@ -55,8 +59,9 @@
   };
   shellAliases = {
     history = "omz_history";
-    ls = "ls --color=tty";
     grep = "grep --text --color=auto";
+    ls = "exa";
+    cat = "bat";
 
     mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";

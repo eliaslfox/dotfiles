@@ -1,5 +1,9 @@
 { config, lib, pkgs, ... }:
 
+#
+# This file is not currently used. It is left for reference.
+#
+
 with lib;
 
 let cfg = config.features.vpn;
