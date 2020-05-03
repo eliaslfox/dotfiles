@@ -3,12 +3,7 @@ let credentials = import ./credentials.nix;
 in {
 
   imports = [
-    "${
-      builtins.fetchGit {
-        url = "https://github.com/rycee/home-manager";
-        ref = "release-20.03";
-      }
-    }/nixos"
+    <home-manager/nixos>
 
     ./scripts.nix
     ./users
@@ -16,6 +11,7 @@ in {
     ./features/mopidy.nix
     ./features/docker.nix
     ./features/steam.nix
+    ./features/wireguard.nix
 
     ./machine.nix
   ];
@@ -60,13 +56,6 @@ in {
       allowPing = false;
       logReversePathDrops = true;
       logRefusedPackets = true;
-    };
-    wireless = {
-      enable = false;
-      networks = credentials.wifi;
-      extraConfig = ''
-        country=US
-      '';
     };
     wireguard.enable = true;
     dhcpcd.enable = false;
@@ -215,5 +204,7 @@ in {
       "steam"
       "steam-original"
       "steam-runtime"
+
+      "zoom-us"
     ];
 }

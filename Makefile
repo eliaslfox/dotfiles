@@ -1,10 +1,10 @@
 .PHONY: switch
 switch:
-	sudo mount -o remount,rw /boot && sudo nixos-rebuild switch -I nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix && sudo mount -o remount,ro /boot
+	sudo nixos-rebuild switch -I nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix
 
 .PHONY: boot
 boot:
-	sudo mount -o remount,rw /boot && sudo nixos-rebuild boot -I nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix && sudo mount -o remount,ro /boot
+	sudo nixos-rebuild boot -I nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix
 
 .PHONY: gen-cert
 gen-cert:

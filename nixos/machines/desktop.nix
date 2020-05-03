@@ -47,6 +47,7 @@ in {
   features = {
     mopidy.enable = true;
     steam.enable = true;
+    wireguard.enable = true;
   };
 
   hardware = { enableRedistributableFirmware = true; };
@@ -84,7 +85,7 @@ in {
   fileSystems."/boot" = {
     device = "/dev/nvme0n1p2";
     fsType = "ext4";
-    options = [ "ro" "noexec" ];
+    options = [ "noexec" ];
   };
 
   fileSystems."/run/media/elf/stuff" = {

@@ -2,7 +2,6 @@
 let
   scripts = pkgs.callPackage (import ./scripts.nix) { };
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-
 in {
   xdg = {
     enable = true;
@@ -11,11 +10,6 @@ in {
       "i3status/config".source = ./files/i3status-config;
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
-
-      "gnupg/gpg-agent.conf".text =
-        config.home-manager.users.elf.home.file.".gnupg/gpg-agent.conf".text;
-      "gnupg/gpg.conf".text =
-        config.home-manager.users.elf.home.file.".gnupg/gpg.conf".text;
 
     };
     dataFile = {
@@ -33,7 +27,11 @@ in {
     };
   };
 
+  home.file.".gnupg/gpg-agent.conf".target = ".config/gnupg/gpg-agent.conf";
+  home.file.".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
+
   home.packages = with pkgs; [
+    zoom-us
     nixfmt
     steam
     dnsutils

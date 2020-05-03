@@ -16,6 +16,10 @@
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/ssh
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/ssh /home/elf/.ssh
+
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.cache/steam
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.cache/steam /home/elf/.steam
+
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''

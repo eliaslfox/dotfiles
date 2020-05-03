@@ -2,5 +2,6 @@ display_bitrate = yes
 progressbar_look = "── "
 
 ncmpcpp_directory="/home/elf/.cache/ncmpcpp"
+lyrics_directory="/home/elf/.cache/ncmpcpp/lyrics"
 
 execute_on_song_change = "/home/elf/.nix-profile/bin/ncmpcpp-notify"
