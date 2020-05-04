@@ -6,6 +6,18 @@ let
   cfg = config.features.wireguard;
   credentials = pkgs.callPackage ../credentials.nix { };
   wg = credentials.wireguard;
+
+  dhcpcdConf = pkgs.writeText "dhcpcd.conf" ''
+    hostname
+
+    option classless_staic_routes, interface_mtu
+
+    nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
+
+    nohook lookup-hostname
+
+    waitip
+  '';
 in {
   options.features.wireguard = {
     enable = mkEnableOption "wireguard vpn";
@@ -27,7 +39,8 @@ in {
       physical-netns = {
         description = "Network namespace for physical devices";
         wantedBy = [ "multi-user.target" ];
-        before = [ "display-manager.service" "network.target" ];
+        before = [ "network.target" ];
+        wants = [ "network.target" ];
         restartIfChanged = false;
         serviceConfig = {
           Type = "oneshot";
@@ -57,6 +70,8 @@ in {
             utils.escapeSystemdPath cfg.wirelessInterface
           }.device"
         ];
+        before = [ "network.targer" ];
+        wants = [ "network.target" ];
         wantedBy = [ "multi-user.target" ];
         path = [ pkgs.iproute pkgs.wireguard pkgs.iw ];
         restartIfChanged = false;
@@ -78,33 +93,22 @@ in {
         };
       };
 
-      wpa_supplicant-wg0 = {
-        description = "Start wireless";
-        after = [ "wg0.service" ];
-        requires = [ "wg0.service" ];
-        before = [ "network.target" ];
-        wants = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.wpa_supplicant pkgs.iproute ];
-        script =
-          "ip netns exec physical wpa_supplicant -c${credentials.wpa_config} -i${cfg.wirelessInterface} -Dnl80211";
+      wpa_supplicant = {
+        after = lib.mkForce [ "wg0.service" ];
+        requires = lib.mkForce [ "wg0.service" ];
+        serviceConfig = { NetworkNamespacePath = "/var/run/netns/physical"; };
       };
 
-      dhclient-wg0 = {
-        description = "DHCP Client";
-        after = [ "wg0.service" ];
-        requires = [ "wg0.service" ];
-        before = [ "network.target" ];
-        wants = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.dhcp pkgs.iproute ];
-        script = "ip netns exec physical dhclient -d ${cfg.wirelessInterface}";
-        serviceConfig = { PartOf = "wpa_supplicant-wg0.service"; };
+      dhcpcd = {
+        after = lib.mkForce [ "wg0.service" ];
+        requires = lib.mkForce [ "wg0.service" ];
+        serviceConfig = {
+          NetworkNamespacePath = "/var/run/netns/physical";
+          ExecStart = lib.mkForce
+            "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd --quiet --config ${dhcpcdConf} wlp6s0";
+          PIDFile = lib.mkForce "/run/dhcpcd-wlp6s0.pid";
+        };
       };
     };
-
-    powerManagement.resumeCommands = ''
-      ${config.systemd.package}/bin/systemctl try-restart wpa_supplicant-wg0
-    '';
   };
 }

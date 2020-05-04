@@ -58,12 +58,20 @@ in {
       logReversePathDrops = true;
       logRefusedPackets = true;
     };
+    wireless = {
+      enable = true;
+      networks = credentials.wifi;
+      interfaces = [ "wlp6s0" ];
+    };
     wireguard.enable = true;
-    dhcpcd.enable = false;
-    /* dhcpcd.extraConfig = ''
-         nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
-       '';
-    */
+    dhcpcd = {
+      enable = true;
+      allowInterfaces = [ "*wlp6s0*" ];
+      extraConfig = ''
+        nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
+        interface wlp6s0
+      '';
+    };
   };
 
   services.dnscrypt-proxy2 = {
