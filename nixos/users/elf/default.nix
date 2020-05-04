@@ -17,13 +17,13 @@ in {
       "ghc/ghci.conf".source = ./files/ghci.conf;
 
       # Firefox
-      "mozilla/firefox/profiles.ini".source = ./files/firefox/profiles.ini;
-      "mozilla/firefox/default/user.js".source = ./files/firefox/user.js;
-      "mozilla/firefox/default/chrome/userChrome.css".source =
-        ./files/firefox/userChrome.css;
-      "mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
-      "mozilla/firefox/clean/chrome/userChrome.css".source =
-        ./files/firefox/userChrome-clean.css;
+      #"mozilla/firefox/profiles.ini".source = ./files/firefox/profiles.ini;
+      #"mozilla/firefox/default/user.js".source = ./files/firefox/user.js;
+      #"mozilla/firefox/default/chrome/userChrome.css".source =
+      #  ./files/firefox/userChrome.css;
+      #"mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
+      #"mozilla/firefox/clean/chrome/userChrome.css".source =
+      #  ./files/firefox/userChrome-clean.css;
     };
   };
 
@@ -142,6 +142,7 @@ in {
 
   xsession.windowManager.i3 = import ./i3.nix;
 
+  programs.firefox = import ./firefox.nix;
   programs.command-not-found.enable = true;
   programs.kitty = {
     enable = true;
