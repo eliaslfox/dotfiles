@@ -29,6 +29,10 @@ let
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "browser.newtabpage.enabled" = false;
     "browser.newtab.url" = "about:blank";
+    "devtools.theme" = "dark";
+
+    # Misc
+    "identity.fxaccounts.enabled" = false;
 
     # URL Bar Config
     "browser.urlbar.openViewOnFocus" = false;
@@ -55,8 +59,11 @@ let
     "media.peerconnection.enabled" = false; # WebRTC
     "javascript.options.wasm" = false;
     "javascript.options.asmjs" = false;
+    "javascript.options.shared_memory" = false;
     "webgl.disabled" = true;
     "dom.disable_beforeunload" = true;
+    "dom.event.contextmenu.enabled" = false;
+    "offline-apps.allow_by_default" = false;
 
     # Clipboard
     "dom.event.clipboardevents.enabled" = false;
@@ -105,14 +112,15 @@ let
     "browser.search.geoSpecificDefaults" = false;
     "clipboard.autocopy" = false;
     "javascript.use_us_english_locale" = true;
-    "keyword.enabled" = false;
     "browser.urlbar.trimURLs" = false;
     "browser.fixup.alternate.enabled" = false;
     "network.manage-offline-status" = false;
     "security.mixed_content.block_active_content" = true;
     "security.mixed_content.block_display_content" = true;
+    "security.mixed_content.block_object_subrequest" = true;
     "browser.urlbar.filter.javascript" = true;
     "broser.display.use_document_fonts" = 0;
+    "ui.use_standins_for_native_colors" = true;
 
     # Plugins
     "security.dialog_enable_delay" = 1000;
