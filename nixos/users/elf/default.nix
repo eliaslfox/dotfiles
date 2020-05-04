@@ -114,6 +114,7 @@ in {
     tlaplusToolbox
 
     scripts.ncmpcpp-notify
+    scripts.multimc
   ];
 
   gtk = {

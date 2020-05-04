@@ -53,4 +53,12 @@
 
     ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/Documents/backgrounds/background.png
   '';
+
+  multimc = pkgs.writeShellScriptBin "multimc" ''
+    #!${pkgs.bash}/bin/bash
+    set -euo pipefail
+
+    ${pkgs.multimc}/bin/multimc -d "$HOME/.cache/multimc"
+  '';
+
 }

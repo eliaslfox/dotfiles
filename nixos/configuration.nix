@@ -1,11 +1,12 @@
 { pkgs, config, lib, ... }:
-let credentials = pkgs.callPackage ./credentials.nix { };
+let
+  credentials = pkgs.callPackage ./credentials.nix { };
+  scripts = pkgs.callPackage ./scripts.nix { };
 in {
 
   imports = [
     <home-manager/nixos>
 
-    ./scripts.nix
     ./users
 
     ./features/mopidy.nix
@@ -97,6 +98,10 @@ in {
       wpa_supplicant
       curl
       wget
+
+      scripts.iommuGroups
+      scripts.mountBackup
+      scripts.physexec
     ];
   };
 
@@ -183,21 +188,24 @@ in {
     doc.enable = false;
   };
 
-  security.sudo.extraConfig = ''
-    Defaults  lecture="never"
-  '';
+  security.sudo = {
+    extraConfig = ''
+      Defaults  lecture="never"
+      #${scripts.elf-i3status}
+    '';
+  };
+  security.wrappers = {
+    elf-i3status = {
+      source = "${scripts.elf-i3status}/bin/elf-i3status";
+      capabilities = "cap_sys_admin+ep";
+    };
+  };
 
   time.timeZone = "US/Pacific";
 
   system = {
     stateVersion = "20.03";
-    autoUpgrade = {
-      enable = true;
-      flags = [
-        "-I"
-        "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix"
-      ];
-    };
+    autoUpgrade = { enable = true; };
   };
 
   nix = {

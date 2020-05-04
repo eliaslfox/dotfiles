@@ -40,10 +40,6 @@
       tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
     }
 
-    function physexec() {
-      sudo ip netns exec phys su elf
-    }
-
     function netns() {
       ip netns identify $$
     }

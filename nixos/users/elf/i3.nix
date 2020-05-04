@@ -1,5 +1,7 @@
 with import <nixpkgs> { };
-let borderColor = "#002b36";
+let
+  borderColor = "#002b36";
+  scripts = callPackage ../../scripts.nix { };
 in {
   enable = true;
   config = {
@@ -62,7 +64,10 @@ in {
       indicator = "#000000";
       text = "#ffffff";
     };
-    bars = [{ trayOutput = "none"; }];
+    bars = [{
+      trayOutput = "none";
+      statusCommand = "/run/wrappers/bin/elf-i3status";
+    }];
   };
   extraConfig = ''
     default_border none

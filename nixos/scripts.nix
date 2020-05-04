@@ -1,13 +1,6 @@
 { pkgs, ... }:
 
-let
-  multimc = pkgs.writeShellScriptBin "multimc" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    ${pkgs.multimc}/bin/multimc -d "$HOME/.cache/multimc"
-  '';
-
+{
   iommuGroups = pkgs.writeScriptBin "iommuGroups" ''
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
@@ -20,29 +13,6 @@ let
      done;
   '';
 
-  startBackup = pkgs.writeScriptBin "startBackup" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical 'Starting Backup'
-
-    LATEST=$(ls /run/media/elf/stuff/backups | sort | head -n1)
-
-    echo "Last backup $LATEST"
-
-    TIMESTAMP=$(date +%s)
-
-    echo "Current timestamp $TIMESTAMP"
-
-    btrfs subvol snapshot -r /run/media/elf/stuff /run/media/elf/stuff/backups/$TIMESTAMP
-    sync
-    btrfs send -p /run/media/elf/stuff/backups/$LATEST /run/media/elf/stuff/backups/$TIMESTAMP | btrfs receive /run/media/elf/backup
-    rm -r /run/media/elf/stuff/backups/$LATEST
-    rm -r /run/media/elf/stuff/backup/$LATEST
-
-    DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical 'Backup Complete'
-  '';
-
   mountBackup = pkgs.writeScriptBin "mountBackup" ''
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
@@ -52,6 +22,16 @@ let
     sudo mount /run/media/elf/backup
   '';
 
-in {
-  environment.systemPackages = [ multimc iommuGroups startBackup mountBackup ];
+  physexec = pkgs.writeScriptBin "physexec" ''
+    #! ${pkgs.bash}/bin/bash
+    exec sudo -E ${pkgs.iproute}/bin/ip netns exec physical \
+         sudo -E -u \#$(${pkgs.coreutils}/bin/id -u) \
+                 -g \#$(${pkgs.coreutils}/bin/id -g) \
+                 "$@"
+  '';
+
+  elf-i3status = pkgs.writeScriptBin "elf-i3status" ''
+    #!${pkgs.bash}/bin/bash
+    ${pkgs.iproute}/bin/ip netns exec physical sudo -E -u \#$(${pkgs.coreutils}/bin/id -u elf) -g \#$(${pkgs.coreutils}/bin/id -g elf) ${pkgs.i3status}/bin/i3status -c /home/elf/.config/i3status/config
+  '';
 }
