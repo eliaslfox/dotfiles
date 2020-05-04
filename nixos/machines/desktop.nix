@@ -52,6 +52,7 @@ in {
       wirelessInterface = "wlp6s0";
       ethernetInterface = "enp4s0";
     };
+    docker.enable = true;
   };
 
   hardware = { enableRedistributableFirmware = true; };
