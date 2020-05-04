@@ -36,6 +36,7 @@ in {
     ripgrep
     fd
 
+    spotify
     zoom-us
     nixfmt
     steam

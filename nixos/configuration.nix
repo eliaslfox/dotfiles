@@ -210,10 +210,7 @@ in {
 
   nix = {
     autoOptimiseStore = true;
-    gc = {
-      automatic = true;
-      dates = "*:0/10";
-    };
+    gc = { automatic = true; };
     nixPath = [
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
       "nixos-config=/home/elf/Documents/dotfiles/nixos/configuration.nix"
@@ -234,5 +231,7 @@ in {
       "steam-runtime"
 
       "zoom-us"
+
+      "spotify"
     ];
 }
