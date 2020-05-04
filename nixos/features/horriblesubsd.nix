@@ -1,9 +1,7 @@
-with import <nixpkgs> { };
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.features.horriblesubsd;
 
   horriblesubsd = (callPackage "${fetchFromGitHub {

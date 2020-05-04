@@ -1,8 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
 
-let cfg = config.features.steam;
+  cfg = config.features.steam;
 in {
   options.features.steam = { enable = mkEnableOption "steam"; };
 

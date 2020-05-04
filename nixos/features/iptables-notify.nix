@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf;
+
   cfg = config.features.iptables-notify;
 
   iptables-notify = (pkgs.callPackage "${pkgs.fetchFromGitHub {

@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.features.docker;
+let
+  inherit (lib) mkEnableOption mkIf mkMerge;
+  cfg = config.features.docker;
 in {
   options.features.docker = {
     enable = mkEnableOption "enable container based virtualisation";

@@ -1,8 +1,8 @@
 { config, lib, pkgs, utils, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf mkOption types;
+
   cfg = config.features.wireguard;
   credentials = pkgs.callPackage ../credentials.nix { };
   wg = credentials.wireguard;

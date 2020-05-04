@@ -1,24 +1,14 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf;
+
   cfg = config.features.mopidy;
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 
 in {
   options.features.mopidy = {
     enable = mkEnableOption "the mopidy music daemon";
-    credentials = mkOption {
-      type = types.submodule {
-        options = {
-          username = mkOption { type = types.str; };
-          password = mkOption { type = types.str; };
-          client_id = mkOption { type = types.str; };
-          client_secret = mkOption { type = types.str; };
-        };
-      };
-    };
   };
   config = mkIf cfg.enable {
     nixpkgs.config = {

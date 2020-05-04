@@ -4,9 +4,10 @@
 # This file is not currently used. It is left for reference.
 #
 
-with lib;
+let
+  inherit (lib) mkEnableOption mkIf;
 
-let cfg = config.features.vpn;
+  cfg = config.features.vpn;
 in {
   options.features.vpn = {
     enable = mkEnableOption "config for vpn";
