@@ -191,12 +191,13 @@ in {
   security.sudo = {
     extraConfig = ''
       Defaults  lecture="never"
-      #${scripts.elf-i3status}
     '';
   };
   security.wrappers = {
     elf-i3status = {
       source = "${scripts.elf-i3status}/bin/elf-i3status";
+      owner = "nobody";
+      group = "nobody";
       capabilities = "cap_sys_admin+ep";
     };
   };

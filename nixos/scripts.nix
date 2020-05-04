@@ -32,6 +32,6 @@
 
   elf-i3status = pkgs.writeScriptBin "elf-i3status" ''
     #!${pkgs.bash}/bin/bash
-    ${pkgs.iproute}/bin/ip netns exec physical sudo -E -u \#$(${pkgs.coreutils}/bin/id -u elf) -g \#$(${pkgs.coreutils}/bin/id -g elf) ${pkgs.i3status}/bin/i3status -c /home/elf/.config/i3status/config
+    ${pkgs.iproute}/bin/ip netns exec physical ${pkgs.i3status}/bin/i3status -c /home/elf/.config/i3status/config
   '';
 }
