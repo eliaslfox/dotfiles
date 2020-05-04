@@ -44,7 +44,6 @@ in {
     john
     unixtools.xxd
     llvmPackages.bintools
-    xorg.xhost
     openssl
     zathura
     ascii
@@ -65,7 +64,6 @@ in {
     smartmontools
     psmisc
     feh
-    xclip
     ncpamixer
     vlc
     mpv
@@ -74,7 +72,6 @@ in {
     cava
     gnupg
     tor-browser-bundle-bin
-    tree
     unzip
     libnotify
     nix-prefetch-git

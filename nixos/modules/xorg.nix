@@ -18,7 +18,7 @@
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ libinput arandr xorg.xprop ];
+    home.packages = with pkgs; [ libinput arandr xorg.xprop xorg.xhost xclip ];
 
     xsession.enable = true;
     xsession.windowManager.i3.enable = true;

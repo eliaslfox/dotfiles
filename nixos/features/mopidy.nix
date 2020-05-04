@@ -4,7 +4,7 @@ let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.features.mopidy;
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  unstable = import <nixos-unstable> { };
 
 in {
   options.features.mopidy = {
@@ -19,8 +19,6 @@ in {
       extensionPackages = [ unstable.mopidy-mpd ];
       configuration = ''
         [audio]
-        #output = tee name=t t. ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! filesink location=/tmp/mpd.fifo
-        #output = tee name=t ! queue ! pulsesink server=127.0.0.1 t. ! queue ! audioresample ! audioconvert ! audio/x-raw,rate=44100,channels=2,format=S16LE ! wavenc ! udpsink port=5555
         output = pulsesink server=127.0.0.1
 
         [file]
@@ -40,6 +38,7 @@ in {
           .ini
           .bmp
           .pdf
+          .zip
         follow_symlinks = false
         metadata_timeout = 1000
 
