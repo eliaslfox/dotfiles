@@ -13,6 +13,7 @@ in {
     ./features/docker.nix
     ./features/steam.nix
     ./features/wireguard.nix
+    ./features/dnscrypt.nix
 
     ./machine.nix
   ];
@@ -65,24 +66,11 @@ in {
       interfaces = [ "wlp6s0" ];
     };
     wireguard.enable = true;
-    dhcpcd = {
-      enable = true;
-      allowInterfaces = [ "*wlp6s0*" ];
-      extraConfig = ''
-        nooption domain_name_servers, domain_name, domain_search, host_name, ntp_servers
-        interface wlp6s0
-      '';
-    };
-  };
-
-  services.dnscrypt-proxy2 = {
-    enable = true;
-    configFile = ./dnscrypt-proxy.toml;
+    dhcpcd.enable = true;
   };
 
   environment = {
     etc = {
-      "dnscrypt.pem".source = ./dnscrypt.pem;
       "bashrc.local".text = ''
         export HISTFILE=~/.cache/bash_history
       '';
@@ -105,10 +93,17 @@ in {
     ];
   };
 
-  services.udev.packages = [ pkgs.yubikey-personalization ];
-  services.pcscd.enable = true;
+  services = {
+    udev.packages = [ pkgs.yubikey-personalization ];
+    pcscd.enable = true;
 
-  services.udisks2.enable = false;
+    udisks2.enable = false;
+
+    physlock = {
+      enable = true;
+      allowAnyUser = true;
+    };
+  };
 
   fonts = {
     enableDefaultFonts = true;
@@ -161,7 +156,7 @@ in {
         default-sample-rate = 44100;
         alternate-sample-rate = 48000;
       };
-      configFile = "${pkgs.callPackage ./pulse.nix { }}/default.pa";
+      configFile = "${pkgs.callPackage ./modules/pulse.nix { }}/default.pa";
     };
     cpu = {
       amd.updateMicrocode = true;
@@ -177,11 +172,6 @@ in {
   programs.iotop.enable = true;
   programs.dconf.enable = true;
   programs.wireshark.enable = true;
-
-  services.physlock = {
-    enable = true;
-    allowAnyUser = true;
-  };
 
   documentation = {
     dev.enable = true;

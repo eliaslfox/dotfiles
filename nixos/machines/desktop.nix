@@ -5,8 +5,8 @@ let scripts = pkgs.callPackage (import ../users/elf/scripts.nix) { };
 in {
   imports = [
     <nixos/nixos/modules/profiles/hardened.nix>
-    ../xorg.nix
-    ../mounts-zfs.nix
+    ../modules/xorg.nix
+    ../modules/mounts-zfs.nix
   ];
 
   boot = {
@@ -53,6 +53,7 @@ in {
       ethernetInterface = "enp4s0";
     };
     docker.enable = true;
+    dnscrypt.enable = true;
   };
 
   hardware = { enableRedistributableFirmware = true; };
