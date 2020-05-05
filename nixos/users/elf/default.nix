@@ -10,20 +10,10 @@ in {
       "i3status/config".source = ./files/i3status-config;
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
-
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
       "ghc/ghci.conf".source = ./files/ghci.conf;
-
-      # Firefox
-      #"mozilla/firefox/profiles.ini".source = ./files/firefox/profiles.ini;
-      #"mozilla/firefox/default/user.js".source = ./files/firefox/user.js;
-      #"mozilla/firefox/default/chrome/userChrome.css".source =
-      #  ./files/firefox/userChrome.css;
-      #"mozilla/firefox/clean/user.js".source = ./files/firefox/user.js;
-      #"mozilla/firefox/clean/chrome/userChrome.css".source =
-      #  ./files/firefox/userChrome-clean.css;
     };
   };
 
@@ -50,13 +40,11 @@ in {
     yubikey-manager
     httpie
     pavucontrol
-    chromium
     aircrackng
     wireshark-qt
     whois
     ncat
     transmission-gtk
-    firefox
     bridge-utils
     unstable.nixops
     btrbk
@@ -85,7 +73,6 @@ in {
 
     # Editors
     (callPackage ./nvim.nix { })
-    #(callPackage ./emacs.nix {})
 
     # NodeJs
     unstable.nodePackages.prettier
@@ -143,6 +130,14 @@ in {
   xsession.windowManager.i3 = import ./i3.nix;
 
   programs.firefox = import ./firefox.nix;
+
+  programs.chromium = {
+    enable = true;
+    extensions = [
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
+    ];
+  };
+
   programs.command-not-found.enable = true;
   programs.kitty = {
     enable = true;
