@@ -15,20 +15,24 @@
       position = 2;
       settings = { format = "%avail"; };
     };
-    "run_watch DHCP" = {
+    "disk /nix/store" = {
       position = 3;
+      settings = { format = "%avail"; };
+    };
+    "run_watch DHCP" = {
+      position = 4;
       settings = { pidfile = "/run/dhcpcd*.pid"; };
     };
     "wireless _first_" = {
-      position = 4;
+      position = 5;
       settings = { format_up = "W: (%quality at %essid) %ip"; };
     };
     "ethernet _first_" = {
-      position = 5;
+      position = 6;
       settings = { format_up = "E: %ip (%speed)"; };
     };
     "volume master" = {
-      position = 6;
+      position = 7;
       settings = {
         format = "♪: %volume";
         format_muted = "♪: muted (%volume)";
@@ -38,7 +42,7 @@
       };
     };
     "battery all" = {
-      position = 7;
+      position = 8;
       settings = {
         format = "%status %percentage %remaining";
         format_down = "";
@@ -48,22 +52,22 @@
       };
     };
     "load" = {
-      position = 8;
+      position = 9;
       settings = { format = "Load: %1min"; };
     };
     "cpu_usage" = {
-      position = 9;
+      position = 10;
       settings = {
         max_threshold = 50;
         degraded_threshold = 25;
       };
     };
     "cpu_temperature 0" = {
-      position = 10;
+      position = 11;
       settings = { path = "/sys/class/hwmon/hwmon0/temp1_input"; };
     };
     "tztime local" = {
-      position = 10;
+      position = 12;
       settings = { format = "%Y-%m-%d %H:%M:%S"; };
     };
   };
