@@ -1,32 +1,25 @@
-{ pkgs, ... }:
+{ pkgs, ... }: {
+  enable = true;
+  extraConfig = builtins.readFile ./files/init.vim;
+  plugins = with pkgs.vimPlugins; [
+    NeoSolarized
+    vim-airline
+    vim-airline-themes
+    supertab
 
-pkgs.neovim.override {
-  vimAlias = true;
-  withPython3 = true;
+    deoplete-nvim
+    LanguageClient-neovim
+    neoformat
+    gitgutter
+
+    ghcid
+    vim-nix
+    vim-javascript
+    typescript-vim
+  ];
   withPython = false;
   withRuby = false;
-  configure.vam.knownPlugins = pkgs.vimPlugins;
-  configure.vam.pluginDictionaries = [
-    # UI
-    "NeoSolarized"
-    "vim-airline"
-    "vim-airline-themes"
-    "supertab"
-
-    # Language Agnostic Plugins
-    {
-      name = "deoplete-nvim";
-      command = ":UpdateRemotePlugins";
-    }
-    "LanguageClient-neovim"
-    "neoformat"
-    "gitgutter"
-
-    # Language Plugins
-    "ghcid"
-    "vim-nix"
-    "vim-javascript"
-    "typescript-vim"
-  ];
-  configure.customRC = builtins.readFile ./files/init.vim;
+  viAlias = true;
+  vimAlias = true;
+  vimdiffAlias = true;
 }

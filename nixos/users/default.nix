@@ -19,8 +19,13 @@ in {
     hashedPassword = credentials.users.elf;
   };
   users.extraUsers.root = { hashedPassword = credentials.users.root; };
-  home-manager.users.elf = import ./elf {
-    config = config;
-    pkgs = pkgs;
+  home-manager = {
+    useUserPackages = true;
+    useGlobalPkgs = true;
+
+    users.elf = import ./elf {
+      config = config;
+      pkgs = pkgs;
+    };
   };
 }

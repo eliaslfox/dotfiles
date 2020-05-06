@@ -7,7 +7,6 @@ in {
     enable = true;
     configFile = {
       "npm/npmrc".source = ./files/npmrc;
-      "i3status/config".source = ./files/i3status-config;
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
     };
@@ -71,9 +70,6 @@ in {
     efitools
     efibootmgr
 
-    # Editors
-    (callPackage ./nvim.nix { })
-
     # NodeJs
     nodePackages.prettier
     nodePackages.javascript-typescript-langserver
@@ -89,8 +85,8 @@ in {
     python38Packages.virtualenv
 
     # Rust
-    unstable.rust-analyzer-unwrapped # cargo rustc
-    rustup # rustfmt
+    unstable.rust-analyzer-unwrapped
+    rustup
 
     # C
     gcc
@@ -120,154 +116,76 @@ in {
     '';
   };
 
-  services.picom = {
-    opacityRule = [ ''80:WM_CLASS@:s = "term-float"'' ];
-    menuOpacity = "0.8";
-  };
-
-  services.dunst = import ./dunst.nix;
-
   xsession.windowManager.i3 = import ./i3.nix;
 
-  programs.firefox = import ./firefox.nix;
+  programs = {
+    firefox = import ./firefox.nix;
+    i3status = import ./i3status.nix;
+    git = import ./git.nix { pkgs = pkgs; };
+    kitty = import ./kitty.nix { pkgs = pkgs; };
+    neovim = import ./nvim.nix { pkgs = pkgs; };
+    zsh = import ./zsh.nix;
 
-  programs.chromium = {
-    enable = true;
-    extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
-    ];
-  };
+    command-not-found.enable = true;
 
-  programs.command-not-found.enable = true;
-  programs.kitty = {
-    enable = true;
-    font = {
-      name = "Fira Code Light";
-      package = pkgs.fira-code;
+    chromium = {
+      enable = true;
+      extensions = [
+        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
+      ];
     };
-    settings = {
-      bold_font = "Fira Code Regular";
-      font_size = 11;
-      enable_audio_bell = "no";
 
-      foreground = "#839496";
-      background = "#002b36";
-      selection_foreground = "#93a1a1";
-      selection_background = "#073642";
-
-      remember_window_size = "no";
-      initial_window_width = 530;
-      initial_window_height = 320;
-
-      # black
-      color0 = "#073642";
-      color8 = "#002b36";
-
-      # red
-      color1 = "#dc322f";
-      color9 = "#cb4b16";
-
-      # green
-      color2 = "#859900";
-      color10 = "#586e75";
-
-      # yellow
-      color3 = "#b58900";
-      color11 = "#657b83";
-
-      # blue
-      color4 = "#268bd2";
-      color12 = "#839496";
-
-      # magenta
-      color5 = "#d33682";
-      color13 = "#6c71c4";
-
-      # cyan
-      color6 = "#2aa198";
-      color14 = "#93a1a1";
-
-      # white
-      color7 = "#839496";
-      color15 = "#fdf6e3";
-    };
-  };
-
-  programs.zsh = import ./zsh.nix;
-
-  programs.git = {
-    enable = true;
-    userName = "Elias Lawson-Fox";
-    userEmail = "me@eliaslfox.com";
-    ignores = [ "*~" "*.swp" ];
-    signing = {
-      signByDefault = true;
-      key = "0x2E9DA81892721D77";
-    };
-    aliases = {
-      l = "log --decorate --oneline --graph --first-parent";
-      s = "status";
-      c = "checkout";
-      mb = "checkout -b";
-    };
-    extraConfig = {
-      core = {
-        editor = "nvim";
-        whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
-        pager = ''
-          ${pkgs.gitAndTools.delta}/bin/delta --plus-color="#012800" --minus-color="#340001" --theme=none --hunk-style=plain'';
+    htop = {
+      enable = true;
+      colorScheme = 6;
+      hideThreads = true;
+      hideUserlandThreads = true;
+      meters = {
+        left = [ "AllCPUs" "Memory" "Swap" ];
+        right = [ "Tasks" "LoadAverage" "Uptime" "Hostname" ];
       };
-      help = { autocorrect = 1; };
-      status = {
-        showStatus = true;
-        submoduleSummary = true;
+      updateProcessNames = true;
+    };
+
+    gpg = {
+      enable = true;
+      settings = {
+        default-key = "0x2E9DA81892721D77";
+        trusted-key = "0x2E9DA81892721D77";
       };
-      interactive = {
-        diffFilter =
-          "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
+    };
+  };
+
+  services = {
+    dunst = import ./dunst.nix;
+
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      defaultCacheTtl = 60;
+      maxCacheTtl = 120;
+    };
+    picom = {
+      opacityRule = [ ''80:WM_CLASS@:s = "term-float"'' ];
+      menuOpacity = "0.8";
+    };
+  };
+
+  systemd.user = {
+    startServices = true;
+    services = {
+      home-symlinks = {
+        Unit = { Description = "Init symlinks in home folder"; };
+        Service = { ExecStart = "${scripts.symlink-init}/bin/symlink-init"; };
+        Install = { WantedBy = [ "default.target" ]; };
       };
-      push = { default = "current"; };
+
+      set-bg = {
+        Unit = { Description = "Set background"; };
+        Service = { ExecStart = "${scripts.set-bg}/bin/set-bg"; };
+        Install = { WantedBy = [ "graphical-session.target" ]; };
+      };
     };
-  };
-
-  programs.htop = {
-    enable = true;
-    colorScheme = 6;
-    hideThreads = true;
-    hideUserlandThreads = true;
-    meters = {
-      left = [ "AllCPUs" "Memory" "Swap" ];
-      right = [ "Tasks" "LoadAverage" "Uptime" "Hostname" ];
-    };
-    updateProcessNames = true;
-  };
-
-  programs.gpg = {
-    enable = true;
-    settings = {
-      default-key = "0x2E9DA81892721D77";
-      trusted-key = "0x2E9DA81892721D77";
-    };
-  };
-
-  services.gpg-agent = {
-    enable = true;
-    enableSshSupport = true;
-    defaultCacheTtl = 60;
-    maxCacheTtl = 120;
-  };
-
-  systemd.user.startServices = true;
-  systemd.user.services.home-symlinks = {
-    Unit = { Description = "Init symlinks in home folder"; };
-    Service = { ExecStart = "${scripts.symlink-init}/bin/symlink-init"; };
-    Install = { WantedBy = [ "default.target" ]; };
-  };
-
-  systemd.user.services.set-bg = {
-    Unit = { Description = "Set background"; };
-    Service = { ExecStart = "${scripts.set-bg}/bin/set-bg"; };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
   };
 
   home.stateVersion = "20.03";
