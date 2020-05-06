@@ -92,8 +92,8 @@ in {
         serviceConfig = {
           NetworkNamespacePath = "/var/run/netns/physical";
           ExecStart = lib.mkForce
-            "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd --quiet --config ${dhcpcdConf} wlp6s0";
-          PIDFile = lib.mkForce "/run/dhcpcd-wlp6s0.pid";
+            "@${pkgs.dhcpcd}/sbin/dhcpcd dhcpcd --quiet --config ${dhcpcdConf} ${cfg.wirelessInterface}";
+          PIDFile = lib.mkForce "/run/dhcpcd-${cfg.wirelessInterface}.pid";
         };
       };
     };
