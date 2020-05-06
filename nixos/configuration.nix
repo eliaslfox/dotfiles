@@ -190,6 +190,12 @@ in {
       group = "nobody";
       capabilities = "cap_sys_admin+ep";
     };
+    wg-status = {
+      source = "${scripts.wg-status}/bin/wg-status";
+      owner = "nobody";
+      group = "nobody";
+      capabilities = "cap_net_admin+ep";
+    };
   };
 
   time.timeZone = "US/Pacific";

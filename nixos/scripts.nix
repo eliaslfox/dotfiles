@@ -38,4 +38,11 @@
 
     ${pkgs.iproute}/bin/ip netns exec physical ${pkgs.i3status}/bin/i3status -c /home/elf/.config/i3status/config
   '';
+
+  wg-status = pkgs.writeScriptBin "wg-status" ''
+    #!${pkgs.bash}/bin/bash
+    set -euo pipefail
+
+    ${pkgs.wireguard}/bin/wg show wg0
+  '';
 }
