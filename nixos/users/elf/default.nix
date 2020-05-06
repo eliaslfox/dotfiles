@@ -19,6 +19,17 @@ in {
   home.file.".gnupg/gpg-agent.conf".target = ".config/gnupg/gpg-agent.conf";
   home.file.".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
 
+  home.file.".mozilla/firefox/profiles.ini".target =
+    ".config/mozilla/firefox/profiles.ini";
+  home.file.".mozilla/firefox/default/user.js".target =
+    ".config/mozilla/firefox/default/user.js";
+  home.file.".mozilla/firefox/default/chrome/userChrome.css".target =
+    ".config/mozilla/firefox/default/chrome/userChrome.css";
+  home.file.".mozilla/firefox/clean/user.js".target =
+    ".config/mozilla/firefox/clean/user.js";
+  home.file.".mozilla/firefox/clean/chrome/userChrome.css".target =
+    ".config/mozilla/firefox/clean/chrome/userChrome.css";
+
   home.packages = with pkgs; [
     # coreutils 2.0
     exa

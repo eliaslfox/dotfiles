@@ -65,7 +65,6 @@ in {
       networks = credentials.wifi;
       interfaces = [ "wlp6s0" ];
     };
-    wireguard.enable = true;
     dhcpcd.enable = true;
   };
 

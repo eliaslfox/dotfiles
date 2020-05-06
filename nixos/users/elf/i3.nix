@@ -35,6 +35,8 @@ in {
 
       # Manage bars
       "Mod1+m" = "bar mode toggle";
+
+      "Mod1+Shift+m" = "exec /run/wrappers/bin/physlock";
     };
     colors.focused = {
       background = "#285577";
