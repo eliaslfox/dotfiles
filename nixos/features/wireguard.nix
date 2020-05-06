@@ -80,31 +80,6 @@ in {
 
       wireguard-wg0 = { after = [ "physical-netns.service" ]; };
 
-      /* wg0 = {
-           description = "Setup wireguard";
-           after = [ "physical-netns.service" ];
-           requires = [ "physical-netns.service" ];
-           before = [ "network.target" ];
-           wants = [ "network.target" ];
-           wantedBy = [ "multi-user.target" ];
-           path = [ pkgs.iproute pkgs.wireguard pkgs.iw ];
-           restartIfChanged = false;
-           serviceConfig = {
-             Type = "oneshot";
-             RemainAfterExit = "true";
-             ExecStart = pkgs.writeScript "wg0-start" ''
-               #!${pkgs.bash}/bin/bash
-               ip -n physical link add wg0 type wireguard
-               ip -n physical link set wg0 netns 1
-               wg set wg0 private-key /root/wg/private peer ${wg.publickey} allowed-ips 0.0.0.0/0 endpoint ${wg.endpoint}
-               ip link set wg0 up
-               ip addr add ${wg.address} dev wg0
-               ip route add default dev wg0
-             '';
-           };
-         };
-      */
-
       wpa_supplicant = {
         after = lib.mkForce [ "physical-netns.service" ];
         requires = lib.mkForce [ "physical-netns.service" ];
