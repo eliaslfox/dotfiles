@@ -10,11 +10,9 @@ in {
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackagesFor
-      (pkgs.linuxPackages_latest_hardened.kernel.override {
-        features.ia32Emulation = true;
-        structuredExtraConfig = { IA32_EMULATION = { tristate = "y"; }; };
-      });
+    kernelPackages = pkgs.linuxPackages_latest_hardened;
+
+    kernel.sysctl = { "kernel.unprivileged_userns_clone" = true; };
 
     kernelModules = [ "kvm_amd" ];
     extraModprobeConfig = ''
@@ -121,8 +119,8 @@ in {
     allowSimultaneousMultithreading = true;
     lockKernelModules = false;
     allowUserNamespaces = true;
-    chromiumSuidSandbox.enable = true;
   };
+  environment.memoryAllocator.provider = "libc";
 
   nix = {
     maxJobs = lib.mkDefault 12;

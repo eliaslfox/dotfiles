@@ -29,7 +29,7 @@ in {
     spotify
     zoom-us
     nixfmt
-    steam
+    # steam
     dnsutils
     john
     unixtools.xxd
@@ -46,7 +46,7 @@ in {
     ncat
     transmission-gtk
     bridge-utils
-    unstable.nixops
+    nixops
     btrbk
     unstable.discord
     smartmontools
@@ -75,9 +75,9 @@ in {
     (callPackage ./nvim.nix { })
 
     # NodeJs
-    unstable.nodePackages.prettier
-    unstable.nodePackages.javascript-typescript-langserver
-    unstable.nodejs
+    nodePackages.prettier
+    nodePackages.javascript-typescript-langserver
+    nodejs
 
     # Haskell
     ghc
@@ -215,7 +215,7 @@ in {
         editor = "nvim";
         whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
         pager = ''
-          ${unstable.gitAndTools.delta}/bin/delta --plus-color="#012800" --minus-color="#340001" --theme=none --hunk-style=plain'';
+          ${pkgs.gitAndTools.delta}/bin/delta --plus-color="#012800" --minus-color="#340001" --theme=none --hunk-style=plain'';
       };
       help = { autocorrect = 1; };
       status = {
@@ -224,7 +224,7 @@ in {
       };
       interactive = {
         diffFilter =
-          "${unstable.gitAndTools.delta}/bin/delta --color-only --theme=none";
+          "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
       };
       push = { default = "current"; };
     };

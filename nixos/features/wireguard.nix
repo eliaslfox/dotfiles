@@ -54,18 +54,20 @@ in {
         description = "Setup wireguard";
         after = [
           "physical-netns.service"
-          "sys-subsystem-net-devices-${
-            utils.escapeSystemdPath cfg.ethernetInterface
-          }.device"
+          /* "sys-subsystem-net-devices-${
+               utils.escapeSystemdPath cfg.ethernetInterface
+             }.device"
+          */
           "sys-subsystem-net-devices-${
             utils.escapeSystemdPath cfg.wirelessInterface
           }.device"
         ];
         requires = [
           "physical-netns.service"
-          "sys-subsystem-net-devices-${
-            utils.escapeSystemdPath cfg.ethernetInterface
-          }.device"
+          /* "sys-subsystem-net-devices-${
+               utils.escapeSystemdPath cfg.ethernetInterface
+             }.device"
+          */
           "sys-subsystem-net-devices-${
             utils.escapeSystemdPath cfg.wirelessInterface
           }.device"

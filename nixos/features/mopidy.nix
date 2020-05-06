@@ -4,19 +4,14 @@ let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.features.mopidy;
-  unstable = import <nixos-unstable> { };
-
 in {
   options.features.mopidy = {
     enable = mkEnableOption "the mopidy music daemon";
   };
   config = mkIf cfg.enable {
-    nixpkgs.config = {
-      packageOverrides = pkgs: { mopidy = unstable.mopidy; };
-    };
     services.mopidy = {
       enable = true;
-      extensionPackages = [ unstable.mopidy-mpd ];
+      extensionPackages = [ pkgs.mopidy-mpd ];
       configuration = ''
         [audio]
         output = pulsesink server=127.0.0.1
