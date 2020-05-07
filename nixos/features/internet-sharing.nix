@@ -50,10 +50,10 @@ in {
         interfaces = [ cfg.internalInterface ];
       };
     })
+
+    # Overrides to make internet sharing work with network namespaces
     (mkIf (config.features.wireguard.enable && cfg.enable) {
 
-      # Overrides to make internet sharing work with network namespaces
-      # the base service definitions are in nixos/features/internet-sharing/.nix
       systemd.services = {
         dhcpd4 = {
           after = lib.mkForce [ "physical-netns.service" ];
@@ -76,6 +76,5 @@ in {
           };
       };
     })
-
   ];
 }
