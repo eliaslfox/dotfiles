@@ -4,7 +4,11 @@
 
   imports = [ ../laptop.nix ../xorg.nix ];
 
-  networking.hostName = "nico-ni";
+  networking = {
+    hostName = "nico-ni";
+    wireless.interfaces = [ "wlp3s0" ];
+  };
+
   boot = {
     initrd = {
       availableKernelModules =

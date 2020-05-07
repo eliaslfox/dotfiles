@@ -59,6 +59,7 @@ in {
   networking = {
     hostName = "darling";
     hostId = "8425e349";
+    wireless.interfaces = [ "wlp6s0" ];
   };
 
   services.xserver = {

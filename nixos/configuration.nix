@@ -63,7 +63,6 @@ in {
     wireless = {
       enable = true;
       networks = credentials.wifi;
-      interfaces = [ "wlp6s0" ];
     };
     dhcpcd.enable = true;
   };
