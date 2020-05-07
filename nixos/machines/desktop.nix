@@ -48,7 +48,6 @@ in {
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
-      ethernetInterface = "enp4s0";
     };
     docker.enable = true;
     dnscrypt.enable = true;

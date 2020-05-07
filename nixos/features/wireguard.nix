@@ -21,11 +21,6 @@ let
 in {
   options.features.wireguard = {
     enable = mkEnableOption "wireguard vpn";
-    ethernetInterface = mkOption {
-      type = types.str;
-      description = "The id of your ethernet interface";
-      example = "eth0";
-    };
     wirelessInterface = mkOption {
       type = types.str;
       description =
@@ -55,10 +50,7 @@ in {
     systemd.services = {
       physical-netns = {
         description = "Network namespace for physical devices";
-        after = [
-          "sys-subsystem-net-devices-${cfg.ethernetInterface}.device"
-          "sys-subsystem-net-devices-${cfg.wirelessInterface}.device"
-        ];
+        after = [ "sys-subsystem-net-devices-${cfg.wirelessInterface}.device" ];
         wantedBy = [ "multi-user.target" ];
         before = [ "network.target" ];
         wants = [ "network.target" ];
@@ -72,7 +64,6 @@ in {
             set -eou pipefail
 
             ip netns add physical
-            ip link set ${cfg.ethernetInterface} netns physical
             iw phy phy0 set netns name physical
           '';
         };
