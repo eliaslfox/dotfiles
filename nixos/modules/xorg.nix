@@ -12,7 +12,7 @@
     };
     desktopManager.xterm.enable = true;
     displayManager = {
-      gdm = { enable = true; };
+      lightdm = { enable = true; };
       defaultSession = "xterm";
     };
   };
