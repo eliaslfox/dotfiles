@@ -1,4 +1,4 @@
-{ config, lib, pkgs, utils, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf mkOption types;
@@ -18,6 +18,14 @@ let
 
     waitip
   '';
+
+  moveExtraInterfaces =
+    builtins.map (x: "ip link set ${x} netns physical") cfg.extraInterfaces;
+
+  returnExtraInterfaces =
+    builtins.map (x: "ip -n physical link set ${x} netns 1")
+    cfg.extraInterfaces;
+
 in {
   options.features.wireguard = {
     enable = mkEnableOption "wireguard vpn";
@@ -26,6 +34,12 @@ in {
       description =
         "The id of your wireless interface. This is the only interface that will have dhcp enabled.";
       example = "wlan0";
+    };
+    extraInterfaces = mkOption {
+      type = types.listOf types.str;
+      description = "Extra interfaces to move into the physical namespace";
+      example = [ "eth0" ];
+      default = [ ];
     };
   };
 
@@ -47,10 +61,14 @@ in {
       };
     };
 
+    networking.firewall.trustedInterfaces = [ "enp4s0" ];
+
     systemd.services = {
       physical-netns = {
         description = "Network namespace for physical devices";
-        after = [ "sys-subsystem-net-devices-${cfg.wirelessInterface}.device" ];
+        after = [ "sys-subsystem-net-devices-${cfg.wirelessInterface}.device" ]
+          ++ builtins.map (x: "sys-subsystem-net-devices-${x}.device")
+          cfg.extraInterfaces;
         wantedBy = [ "multi-user.target" ];
         before = [ "network.target" ];
         wants = [ "network.target" ];
@@ -65,6 +83,15 @@ in {
 
             ip netns add physical
             iw phy phy0 set netns name physical
+            ${builtins.toString moveExtraInterfaces}
+          '';
+          ExecStop = pkgs.writeScript "physical-netns-stop" ''
+            #!${pkgs.bash}/bin/bash
+            set -euo pipefail
+
+            ip netns exec physical iw phy phy0 set netns 1
+            ${builtins.toString returnExtraInterfaces}
+            ip netns delete physical
           '';
         };
       };
@@ -72,6 +99,12 @@ in {
       wireguard-wg0 = { after = [ "physical-netns.service" ]; };
 
       wpa_supplicant = {
+        after = lib.mkForce [ "physical-netns.service" ];
+        requires = lib.mkForce [ "physical-netns.service" ];
+        serviceConfig = { NetworkNamespacePath = "/var/run/netns/physical"; };
+      };
+
+      firewall = {
         after = lib.mkForce [ "physical-netns.service" ];
         requires = lib.mkForce [ "physical-netns.service" ];
         serviceConfig = { NetworkNamespacePath = "/var/run/netns/physical"; };

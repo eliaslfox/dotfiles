@@ -48,9 +48,15 @@ in {
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
+      extraInterfaces = [ "enp4s0" ];
     };
     docker.enable = true;
     dnscrypt.enable = true;
+    internet-sharing = {
+      enable = true;
+      externalInterface = "wlp6s0";
+      internalInterface = "enp4s0";
+    };
   };
 
   hardware = { enableRedistributableFirmware = true; };

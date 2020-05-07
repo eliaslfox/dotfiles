@@ -14,6 +14,7 @@ in {
     ./features/steam.nix
     ./features/wireguard.nix
     ./features/dnscrypt.nix
+    ./features/internet-sharing.nix
 
     ./machine.nix
   ];
@@ -25,9 +26,6 @@ in {
     ];
 
     kernel.sysctl = {
-      # Don't forward ipv4 packets
-      "net.ipv4.ip_forward" = 0;
-
       # Swap to disk less
       "vm.swappiness" = 1;
 
@@ -50,21 +48,18 @@ in {
   };
 
   networking = {
-    nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "127.0.0.1" "8.8.8.8" "8.8.4.4" ];
     enableIPv6 = false;
     firewall = {
       enable = true;
-      allowedUDPPorts = lib.mkForce [ ];
-      allowedTCPPorts = lib.mkForce [ ];
       allowPing = false;
-      logReversePathDrops = true;
-      logRefusedPackets = true;
+      allowedUDPPorts = [ ];
+      allowedTCPPorts = [ ];
     };
     wireless = {
       enable = true;
       networks = credentials.wifi;
     };
-    dhcpcd.enable = true;
   };
 
   environment = {
