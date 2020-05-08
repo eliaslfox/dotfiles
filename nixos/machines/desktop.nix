@@ -57,6 +57,7 @@ in {
       externalInterface = "wlp6s0";
       internalInterface = "enp4s0";
     };
+    vm-bridge.enable = true;
   };
 
   hardware = { enableRedistributableFirmware = true; };

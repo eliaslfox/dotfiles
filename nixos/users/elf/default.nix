@@ -55,7 +55,6 @@ in {
     whois
     ncat
     transmission-gtk
-    bridge-utils
     nixops
     btrbk
     unstable.discord

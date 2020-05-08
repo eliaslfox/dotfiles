@@ -15,6 +15,7 @@ in {
     ./features/wireguard.nix
     ./features/dnscrypt.nix
     ./features/internet-sharing.nix
+    ./features/vm-bridge.nix
 
     ./machine.nix
   ];
