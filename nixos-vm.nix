@@ -5,7 +5,7 @@ let
 
 in {
   imports = [
-    <nixpkgs.nixos/modules/profiles/minimal.nix>
+    <nixpkgs/nixos/modules/profiles/minimal.nix>
     /etc/nixos/hardware-configuration.nix
   ];
 
