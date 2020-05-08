@@ -53,7 +53,7 @@
     };
     "load" = {
       position = 9;
-      settings = { format = "Load: %1min"; };
+      settings = { format = "%1min"; };
     };
     "cpu_usage" = {
       position = 10;

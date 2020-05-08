@@ -2,6 +2,8 @@
 let
   scripts = pkgs.callPackage (import ./scripts.nix) { };
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  reallyUnstable =
+    import <nixpkgs-master> { config = { allowUnfree = true; }; };
 in {
   xdg = {
     enable = true;
@@ -36,10 +38,10 @@ in {
     ripgrep
     fd
 
+    reallyUnstable.steam
     spotify
     zoom-us
     nixfmt
-    # steam
     dnsutils
     john
     unixtools.xxd

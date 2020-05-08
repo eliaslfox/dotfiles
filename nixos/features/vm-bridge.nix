@@ -14,6 +14,7 @@ in {
         after = [ "wireguard-wg0.service" ];
         requires = [ "wireguard-wg0.service" ];
         wantedBy = [ "multi-user.target" ];
+        restartIfChanged = false;
         path = [ pkgs.iproute pkgs.iptables ];
         serviceConfig = {
           ExecStart = pkgs.writeScript "vm-bridge-start" ''
