@@ -19,6 +19,9 @@ in {
     useDHCP = false;
     firewall.enable = false;
     nameservers = [ "8.8.8.8" "8.8.4.4." ];
+
+    kernelParams = [ "elevator=no" ];
+
     interfaces."enp0s2".ipv4 = {
       addresses = [{
         address = "10.0.0.2";
@@ -49,6 +52,8 @@ in {
       })
       htop
       dnsutils
+      minikube
+      kubectl
     ];
     etc."bashrc.local".text = ''
       export TERM=xterm-256color
@@ -79,6 +84,15 @@ in {
         extraGroups = [ "wheel" ];
         openssh.authorizedKeys.keys = [ sshKey ];
       };
+    };
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    package = pkgs.docker-edge;
+    autoPrune = {
+      enable = true;
+      flags = [ "--all" ];
     };
   };
 
