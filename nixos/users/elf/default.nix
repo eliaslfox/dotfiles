@@ -152,10 +152,11 @@ in {
       hideThreads = true;
       hideUserlandThreads = true;
       meters = {
-        left = [ "AllCPUs" "Memory" "Swap" ];
-        right = [ "Tasks" "LoadAverage" "Uptime" "Hostname" ];
+        left = [ "LeftCPUs" "Memory" "Swap" ];
+        right = [ "RightCPUs" "Tasks" "Uptime" "Hostname" ];
       };
       updateProcessNames = true;
+      showThreadNames = true;
     };
 
     gpg = {

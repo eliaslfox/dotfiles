@@ -82,7 +82,7 @@ in {
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ cura qemu_kvm ];
+    home.packages = with pkgs; [ cura qemu_kvm minikube ];
     services.picom.enable = true;
   };
 
