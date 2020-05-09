@@ -36,7 +36,7 @@ in {
             ip addr add 10.0.0.1/24 dev br0
 
             iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
-            iptables -A FORWARD -m cstate --ctstate RELATED,ESTABLISHED -j ACCEPT
+            iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
             iptables -A FORWARD -i br0 -o wg0 -j ACCEPT
           '';
         };
