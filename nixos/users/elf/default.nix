@@ -198,6 +198,15 @@ in {
         Service = { ExecStart = "${scripts.set-bg}/bin/set-bg"; };
         Install = { WantedBy = [ "graphical-session.target" ]; };
       };
+
+      nixos-vm = {
+        Unit = { Description = "Start vm"; };
+        Service = { ExecStart = "${scripts.nixos-vm}/bin/nixos-vm"; };
+      };
+      nixos-vm-iso = {
+        Unit = { Description = "Start vm with iso boot"; };
+        Service = { ExecStart = "${scripts.nixos-vm-iso}/bin/nixos-vm-iso"; };
+      };
     };
   };
 

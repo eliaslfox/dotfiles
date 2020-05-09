@@ -61,4 +61,40 @@
     ${pkgs.multimc}/bin/multimc -d "$HOME/.cache/multimc"
   '';
 
+  nixos-vm = pkgs.writeShellScriptBin "nixos-vm" ''
+    #!${pkgs.bash}/bin/bash
+    set -eou pipefail
+
+    exec ${pkgs.qemu_kvm}/bin/qemu-kvm \
+      -display gtk \
+      -nodefaults \
+      -machine type=q35,accel=kvm \
+      -cpu host \
+      -smp 12 \
+      -m 20G \
+      -vga virtio \
+      -nic tap,ifname=tap0,script=no,downscript=no \
+      -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng0 \
+      -drive file=~/Documents/vm/nixos-main.img,if=virtio,cache=none
+  '';
+
+  nixos-vm-iso = pkgs.writeShellScriptBin "nixos-vm-iso" ''
+    #!${pkgs.bash}/bin/bash
+    set -eou pipefail
+
+    exec ${pkgs.qemu_kvm}/bin/qemu-kvm \
+      -display gtk \
+      -nodefaults \
+      -machine type=q35,accel=kvm \
+      -cpu host \
+      -smp 12 \
+      -m 20G \
+      -vga virtio \
+      -nic tap,ifname=tap0,script=no,downscript=no \
+      -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng0 \
+      -drive file=~/Documents/vm/nixos-main.img,if=virtio,cache=none \
+      -cdrom ~/Documents/vm/nixos.iso \
+      -boot d
+  '';
+
 }
