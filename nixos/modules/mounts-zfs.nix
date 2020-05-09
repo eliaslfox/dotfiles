@@ -5,7 +5,13 @@
   fileSystems."/" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "mode=0755" "noatime" ];
+    options = [ "mode=0755" "noexec" ];
+  };
+
+  fileSystems."/run/wrappers" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
+    options = [ "noexec" ];
   };
 
   # mount the nix store
@@ -50,6 +56,6 @@
   fileSystems."/home/elf/.local" = {
     device = "zroot/home/elf/.local";
     fsType = "zfs";
-    options = [ "noatime" "nosuid" ];
+    options = [ "noatime" "exec" ];
   };
 }
