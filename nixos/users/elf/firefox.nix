@@ -34,6 +34,14 @@ let
     # Misc
     "identity.fxaccounts.enabled" = false;
 
+    # Forms
+    "signon.autofillForms" = false;
+    "sigon.rememberSignons" = false;
+
+    # UI
+    "network.IDN_show_punycode" = true;
+    "layout.css.visited_links_enabled" = false;
+
     # URL Bar Config
     "browser.urlbar.openViewOnFocus" = false;
     "browser.urlbar.update1" = false;
@@ -204,85 +212,6 @@ let
     "network.cookie.cookieBehavior" = 1;
     "privacy.firstparty.isolate" = true;
 
-    # Forms
-    "signon.autofillForms" = false;
-    "sigon.rememberSignons" = false;
-
-    # UI
-    "network.IDN_show_punycode" = true;
-    "layout.css.visited_links_enabled" = false;
-
-    # HTTPS
-    "network.stricttransportsecurity.preloadlist" = true;
-    "security.OCSP.enabled" = 1;
-    "security.ssl.enable_ocsp_stapling" = true;
-    "security.ssl.enable_ocsp_must_staple" = true;
-    "security.OCSP.require" = true;
-    "security.ssl.disable_session_identifiers" = true;
-    "security.tls.version.min" = 2;
-    "security.tls.version.fallback-limit" = 3;
-    "security.cert_pinning.enforcement_level" = 2;
-    "security.pki.sha1_enforcement_level" = 1;
-    "security.ssl.treat_unsafe_negotiation_as_broken" = true;
-    #""security.ssl.require_safe_negotiation" = true;
-    "security.ssl.errorReporting.automatic" = true;
-    "browser.ssl_override_behavior" = 1;
-
-    # Ciphers
-    "security.ssl3.rsa_null_sha" = false;
-    "security.ssl3.rsa_null_md5" = false;
-    "security.ssl3.ecdhe_rsa_null_sha" = false;
-    "security.ssl3.ecdhe_ecdsa_null_sha" = false;
-    "security.ssl3.ecdh_rsa_null_sha" = false;
-    "security.ssl3.ecdh_ecdsa_null_sha" = false;
-
-    "security.ssl3.rsa_seed_sha" = false;
-
-    "security.ssl3.rsa_rc4_40_md5" = false;
-    "security.ssl3.rsa_rc2_40_md5" = false;
-    "security.ssl3.rsa_1024_rc4_56_sha" = false;
-    "security.ssl3.rsa_camellia_128_sha" = false;
-    "security.ssl3.ecdhe_rsa_aes_128_sha" = false;
-    "security.ssl3.ecdhe_ecdsa_aes_128_sha" = false;
-    "security.ssl3.ecdh_rsa_aes_128_sha" = false;
-    "security.ssl3.ecdh_ecdsa_aes_128_sha" = false;
-    "security.ssl3.dhe_rsa_camellia_128_sha" = false;
-    "security.ssl3.dhe_rsa_aes_128_sha" = false;
-
-    "security.ssl3.ecdh_ecdsa_rc4_128_sha" = false;
-    "security.ssl3.ecdh_rsa_rc4_128_sha" = false;
-    "security.ssl3.ecdhe_ecdsa_rc4_128_sha" = false;
-    "security.ssl3.ecdhe_rsa_rc4_128_sha" = false;
-    "security.ssl3.rsa_rc4_128_md5" = false;
-    "security.ssl3.rsa_rc4_128_sha" = false;
-    "security.tls.unrestricted_rc4_fallback" = false;
-
-    "security.ssl3.dhe_dss_des_ede3_sha" = false;
-    "security.ssl3.dhe_rsa_des_ede3_sha" = false;
-    "security.ssl3.ecdh_ecdsa_des_ede3_sha" = false;
-    "security.ssl3.ecdh_rsa_des_ede3_sha" = false;
-    "security.ssl3.ecdhe_ecdsa_des_ede3_sha" = false;
-    "security.ssl3.ecdhe_rsa_des_ede3_sha" = false;
-    "security.ssl3.rsa_des_ede3_sha" = false;
-    "security.ssl3.rsa_fips_des_ede3_sha" = false;
-
-    "security.ssl3.ecdh_rsa_aes_256_sha" = false;
-    "security.ssl3.ecdh_ecdsa_aes_256_sha" = false;
-
-    "security.ssl3.rsa_camellia_256_sha" = false;
-
-    "security.ssl3.dhe_rsa_camellia_256_sha" = false;
-    "security.ssl3.dhe_rsa_aes_256_sha" = false;
-
-    "security.ssl3.dhe_dss_aes_128_sha" = false;
-    "security.ssl3.dhe_dss_aes_256_sha" = false;
-    "security.ssl3.dhe_dss_camellia_128_sha" = false;
-    "security.ssl3.dhe_dss_camellia_256_sha" = false;
-
-    "security.ssl3.rsa_aes_256_sha" = false;
-    "security.ssl3.rsa_aes_128_sha" = false;
-    "security.ssl3.ecdhe_rsa_aes_256_sha" = false;
-    "security.ssl3.ecdhe_ecdsa_aes_256_sha" = false;
   };
 
 in {

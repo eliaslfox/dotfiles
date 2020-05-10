@@ -215,14 +215,11 @@ in {
       "nvidia-x11"
       "nvidia-persistenced"
 
-      "discord"
-
       "steam"
       "steam-original"
       "steam-runtime"
 
+      "discord"
       "zoom-us"
-
-      "spotify"
     ];
 }

@@ -38,8 +38,8 @@ in {
     ripgrep
     fd
 
+    ranger
     reallyUnstable.steam
-    spotify
     zoom-us
     nixfmt
     dnsutils
@@ -202,6 +202,12 @@ in {
       nixos-vm = {
         Unit = { Description = "Start vm"; };
         Service = { ExecStart = "${scripts.nixos-vm}/bin/nixos-vm"; };
+      };
+      nixos-vm-graphic = {
+        Unit = { Description = "Start vm"; };
+        Service = {
+          ExecStart = "${scripts.nixos-vm-graphic}/bin/nixos-vm-graphic";
+        };
       };
       nixos-vm-iso = {
         Unit = { Description = "Start vm with iso boot"; };

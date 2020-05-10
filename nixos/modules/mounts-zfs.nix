@@ -56,6 +56,6 @@
   fileSystems."/home/elf/.local" = {
     device = "zroot/home/elf/.local";
     fsType = "zfs";
-    options = [ "noatime" "exec" ];
+    options = [ "noatime" ];
   };
 }

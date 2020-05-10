@@ -17,6 +17,8 @@ in {
         restartIfChanged = false;
         path = [ pkgs.iproute pkgs.iptables ];
         serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = true;
           ExecStart = pkgs.writeScript "vm-bridge-start" ''
             #!${pkgs.bash}/bin/bash
             set -eou pipefail
@@ -38,6 +40,18 @@ in {
             iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
             iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
             iptables -A FORWARD -i br0 -o wg0 -j ACCEPT
+          '';
+          ExecStop = pkgs.writeScript "vm-bridge-stop" ''
+            #!${pkgs.bash}/bin/bash
+            set -eou pipefail
+
+            ip link delete tap0
+            ip link delete tap1
+            ip link delete br0
+
+            iptables -t nat -D POSTROUTING -o wg0 -j MASQUERADE
+            iptables -D FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+            iptables -D FORWARD -i br0 -o wg0 -j ACCEPT
           '';
         };
       };

@@ -66,6 +66,23 @@
     set -eou pipefail
 
     exec ${pkgs.qemu_kvm}/bin/qemu-kvm \
+      -display none \
+      -nodefaults \
+      -machine type=q35,accel=kvm \
+      -cpu host \
+      -smp 12 \
+      -m 20G \
+      -vga virtio \
+      -nic tap,ifname=tap0,script=no,downscript=no \
+      -object rng-random,id=rng0,filename=/dev/urandom -device virtio-rng-pci,rng=rng0 \
+      -drive file=~/Documents/vm/nixos-main.img,if=virtio,cache=none
+  '';
+
+  nixos-vm-graphic = pkgs.writeShellScriptBin "nixos-vm-graphic" ''
+    #!${pkgs.bash}/bin/bash
+    set -eou pipefail
+
+    exec ${pkgs.qemu_kvm}/bin/qemu-kvm \
       -display gtk \
       -nodefaults \
       -machine type=q35,accel=kvm \
