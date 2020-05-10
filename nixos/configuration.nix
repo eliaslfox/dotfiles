@@ -101,7 +101,6 @@ in {
 
   fonts = {
     enableDefaultFonts = true;
-    enableFontDir = true;
     fontconfig = {
       defaultFonts = { monospace = [ "Fira Code Light" ]; };
       localConf = ''
@@ -124,6 +123,7 @@ in {
         </match>
         </fontconfig>
       '';
+      hinting.autohint = true;
     };
     fonts = with pkgs; [
       # Base Fonts
