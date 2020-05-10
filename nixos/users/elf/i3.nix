@@ -8,6 +8,7 @@ in {
     focus.newWindow = "none";
     fonts = [ "FiraCode 8" ];
     window = {
+      hideEdgeBorders = "both";
       commands = [{
         criteria.class = "term-float";
         command = "border pixel 30, floating enable";
