@@ -221,5 +221,8 @@ in {
 
       "discord"
       "zoom-us"
+
+      "libspotify"
+      "pyspotify"
     ];
 }

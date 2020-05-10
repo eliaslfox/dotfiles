@@ -4,6 +4,8 @@ let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.features.mopidy;
+
+  credentials = import ../credentials.nix { };
 in {
   options.features.mopidy = {
     enable = mkEnableOption "the mopidy music daemon";
@@ -11,10 +13,18 @@ in {
   config = mkIf cfg.enable {
     services.mopidy = {
       enable = true;
-      extensionPackages = [ pkgs.mopidy-mpd ];
+      extensionPackages = [ pkgs.mopidy-mpd pkgs.mopidy-spotify ];
       configuration = ''
         [audio]
         output = pulsesink server=127.0.0.1
+
+        [spotify]
+        username = ${credentials.spotify.username}
+        password = ${credentials.spotify.password}
+        client_id = ${credentials.spotify.client_id}
+        client_secret = ${credentials.spotify.client_secret}
+        bitrate = 320
+        volume_normalization = false
 
         [file]
         enabled = true
