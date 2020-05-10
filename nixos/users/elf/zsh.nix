@@ -31,6 +31,7 @@
     # Misc Config
     EXA_STRICT = "1";
     BAT_THEME = "Solarized (dark)";
+    MANPAGER = "nvim -c 'set ft=man'";
   };
   initExtra = ''
     unalias -m '*'
