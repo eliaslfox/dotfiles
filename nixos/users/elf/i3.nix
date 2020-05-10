@@ -7,8 +7,12 @@ in {
   config = {
     focus.newWindow = "none";
     fonts = [ "FiraCode 8" ];
-    window.hideEdgeBorders = "both";
-    floating.titlebar = true;
+    window = {
+      commands = [{
+        criteria.class = "term-float";
+        command = "border pixel 30, floating enable";
+      }];
+    };
     keybindings = lib.mkOptionDefault {
       # Spawn terminals
       "Mod1+Return" = "exec ${pkgs.kitty}/bin/kitty";
@@ -38,33 +42,14 @@ in {
 
       "Mod1+Shift+m" = "exec /run/wrappers/bin/physlock";
     };
-    colors.focused = {
-      background = "#285577";
-      border = "#4c7899";
-      childBorder = borderColor;
-      indicator = "#2e9ef4";
-      text = "#ffffff";
-    };
-    colors.unfocused = {
-      background = "#222222";
-      border = "#333333";
-      childBorder = borderColor;
-      indicator = "#292d2e";
-      text = "#888888";
-    };
-    colors.focusedInactive = {
-      background = "#5f676a";
-      border = "#333333";
-      childBorder = borderColor;
-      indicator = "#484e50";
-      text = "#ffffff";
-    };
-    colors.placeholder = {
-      background = "#0c0c0c";
-      border = "#000000";
-      childBorder = borderColor;
-      indicator = "#000000";
-      text = "#ffffff";
+    colors = {
+      focused = lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
+      unfocused =
+        lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
+      focusedInactive =
+        lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
+      placeholder =
+        lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
     };
     bars = [{
       trayOutput = "none";
@@ -73,8 +58,5 @@ in {
   };
   extraConfig = ''
     default_border none
-
-    for_window [class="term-float"] border pixel 30, floating enable
-    for_window [title="term-float"] border pixel 30, floating enable
   '';
 }
