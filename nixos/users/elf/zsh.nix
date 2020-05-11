@@ -66,6 +66,6 @@
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
     pbpaste = "xclip -selection clipboard -o";
-    pass = "EDITOR=nvim -u NONE pass";
+    pass = ''EDITOR="nvim -u NONE" pass'';
   };
 }
