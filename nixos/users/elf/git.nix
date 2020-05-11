@@ -9,9 +9,9 @@
   };
   aliases = {
     l = "log --decorate --oneline --graph --first-parent";
-    s = "status";
-    c = "checkout";
+    s = "status --short";
     mb = "checkout -b";
+    tree = "!exa -l -T --git";
   };
   delta = {
     enable = true;

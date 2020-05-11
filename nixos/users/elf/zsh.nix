@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   enable = true;
   enableCompletion = true;
   dotDir = ".config/zsh";
@@ -32,13 +32,14 @@
     EXA_STRICT = "1";
     BAT_THEME = "Solarized (dark)";
     MANPAGER = "nvim -c 'set ft=man'";
+    RIPGREP_CONFIG_PATH = "/home/elf/.config/ripgreprc";
   };
   initExtra = ''
     unalias -m '*'
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
     function movie() {
-      tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
+      ${pkgs.tree}/bin/tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
     }
 
     function netns() {
@@ -58,12 +59,13 @@
     history = "omz_history";
     grep = "grep --text --color=auto";
     ls = "exa";
+    tree = "exa -T";
 
     mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
     pbpaste = "xclip -selection clipboard -o";
-    pass = "EDITOR=nano pass";
+    pass = "EDITOR=nvim -u NONE pass";
   };
 }

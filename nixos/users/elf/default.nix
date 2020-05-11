@@ -11,6 +11,7 @@ in {
       "npm/npmrc".source = ./files/npmrc;
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
+      "ripgreprc".source = ./files/ripgreprc;
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
@@ -32,6 +33,8 @@ in {
   home.file.".mozilla/firefox/clean/chrome/userChrome.css".target =
     ".local/share/mozilla/firefox/clean/chrome/userChrome.css";
 
+  home.extraOutputsToInstall = [ "doc" "info" "devdoc" ];
+
   home.packages = with pkgs; [
     # coreutils 2.0
     exa
@@ -40,6 +43,7 @@ in {
 
     ranger
     reallyUnstable.steam
+    reallyUnstable.steam-run-native
     zoom-us
     nixfmt
     dnsutils
@@ -136,7 +140,7 @@ in {
     git = import ./git.nix { pkgs = pkgs; };
     kitty = import ./kitty.nix { pkgs = pkgs; };
     neovim = import ./nvim.nix { pkgs = pkgs; };
-    zsh = import ./zsh.nix;
+    zsh = import ./zsh.nix { pkgs = pkgs; };
 
     command-not-found.enable = true;
 
