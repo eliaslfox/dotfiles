@@ -37,72 +37,21 @@ in {
     ripgrep
     fd
 
-    ranger
-    zoom-us
-    nixfmt
-    dnsutils
-    john
-    unixtools.xxd
-    llvmPackages.bintools
-    openssl
-    zathura
-    ascii
-    yubikey-manager
-    httpie
     pavucontrol
-    aircrackng
-    wireshark-qt
-    whois
-    ncat
     transmission-gtk
     nixops
     btrbk
     discord
-    smartmontools
-    psmisc
     feh
-    ncpamixer
     vlc
     mpv
     pass
     neofetch
-    cava
-    gnupg
     tor-browser-bundle-bin
-    unzip
     libnotify
     nix-prefetch-git
-    pciutils
-    usbutils
-    file
     youtube-dl
     ncmpcpp
-    efitools
-    efibootmgr
-
-    # NodeJs
-    nodePackages.prettier
-    nodePackages.javascript-typescript-langserver
-    nodejs
-
-    # Haskell
-    ghc
-    haskellPackages.ghcid
-    cabal-install
-    stack
-
-    # Python
-    python38Packages.virtualenv
-
-    # Rust
-    rust-analyzer-unwrapped
-    rustup
-
-    # C
-    gcc
-
-    # TLA
-    tlaplusToolbox
 
     scripts.ncmpcpp-notify
     scripts.multimc

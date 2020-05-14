@@ -74,11 +74,11 @@ in {
       manpages
       git
       wget
-      ncat
 
       psmisc
       pciutils
       usbutils
+      dnsutils
 
       scripts.iommuGroups
       scripts.mountBackup

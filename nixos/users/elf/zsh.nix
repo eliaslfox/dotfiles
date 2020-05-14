@@ -61,7 +61,6 @@
     ls = "exa";
     tree = "exa -T";
 
-    mixer = "ncpamixer";
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
