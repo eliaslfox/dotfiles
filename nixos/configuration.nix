@@ -49,7 +49,7 @@ in {
   };
 
   networking = {
-    nameservers = [ "127.0.0.1" "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "8.8.8.8" "8.8.4.4" ];
     enableIPv6 = false;
     firewall = {
       enable = true;
@@ -124,6 +124,7 @@ in {
         </fontconfig>
       '';
       hinting.autohint = true;
+      includeUserConf = false;
     };
     fonts = with pkgs; [
       # Base Fonts

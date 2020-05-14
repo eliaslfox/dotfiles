@@ -51,6 +51,8 @@ let
 in {
   options.features.dnscrypt = { enable = mkEnableOption "dnscrypt proxy"; };
   config = mkIf cfg.enable {
+    networking.nameservers = lib.mkForce [ "127.0.0.1" ];
+
     services.dnscrypt-proxy2 = {
       enable = true;
       configFile = configFile;
