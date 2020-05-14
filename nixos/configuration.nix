@@ -181,14 +181,10 @@ in {
   security.wrappers = {
     elf-i3status = {
       source = "${scripts.elf-i3status}/bin/elf-i3status";
-      owner = "nobody";
-      group = "nobody";
       capabilities = "cap_sys_admin+ep";
     };
     wg-status = {
       source = "${scripts.wg-status}/bin/wg-status";
-      owner = "nobody";
-      group = "nobody";
       capabilities = "cap_net_admin+ep";
     };
   };

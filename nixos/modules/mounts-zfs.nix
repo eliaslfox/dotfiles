@@ -5,13 +5,19 @@
   fileSystems."/" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "mode=0755" "noexec" ];
+    options = [ "noatime" "noexec" ];
+  };
+
+  fileSystems."/tmp" = {
+    device = "tmpfs";
+    fsType = "tmpfs";
+    options = [ "mode=0777" "noatime" "nosuid" ];
   };
 
   fileSystems."/run/wrappers" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "noexec" ];
+    options = [ "noatime" ];
   };
 
   # mount the nix store
@@ -31,7 +37,7 @@
   fileSystems."/var/lib/docker" = {
     device = "zroot/root/var/lib/docker";
     fsType = "zfs";
-    options = [ "noatime" "noexec" ];
+    options = [ "noatime" "nosuid" ];
   };
 
   # mount persisted user directories
@@ -56,6 +62,6 @@
   fileSystems."/home/elf/.local" = {
     device = "zroot/home/elf/.local";
     fsType = "zfs";
-    options = [ "noatime" ];
+    options = [ "noatime" "noexec" ];
   };
 }

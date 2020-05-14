@@ -35,9 +35,13 @@ in {
     initrd = {
       availableKernelModules =
         [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-      luks.devices = {
-        root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
-        stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
+      luks = {
+        devices = {
+          root.device =
+            "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
+          stuff.device =
+            "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
+        };
       };
     };
   };

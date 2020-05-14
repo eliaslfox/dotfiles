@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
-let
-  scripts = pkgs.callPackage (import ./scripts.nix) { };
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-  reallyUnstable =
-    import <nixpkgs-master> { config = { allowUnfree = true; }; };
+let scripts = pkgs.callPackage (import ./scripts.nix) { };
 in {
   xdg = {
     enable = true;
@@ -42,8 +38,6 @@ in {
     fd
 
     ranger
-    reallyUnstable.steam
-    reallyUnstable.steam-run-native
     zoom-us
     nixfmt
     dnsutils
@@ -63,7 +57,7 @@ in {
     transmission-gtk
     nixops
     btrbk
-    unstable.discord
+    discord
     smartmontools
     psmisc
     feh
@@ -101,7 +95,7 @@ in {
     python38Packages.virtualenv
 
     # Rust
-    unstable.rust-analyzer-unwrapped
+    rust-analyzer-unwrapped
     rustup
 
     # C
@@ -135,6 +129,7 @@ in {
   xsession.windowManager.i3 = import ./i3.nix;
 
   programs = {
+    emacs = import ./emacs.nix { pkgs = pkgs; };
     firefox = import ./firefox.nix;
     i3status = import ./i3status.nix;
     git = import ./git.nix { pkgs = pkgs; };
