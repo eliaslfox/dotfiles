@@ -10,6 +10,7 @@ set updatetime=100
 set backspace=indent,eol,start
 set encoding=utf-8
 set autoread
+set shortmess+=I
 set shortmess+=c
 let mapleader=","
 
