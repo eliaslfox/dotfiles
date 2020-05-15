@@ -36,6 +36,11 @@ in {
     exa
     ripgrep
     fd
+    rustup
+    rust-analyzer
+    gcc
+    nodejs
+    nixfmt
 
     pavucontrol
     transmission-gtk

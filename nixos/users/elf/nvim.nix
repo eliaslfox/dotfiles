@@ -5,17 +5,13 @@
     NeoSolarized
     vim-airline
     vim-airline-themes
-    supertab
 
-    deoplete-nvim
-    LanguageClient-neovim
+    coc-nvim
     neoformat
     gitgutter
+    gundo
 
-    ghcid
     vim-nix
-    vim-javascript
-    typescript-vim
   ];
   withPython = false;
   withRuby = false;

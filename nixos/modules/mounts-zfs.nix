@@ -62,11 +62,11 @@
   fileSystems."/home/elf/.local/share" = {
     device = "zroot/home/elf/.local/share";
     fsType = "zfs";
-    options = [ "noatime" "noexec" ];
+    options = [ "noatime" "nosuid" ];
   };
   fileSystems."/home/elf/.local/bin" = {
     device = "tmpfs";
     fsType = "tmpfs";
-    options = [ "noatime" ];
+    options = [ "noatime" "nosuid" ];
   };
 }
