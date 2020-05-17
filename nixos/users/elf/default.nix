@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let scripts = pkgs.callPackage (import ./scripts.nix) { };
-in {
+in
+{
   xdg = {
     enable = true;
     configFile = {
@@ -8,6 +9,8 @@ in {
       "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
       "ripgreprc".source = ./files/ripgreprc;
+      "nvim/coc-settings.json".source = ./files/coc-settings.json;
+      "emacs.d/init.el".source = ./files/init.el;
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
@@ -15,52 +18,57 @@ in {
     };
   };
 
-  home.file.".gnupg/gpg-agent.conf".target = ".config/gnupg/gpg-agent.conf";
-  home.file.".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
+  home = {
+    file = {
+      ".gnupg/gpg-agent.conf".target = ".config/gnupg/gpg-agent.conf";
+      ".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
 
-  home.file.".mozilla/firefox/profiles.ini".target =
-    ".local/share/mozilla/firefox/profiles.ini";
-  home.file.".mozilla/firefox/default/user.js".target =
-    ".local/share/mozilla/firefox/default/user.js";
-  home.file.".mozilla/firefox/default/chrome/userChrome.css".target =
-    ".local/share/mozilla/firefox/default/chrome/userChrome.css";
-  home.file.".mozilla/firefox/clean/user.js".target =
-    ".local/share/mozilla/firefox/clean/user.js";
-  home.file.".mozilla/firefox/clean/chrome/userChrome.css".target =
-    ".local/share/mozilla/firefox/clean/chrome/userChrome.css";
+      ".mozilla/firefox/profiles.ini".target =
+        ".local/share/mozilla/firefox/profiles.ini";
+      ".mozilla/firefox/default/user.js".target =
+        ".local/share/mozilla/firefox/default/user.js";
+      ".mozilla/firefox/default/chrome/userChrome.css".target =
+        ".local/share/mozilla/firefox/default/chrome/userChrome.css";
+      ".mozilla/firefox/clean/user.js".target =
+        ".local/share/mozilla/firefox/clean/user.js";
+      ".mozilla/firefox/clean/chrome/userChrome.css".target =
+        ".local/share/mozilla/firefox/clean/chrome/userChrome.css";
+    };
 
-  home.extraOutputsToInstall = [ "doc" "info" "devdoc" ];
+    extraOutputsToInstall = [ "doc" "info" "devdoc" ];
 
-  home.packages = with pkgs; [
-    # coreutils 2.0
-    exa
-    ripgrep
-    fd
-    rustup
-    rust-analyzer
-    gcc
-    nodejs
-    nixfmt
+    packages = with pkgs; [
+      # coreutils 2.0
+      exa
+      ripgrep
+      fd
+      rustup
+      rust-analyzer
+      gcc
+      nodejs
+      nixpkgs-fmt
 
-    pavucontrol
-    transmission-gtk
-    nixops
-    btrbk
-    discord
-    feh
-    vlc
-    mpv
-    pass
-    neofetch
-    tor-browser-bundle-bin
-    libnotify
-    nix-prefetch-git
-    youtube-dl
-    ncmpcpp
+      pavucontrol
+      transmission-gtk
+      nixops
+      btrbk
+      discord
+      feh
+      vlc
+      mpv
+      pass
+      neofetch
+      tor-browser-bundle-bin
+      libnotify
+      nix-prefetch-git
+      youtube-dl
+      ncmpcpp
 
-    scripts.ncmpcpp-notify
-    scripts.multimc
-  ];
+      scripts.ncmpcpp-notify
+      scripts.multimc
+    ];
+  };
+
 
   gtk = {
     enable = true;
@@ -157,7 +165,7 @@ in {
         Service = { ExecStart = "${scripts.nixos-vm}/bin/nixos-vm"; };
       };
       nixos-vm-graphic = {
-        Unit = { Description = "Start vm"; };
+        Unit = { Description = "Start vm with graphics"; };
         Service = {
           ExecStart = "${scripts.nixos-vm-graphic}/bin/nixos-vm-graphic";
         };

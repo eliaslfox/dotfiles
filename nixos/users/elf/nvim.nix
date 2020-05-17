@@ -7,7 +7,7 @@
     vim-airline-themes
 
     coc-nvim
-    neoformat
+    ale
     gitgutter
     gundo
 

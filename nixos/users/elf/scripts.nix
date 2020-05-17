@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   symlink-init = pkgs.writeScriptBin "symlink-init" ''
     #!${pkgs.bash}/bin/bash
@@ -20,6 +19,8 @@
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.cache/steam
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.cache/steam /home/elf/.steam
 
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/emacs.d
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/emacs.d /home/elf/.emacs.d
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''

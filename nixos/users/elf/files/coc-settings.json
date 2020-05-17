@@ -1,0 +1,13 @@
+{                                                                                                                                                                                                                    
+    "rust-analyzer": {                                                                                                                                                                                               
+        "serverPath": "/etc/profiles/per-user/elf/bin/rust-analyzer"                                                                                                                                                 
+    },                                                                                                                                                                                                               
+     "coc.preferences.enableFloatHighlight": false,                                                                                                                                                                  
+     "coc.preferences.snippets.enable": false,                                                                                                                                                                       
+     "suggest.triggerAfterInsertEnter": true,                                                                                                                                                                        
+     "suggest.minTriggerInputLength": 2,                                                                                                                                                                             
+     "suggest.noselect": false,                                                                                                                                                                                      
+     "codeLens.enable": false,                                                                                                                                                                                       
+     "diagnostic.warningSign": "⚑",                                                                                                                                                                                  
+     "diagnostic.errorSign": "✘"                                                                                                                                                                                     
+}

@@ -71,9 +71,9 @@ set shiftwidth=4
 " track undo
 set undofile
 set writebackup
-set undodir=~/.local/share/neovim/undo//
-set backupdir=~/.local/share/neovim/backup//
-set directory=~/.local/share/neovim/swap//
+set undodir=~/.local/share/nvim/undo//
+set backupdir=~/.local/share/nvim/backup//
+set directory=~/.local/share/nvim/swap//
 
 "
 " UI
@@ -81,6 +81,7 @@ set directory=~/.local/share/neovim/swap//
 
 " airline
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#enabled = 1
 
 " gitgutter
 let g:gitgutter_override_sign_column_highlight = 0
@@ -98,6 +99,8 @@ nnoremap <F5> :GundoToggle<CR>
 "
 " coc.nvim
 "
+"hi link CocFloating markdown
+
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -116,17 +119,16 @@ inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 "
-" Neoformat
+" Ale
 "
-let g:neoformat_basic_format_trim = 1
-let g:neoformat_run_all_formatters = 1
+let g:ale_fix_on_save = 1
 
-let g:neoformat_enabled_rust = ['rustfmt']
-let g:neoformat_enabled_go = ['gofmt', 'goimports']
-let g:neoformat_enabled_javascript = ['prettier']
-let g:neoformat_enabled_nix = ['nixfmt']
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'rust': ['rustfmt'],
+    \ 'nix': ['nixpkgs-fmt'],
+    \ }
 
-augroup fmt
-    autocmd!
-    autocmd BufWritePre * undojoin | Neoformat
-augroup end
+let g:ale_linters = {
+    \ 'rust': [],
+    \ }

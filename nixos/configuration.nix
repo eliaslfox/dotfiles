@@ -2,7 +2,8 @@
 let
   credentials = pkgs.callPackage ./credentials.nix { };
   scripts = pkgs.callPackage ./scripts.nix { };
-in {
+in
+{
 
   imports = [
     <home-manager/nixos>
