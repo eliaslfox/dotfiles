@@ -2,7 +2,8 @@ with import <nixpkgs> { };
 let
   borderColor = "#002b36";
   scripts = callPackage ../../scripts.nix { };
-in {
+in
+{
   enable = true;
   config = {
     focus.newWindow = "none";
@@ -37,6 +38,16 @@ in {
 
       "Mod1+l" = "focus right";
       "Mod1+Shift+l" = "move right";
+
+      # Remove arrow key keybindings
+      "Mod1+Left" = null;
+      "Mod1+Right" = null;
+      "Mod1+Up" = null;
+      "Mod1+Down" = null;
+      "Mod1+Shift+Left" = null;
+      "Mod1+Shift+Right" = null;
+      "Mod1+Shift+Up" = null;
+      "Mod1+Shift+Down" = null;
 
       # Manage bars
       "Mod1+m" = "bar mode toggle";
