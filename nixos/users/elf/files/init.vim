@@ -127,6 +127,10 @@ let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ 'rust': ['rustfmt'],
     \ 'nix': ['nixpkgs-fmt'],
+    \ 'json': ['prettier'],
+    \ 'javascript': ['prettier'],
+    \ 'typescript': ['prettier'],
+    \ 'markdown': ['prettier'],
     \ }
 
 let g:ale_linters = {

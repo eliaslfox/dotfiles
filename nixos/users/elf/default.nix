@@ -47,6 +47,7 @@ in
       gcc
       nodejs
       nixpkgs-fmt
+      nodePackages.prettier
 
       pavucontrol
       transmission-gtk
