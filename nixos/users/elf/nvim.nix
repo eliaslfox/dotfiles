@@ -10,6 +10,7 @@
     ale
     gitgutter
     gundo
+    ctrlp-vim
 
     vim-nix
   ];

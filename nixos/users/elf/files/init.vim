@@ -96,10 +96,14 @@ let g:gundo_help = 0
 
 nnoremap <F5> :GundoToggle<CR>
 
+" ctrlp
+let g:ctrlp_map = '<C-Space>'
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+let g:ctrlp_use_caching = 0
+
 "
 " coc.nvim
 "
-"hi link CocFloating markdown
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
