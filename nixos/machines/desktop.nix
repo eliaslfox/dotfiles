@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
-
 let scripts = pkgs.callPackage (import ../users/elf/scripts.nix) { };
 
-in {
+in
+{
   imports = [
     <nixos/nixos/modules/profiles/hardened.nix>
     ../modules/xorg.nix
@@ -48,7 +48,7 @@ in {
 
   features = {
     mopidy.enable = true;
-    steam.enable = true;
+    steam.enable = false;
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
