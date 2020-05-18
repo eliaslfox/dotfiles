@@ -33,6 +33,8 @@ set wildoptions+=pum
 set wildignorecase
 set path+=**
 
+" keybindts
+
 " file browser
 let g:netrw_banner=0
 let g:netrw_liststyle=0
@@ -90,16 +92,18 @@ let g:gitgutter_map_keys = 0
 nmap ]c <Plug>(GitGutterNextHunk)
 nmap [c <Plug>(GitGutterPrevHunk)
 
+
 " gundo
 let g:gundo_prefer_python3 = 1
 let g:gundo_help = 0
 
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <leader>u :GundoToggle<CR>
 
 " ctrlp
 let g:ctrlp_map = '<C-Space>'
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 0
+
 
 "
 " coc.nvim
@@ -135,8 +139,11 @@ let g:ale_fixers = {
     \ 'javascript': ['prettier'],
     \ 'typescript': ['prettier'],
     \ 'markdown': ['prettier'],
+    \ 'go': ['gofmt', 'goimports'],
     \ }
 
 let g:ale_linters = {
     \ 'rust': [],
+    \ 'go': [],
+    \ 'typescript': [],
     \ }

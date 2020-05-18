@@ -48,6 +48,10 @@ in
       nodejs
       nixpkgs-fmt
       nodePackages.prettier
+      go
+      go-tools
+      gopls
+      goimports
 
       pavucontrol
       transmission-gtk
