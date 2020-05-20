@@ -1,5 +1,4 @@
 { config, lib, pkgs, ... }:
-
 let
   inherit (lib) mkEnableOption mkIf mkOption types;
 
@@ -23,10 +22,12 @@ let
     builtins.map (x: "ip link set ${x} netns physical") cfg.extraInterfaces;
 
   returnExtraInterfaces =
-    builtins.map (x: "ip -n physical link set ${x} netns 1")
-    cfg.extraInterfaces;
+    builtins.map
+      (x: "ip -n physical link set ${x} netns 1")
+      cfg.extraInterfaces;
 
-in {
+in
+{
   options.features.wireguard = {
     enable = mkEnableOption "wireguard vpn";
     wirelessInterface = mkOption {
@@ -67,8 +68,10 @@ in {
       physical-netns = {
         description = "Network namespace for physical devices";
         after = [ "sys-subsystem-net-devices-${cfg.wirelessInterface}.device" ]
-          ++ builtins.map (x: "sys-subsystem-net-devices-${x}.device")
-          cfg.extraInterfaces;
+          ++
+          builtins.map
+            (x: "sys-subsystem-net-devices-${x}.device")
+            cfg.extraInterfaces;
         wantedBy = [ "multi-user.target" ];
         before = [ "network.target" ];
         wants = [ "network.target" ];

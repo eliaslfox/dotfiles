@@ -62,6 +62,8 @@ in
       enable = true;
       networks = credentials.wifi;
     };
+    useDHCP = false;
+    interfaces."wlp6s0".useDHCP = true;
   };
 
   environment = {
