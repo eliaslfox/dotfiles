@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
-
 let
   inherit (lib) mkEnableOption mkIf mkMerge mkOption types;
 
   cfg = config.features.internet-sharing;
-in {
+in
+{
   options.features.internet-sharing = {
     enable = mkEnableOption "internet sharing";
 
@@ -34,6 +34,8 @@ in {
           address = "192.168.100.1";
           prefixLength = 24;
         }];
+
+        firewall.trustedInterfaces = [ cfg.externalInterface ];
       };
 
       services.dhcpd4 = {
@@ -49,7 +51,8 @@ in {
         '';
         interfaces = [ cfg.internalInterface ];
       };
-    })
+    }
+    )
 
     # Overrides to make internet sharing work with network namespaces
     (mkIf (config.features.wireguard.enable && cfg.enable) {
@@ -75,6 +78,7 @@ in {
             unitConfig.BindsTo = lib.mkForce [ ];
           };
       };
-    })
+    }
+    )
   ];
 }

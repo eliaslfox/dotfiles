@@ -62,8 +62,6 @@ in
       };
     };
 
-    networking.firewall.trustedInterfaces = [ "enp4s0" ];
-
     systemd.services = {
       physical-netns = {
         description = "Network namespace for physical devices";
