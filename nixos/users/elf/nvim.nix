@@ -11,6 +11,7 @@
     gitgutter
     gundo
     ctrlp-vim
+    ghcid
 
     vim-nix
   ];

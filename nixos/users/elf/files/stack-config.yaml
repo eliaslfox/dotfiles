@@ -13,8 +13,12 @@ default-template: simple-hpack
 docker:
   auto-pull: true
 
+system-ghc: true
 nix:
   enable: true
   packages:
     - zlib
     - postgresql
+    - llvm
+    - ncurses
+  add-gc-roots: true

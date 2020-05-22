@@ -1,17 +1,18 @@
 { config, lib, pkgs, ... }:
-
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.features.horriblesubsd;
 
-  horriblesubsd = (callPackage "${fetchFromGitHub {
-    owner = "eliaslfox";
-    repo = "horriblesubsd";
-    rev = "2c7ccdbbc93bfe8129362e7213ef8c9d0b4be4df";
-    sha256 = "1vflxz40siffnjvvd2fndgxnhpcbqfg3al846jm35zj7ra5krlc4";
-  }}" { });
+  horriblesubsd = (pkgs.callPackage "${pkgs.fetchFromGitHub {
+      owner = "eliaslfox";
+      repo = "horriblesubsd";
+      rev = "41169d11cc55b5876abe2324108b88e385a8e30b";
+      sha256 = "0cl9vp9gqvm9fb6n18873phsx6zsgrih8xkzbgm5n5rmc9vz2aj8";
+      }}" { }
+  );
 
-in {
+in
+{
   options.features.horriblesubsd = {
     enable = mkEnableOption "horriblesubs downloader service";
   };

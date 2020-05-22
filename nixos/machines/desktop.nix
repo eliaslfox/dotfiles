@@ -62,6 +62,7 @@ in
       internalInterface = "enp4s0";
     };
     vm-bridge.enable = true;
+    horriblesubsd.enable = true;
   };
 
   hardware = { enableRedistributableFirmware = true; };

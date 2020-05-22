@@ -17,6 +17,7 @@ in
     ./features/dnscrypt.nix
     ./features/internet-sharing.nix
     ./features/vm-bridge.nix
+    ./features/horriblesubsd.nix
 
     ./machine.nix
   ];

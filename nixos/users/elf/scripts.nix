@@ -21,6 +21,10 @@
 
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/emacs.d
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/emacs.d /home/elf/.emacs.d
+
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/stack
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/stack /home/elf/.stack
+
   '';
 
   ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''

@@ -52,6 +52,8 @@ in
       go-tools
       gopls
       goimports
+      stack
+      ghc
 
       pavucontrol
       transmission-gtk
