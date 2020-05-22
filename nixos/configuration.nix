@@ -7,13 +7,13 @@ in
 
   imports = [
     <home-manager/nixos>
+    ../nix-modules
 
     ./users
 
     ./features/mopidy.nix
     ./features/docker.nix
     ./features/steam.nix
-    ./features/wireguard.nix
     ./features/dnscrypt.nix
     ./features/internet-sharing.nix
     ./features/vm-bridge.nix

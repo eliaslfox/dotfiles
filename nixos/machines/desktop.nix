@@ -1,5 +1,7 @@
 { config, lib, pkgs, ... }:
-let scripts = pkgs.callPackage (import ../users/elf/scripts.nix) { };
+let
+  scripts = pkgs.callPackage (import ../users/elf/scripts.nix) { };
+  credentials = import ../credentials.nix { };
 
 in
 {
@@ -53,6 +55,7 @@ in
       enable = true;
       wirelessInterface = "wlp6s0";
       extraInterfaces = [ "enp4s0" ];
+      credentials = credentials.wireguard;
     };
     docker.enable = true;
     dnscrypt.enable = true;
