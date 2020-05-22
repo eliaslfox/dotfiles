@@ -77,7 +77,7 @@ in
 
             ip netns add physical
             iw phy phy0 set netns name physical
-            ${lib.concatMapStringSep "\n" (x: "ip link set ${x} netns physical") cfg.extraInterfaces}
+            ${lib.concatMapStringsSep "\n" (x: "ip link set ${x} netns physical") cfg.extraInterfaces}
 
           '';
           ExecStop = pkgs.writeScript "physical-netns-stop" ''
@@ -85,7 +85,7 @@ in
             set -euo pipefail
 
             ip netns exec physical iw phy phy0 set netns 1
-            ${lib.concatMapStringSep "\n" (x: "ip -n physical link set ${x} netns 1") cfg.extraInterfaces}
+            ${lib.concatMapStringsSep "\n" (x: "ip -n physical link set ${x} netns 1") cfg.extraInterfaces}
 
             ip netns delete physical
           '';
