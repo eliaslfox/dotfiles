@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (map) builtins;
 
   cfg = config.features.wireguard;
   credentials = pkgs.callPackage ../credentials.nix { };
@@ -17,14 +18,6 @@ let
 
     waitip
   '';
-
-  moveExtraInterfaces =
-    builtins.map (x: "ip link set ${x} netns physical") cfg.extraInterfaces;
-
-  returnExtraInterfaces =
-    builtins.map
-      (x: "ip -n physical link set ${x} netns 1")
-      cfg.extraInterfaces;
 
 in
 {
@@ -67,7 +60,7 @@ in
         description = "Network namespace for physical devices";
         after = [ "sys-subsystem-net-devices-${cfg.wirelessInterface}.device" ]
           ++
-          builtins.map
+          map
             (x: "sys-subsystem-net-devices-${x}.device")
             cfg.extraInterfaces;
         wantedBy = [ "multi-user.target" ];
@@ -84,14 +77,16 @@ in
 
             ip netns add physical
             iw phy phy0 set netns name physical
-            ${builtins.toString moveExtraInterfaces}
+            ${lib.concatMapStringSep "\n" (x: "ip link set ${x} netns physical") cfg.extraInterfaces}
+
           '';
           ExecStop = pkgs.writeScript "physical-netns-stop" ''
             #!${pkgs.bash}/bin/bash
             set -euo pipefail
 
             ip netns exec physical iw phy phy0 set netns 1
-            ${builtins.toString returnExtraInterfaces}
+            ${lib.concatMapStringSep "\n" (x: "ip -n physical link set ${x} netns 1") cfg.extraInterfaces}
+
             ip netns delete physical
           '';
         };
