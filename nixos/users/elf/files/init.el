@@ -37,6 +37,17 @@
 
 ;;; Org Mode
 (use-package org)
+(require 'org-mouse)
+
+(setq org-log-done 'time) ;;; log the closing time of a todo item
+(setq org-columsn-default-format "%25ITEM %TAGS %TODO %DEADLINE %SCHEDULED %CLOSED") ;; default column view format
+(setq org-archive-save-context-info '()) ;;; skip adding context info when archiving
+(setq org-archive-location "~/Documents/org/archive.org::* From %s") ;;; archive to a single file
+
+(setq org-file-apps '(
+    ("\.mkv" . "mpv %s")
+    ("\.mp4" . "mpv %s")
+    ("\.m4a" . "mpv %s")))
 
 ;;; Misc
 
@@ -45,3 +56,5 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq sentence-end-double-space nil)
+
+(setq org-agenda-files '("~/Documents/org"))
