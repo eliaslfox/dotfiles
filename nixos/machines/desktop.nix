@@ -58,7 +58,11 @@ in
       credentials = credentials.wireguard;
     };
     docker.enable = true;
-    dnscrypt.enable = true;
+    dnscrypt = {
+      enable = true;
+      blockIpv6 = true;
+      localDoh.enable = true;
+    };
     internet-sharing = {
       enable = true;
       externalInterface = "wlp6s0";

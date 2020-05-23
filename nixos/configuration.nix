@@ -14,7 +14,6 @@ in
     ./features/mopidy.nix
     ./features/docker.nix
     ./features/steam.nix
-    ./features/dnscrypt.nix
     ./features/internet-sharing.nix
     ./features/vm-bridge.nix
     ./features/horriblesubsd.nix
