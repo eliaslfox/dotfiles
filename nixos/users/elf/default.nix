@@ -41,20 +41,35 @@ in
       # coreutils 2.0
       exa
       ripgrep
-      fd
+      archiver
+
+      #
+      # programming
+      #
+
+      # rust
       rustup
       rust-analyzer
       gcc
+
+      # node
       nodejs
-      nixpkgs-fmt
       nodePackages.prettier
+
+      # nix
+      nixpkgs-fmt
+      nix-prefetch-git
+
+      # go
       go
-      go-tools
       gopls
       goimports
-      stack
-      ghc
 
+      # haskell
+      stack
+
+      git
+      zathura
       pavucontrol
       transmission-gtk
       nixops
@@ -66,8 +81,6 @@ in
       pass
       neofetch
       tor-browser-bundle-bin
-      libnotify
-      nix-prefetch-git
       youtube-dl
       ncmpcpp
 
