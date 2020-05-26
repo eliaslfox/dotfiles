@@ -212,6 +212,7 @@ in
       "nvidia-x11"
       "nvidia-persistenced"
 
+      "zoom-us"
       "discord"
 
       "libspotify"

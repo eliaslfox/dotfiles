@@ -42,6 +42,8 @@ in
       exa
       ripgrep
       archiver
+      pgcli
+      httpie
 
       #
       # programming
@@ -68,6 +70,8 @@ in
       # haskell
       stack
 
+      zoom-us
+      postgresql
       git
       zathura
       pavucontrol
