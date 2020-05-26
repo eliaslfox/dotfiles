@@ -2,7 +2,7 @@
   enable = true;
   enableCompletion = true;
   dotDir = ".config/zsh";
-  autocd = false;
+  autocd = true;
   sessionVariables = {
     # Basic config
     DEFAULT_USER = "elf";
@@ -28,6 +28,9 @@
     # Don't create files
     LESSHISTFILE = "-";
 
+    # Make gpg-agent ssh work
+    SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
+
     # Misc Config
     EXA_STRICT = "1";
     BAT_THEME = "Solarized (dark)";
@@ -36,14 +39,11 @@
   };
   initExtra = ''
     unalias -m '*'
-    export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+    alias -s git="git clone"
 
     function movie() {
       ${pkgs.tree}/bin/tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
-    }
-
-    function netns() {
-      ip netns identify $$
     }
   '';
   history = {
