@@ -96,14 +96,8 @@ in
 
   gtk = {
     enable = true;
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.gnome3.adwaita-icon-theme;
-    };
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome3.gnome_themes_standard;
-    };
+    iconTheme.name = "Adwaita";
+    theme.name = "Adwaita-dark";
     gtk3.extraCss = ''
       .titlebar.default-decoration {
         margin: -200px;
