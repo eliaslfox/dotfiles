@@ -43,11 +43,21 @@
     software = "$HOME/Documents/software";
     learning = "$HOME/Documents/learning";
     org = "$HOME/Documents/org";
+    saved = "$HOME/Documents/org/saved";
   };
   initExtra = ''
     unalias -m '*'
     setopt cdable_vars
     setopt hist_find_no_dups
+
+    # pre-populate cd var cache
+    cd ~projects
+    cd ~dotfiles
+    cd ~software
+    cd ~learning
+    cd ~org
+    cd ~saved
+    cd
 
     alias -s git="git clone"
 
