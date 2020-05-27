@@ -2,6 +2,17 @@ with import <nixpkgs> { };
 let
   borderColor = "#002b36";
   scripts = callPackage ../../scripts.nix { };
+
+  /*
+   * This replaces the default dmenu_run script so that
+   * the calling shell get's >>='ed away
+   */
+  dmenu-run = pkgs.writeScriptBin "dmenu-run" ''
+    #!${pkgs.bash}/bin/sh
+    set -eou pipefail
+
+    exec $(${pkgs.dmenu}/bin/dmenu_path | ${pkgs.dmenu}/bin/dmenu)
+  '';
 in
 {
   enable = true;
@@ -23,6 +34,9 @@ in
       # Commands missing from the default
       "Mod1+a" = "focus parent";
       "Mod1+e" = "layout toggle split";
+
+      # Start Programs better
+      "Mod1+d" = "exec ${dmenu-run}/bin/dmenu-run";
 
       # Vim Mode
       "Mod1+c" = "split h";
