@@ -59,11 +59,13 @@
     options = [ "noatime" "nosuid" ];
   };
 
+
   fileSystems."/home/elf/.local/share" = {
     device = "zroot/home/elf/.local/share";
     fsType = "zfs";
-    options = [ "noatime" "nosuid" ];
+    options = [ "noatime" "noexec" ];
   };
+
   fileSystems."/home/elf/.local/bin" = {
     device = "tmpfs";
     fsType = "tmpfs";
