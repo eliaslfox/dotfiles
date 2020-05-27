@@ -36,9 +36,18 @@
     BAT_THEME = "Solarized (dark)";
     MANPAGER = "nvim -c 'set ft=man'";
     RIPGREP_CONFIG_PATH = "/home/elf/.config/ripgreprc";
+
+    # Common directories
+    projects = "$HOME/Documents/projects";
+    dotfiles = "$HOME/Documents/dotfiles";
+    software = "$HOME/Documents/software";
+    learning = "$HOME/Documents/learning";
+    org = "$HOME/Documents/org";
   };
   initExtra = ''
     unalias -m '*'
+    setopt cdable_vars
+    setopt hist_find_no_dups
 
     alias -s git="git clone"
 
