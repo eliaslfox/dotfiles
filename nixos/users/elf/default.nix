@@ -44,6 +44,7 @@ in
       archiver
       pgcli
       httpie
+      xsv
 
       #
       # programming
@@ -52,6 +53,7 @@ in
       # rust
       rustup
       rust-analyzer
+      cargo-audit
       gcc
 
       # node
