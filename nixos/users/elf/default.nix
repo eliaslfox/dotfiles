@@ -70,6 +70,7 @@ in
       # haskell
       stack
 
+      calibre
       zoom-us
       postgresql
       git
