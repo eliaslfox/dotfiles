@@ -50,11 +50,14 @@ in
       # programming
       #
 
+      # c
+      gcc
+      gnumake
+
       # rust
       rustup
       rust-analyzer
       cargo-audit
-      gcc
 
       # node
       nodejs

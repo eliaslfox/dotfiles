@@ -153,10 +153,6 @@ in
       };
       configFile = "${pkgs.callPackage ./modules/pulse.nix { }}/default.pa";
     };
-    cpu = {
-      amd.updateMicrocode = true;
-      intel.updateMicrocode = true;
-    };
   };
 
   zramSwap = {

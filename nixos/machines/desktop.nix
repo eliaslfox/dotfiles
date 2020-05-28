@@ -72,7 +72,10 @@ in
     horriblesubsd.enable = true;
   };
 
-  hardware = { enableRedistributableFirmware = true; };
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.amd.updateMicrocode = true;
+  };
 
   networking = {
     hostName = "darling";
