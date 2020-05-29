@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-let
+{ config, lib, pkgs, ... }: let
   scripts = pkgs.callPackage (import ../users/elf/scripts.nix) { };
   credentials = import ../credentials.nix { };
 
@@ -60,7 +59,7 @@ in
     docker.enable = true;
     dnscrypt = {
       enable = true;
-      blockIpv6 = true;
+      blockIpv6 = false;
       localDoh.enable = true;
     };
     internet-sharing = {
@@ -68,7 +67,7 @@ in
       externalInterface = "wlp6s0";
       internalInterface = "enp4s0";
     };
-    vm-bridge.enable = true;
+    vm-bridge.enable = false;
     horriblesubsd.enable = true;
   };
 

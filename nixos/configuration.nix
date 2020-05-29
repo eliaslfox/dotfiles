@@ -22,19 +22,9 @@ in
   ];
 
   boot = {
-    kernelParams = [
-      # Disable ipv6
-      "ipv6.disable=1"
-    ];
-
     kernel.sysctl = {
       # Swap to disk less
       "vm.swappiness" = 1;
-
-      # Disable ipv6
-      "net.ipv6.conf.all.disable_ipv6" = 1;
-      "net.ipv6.conf.default.disable_ipv6" = 1;
-      "net.ipv6.conf.lo.disable_ipv6" = 1;
     };
 
     extraModprobeConfig = ''
@@ -51,7 +41,6 @@ in
 
   networking = {
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
-    enableIPv6 = false;
     firewall = {
       enable = true;
       allowPing = false;
@@ -76,6 +65,8 @@ in
       git
       wget
       ncat
+      inetutils
+      dnsutils
 
       psmisc
       pciutils
@@ -188,7 +179,7 @@ in
   time.timeZone = "US/Pacific";
 
   system = {
-    stateVersion = "20.03";
+    stateVersion = "20.09";
     autoUpgrade = { enable = true; };
   };
 
