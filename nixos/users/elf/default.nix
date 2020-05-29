@@ -75,6 +75,7 @@ in
       # haskell
       stack
 
+      blender
       calibre
       zoom-us
       postgresql
