@@ -1,4 +1,5 @@
-{ config, lib, pkgs, ... }: let
+{ config, lib, pkgs, ... }:
+let
   scripts = pkgs.callPackage (import ../users/elf/scripts.nix) { };
   credentials = import ../credentials.nix { };
 
@@ -34,14 +35,11 @@ in
     };
 
     initrd = {
-      availableKernelModules =
-        [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
       luks = {
         devices = {
-          root.device =
-            "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
-          stuff.device =
-            "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
+          root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
+          stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
         };
       };
     };
@@ -59,7 +57,6 @@ in
     docker.enable = true;
     dnscrypt = {
       enable = true;
-      blockIpv6 = false;
       localDoh.enable = true;
     };
     internet-sharing = {
@@ -104,25 +101,25 @@ in
   fileSystems."/efi" = {
     device = "/dev/nvme0n1p1";
     fsType = "vfat";
-    options = [ "ro" "noexec" ];
+    options = [ "noexec" "nodev" ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/nvme0n1p2";
     fsType = "ext4";
-    options = [ "noexec" ];
+    options = [ "noexec" "nodev" ];
   };
 
   fileSystems."/run/media/elf/stuff" = {
     device = "/dev/mapper/stuff";
     fsType = "btrfs";
-    options = [ "subvol=stuff" "compress=zstd" "noexec" ];
+    options = [ "subvol=stuff" "compress=zstd" "noexec" "nodev" ];
   };
 
   fileSystems."/run/media/elf/backup" = {
     device = "/dev/mapper/backup";
     fsType = "btrfs";
-    options = [ "subvol=backup" "noauto" "compress=lzo" "noexec" ];
+    options = [ "subvol=backup" "noauto" "compress=lzo" "noexec" "nodev" ];
   };
 
   services.zfs = {

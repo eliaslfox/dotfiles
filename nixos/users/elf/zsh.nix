@@ -66,7 +66,7 @@
     }
   '';
   history = {
-    path = "/home/elf/.cache/zsh_history";
+    path = "/home/elf/.config/zsh/history";
     extended = true;
   };
   oh-my-zsh = {
