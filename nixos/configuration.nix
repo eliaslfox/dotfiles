@@ -88,6 +88,11 @@ in
       enable = true;
       allowAnyUser = true;
     };
+
+    journald.extraConfig = ''
+      Storage=volatile
+      RuntimeMaxUse=100M
+    '';
   };
 
   fonts = {
@@ -141,6 +146,7 @@ in
       daemon.config = {
         default-sample-rate = 44100;
         alternate-sample-rate = 48000;
+        avoid-resampling = true;
       };
       configFile = "${pkgs.callPackage ./modules/pulse.nix { }}/default.pa";
     };
@@ -201,6 +207,10 @@ in
 
       "zoom-us"
       "discord"
+
+      "steam"
+      "steam-original"
+      "steam-runtime"
 
       "libspotify"
       "pyspotify"

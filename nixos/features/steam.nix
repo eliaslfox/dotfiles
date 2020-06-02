@@ -15,5 +15,9 @@ in {
       };
       pulseaudio.support32Bit = true;
     };
+
+    home-manager.users.elf = {
+      home.packages = with pkgs; [ steam ];
+    };
   };
 }

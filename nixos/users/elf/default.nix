@@ -1,5 +1,5 @@
 { config, pkgs, ... }:
-let scripts = pkgs.callPackage (import ./scripts.nix) { };
+let scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
 in
 {
   xdg = {
@@ -95,7 +95,6 @@ in
       youtube-dl
       ncmpcpp
 
-      scripts.ncmpcpp-notify
       scripts.multimc
     ];
   };
@@ -184,23 +183,8 @@ in
         Service = { ExecStart = "${scripts.set-bg}/bin/set-bg"; };
         Install = { WantedBy = [ "graphical-session.target" ]; };
       };
-
-      nixos-vm = {
-        Unit = { Description = "Start vm"; };
-        Service = { ExecStart = "${scripts.nixos-vm}/bin/nixos-vm"; };
-      };
-      nixos-vm-graphic = {
-        Unit = { Description = "Start vm with graphics"; };
-        Service = {
-          ExecStart = "${scripts.nixos-vm-graphic}/bin/nixos-vm-graphic";
-        };
-      };
-      nixos-vm-iso = {
-        Unit = { Description = "Start vm with iso boot"; };
-        Service = { ExecStart = "${scripts.nixos-vm-iso}/bin/nixos-vm-iso"; };
-      };
     };
   };
 
-  home.stateVersion = "20.03";
+  home.stateVersion = "20.09";
 }
