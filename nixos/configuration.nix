@@ -65,7 +65,6 @@ in
       git
       wget
       ncat
-      inetutils
       dnsutils
 
       psmisc

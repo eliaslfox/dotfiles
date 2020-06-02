@@ -44,7 +44,6 @@ in
       archiver
       pgcli
       httpie
-      xsv
 
       #
       # programming
@@ -75,6 +74,7 @@ in
       # haskell
       stack
 
+      inetutils
       blender
       calibre
       zoom-us

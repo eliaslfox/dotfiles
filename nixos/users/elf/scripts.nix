@@ -44,7 +44,7 @@
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
 
-    ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/Documents/backgrounds/background.png
+    ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/Documents/.backgrounds/background.png
   '';
 
   multimc = pkgs.writeShellScriptBin "multimc" ''
