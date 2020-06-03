@@ -14,11 +14,24 @@ in
   boot = {
     kernelPackages = pkgs.linuxPackages_latest_hardened;
 
-    kernel.sysctl = { "kernel.unprivileged_userns_clone" = true; };
+    kernel.sysctl = {
+      /* 
+       * Allow normal users to use userns
+       * this is needed for nix and chromium
+       * this is added by the hardened patchset
+       */
+      "kernel.unprivileged_userns_clone" = true;
+    };
 
     kernelModules = [ "kvm_amd" ];
+    kernelParams = [ "amd_iommu=on" "iommu=pt" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
+
+      options vfio-pci ids=10de:1c81,10de:0fb9
+      blacklist nouveau
+      softdep nvidia pre: vfio-pci
+      softdep nvidia* pre: vfio-pci
     '';
 
     loader = {
@@ -35,7 +48,7 @@ in
     };
 
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "vfio-pci" ];
       luks = {
         devices = {
           root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
@@ -47,7 +60,7 @@ in
 
   features = {
     mopidy.enable = true;
-    steam.enable = false;
+    steam.enable = true;
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
@@ -64,7 +77,7 @@ in
       externalInterface = "wlp6s0";
       internalInterface = "enp4s0";
     };
-    vm-bridge.enable = false;
+    vm-bridge.enable = true;
     horriblesubsd.enable = true;
   };
 
@@ -94,7 +107,7 @@ in
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ cura qemu_kvm minikube ];
+    home.packages = with pkgs; [ cura qemu_kvm minikube OVMF ];
     services.picom.enable = true;
   };
 

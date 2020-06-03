@@ -48,6 +48,6 @@
   fileSystems."/home/elf/.local/share" = {
     device = "zroot/home/elf/.local/share";
     fsType = "zfs";
-    options = [ "noatime" "noexec" "nodev" ];
+    options = [ "noatime" "nosuid" "nodev" ];
   };
 }
