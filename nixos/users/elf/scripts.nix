@@ -51,6 +51,6 @@
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
 
-    ${pkgs.multimc}/bin/multimc -d "$HOME/.cache/multimc"
+    ${pkgs.multimc}/bin/multimc -d "$HOME/.local/share/multimc"
   '';
 }
