@@ -1,7 +1,0 @@
-display_bitrate = yes
-progressbar_look = "── "
-
-ncmpcpp_directory="/home/elf/.cache/ncmpcpp"
-lyrics_directory="/home/elf/.cache/ncmpcpp/lyrics"
-
-execute_on_song_change = "/etc/profiles/per-user/elf/bin/ncmpcpp-notify"

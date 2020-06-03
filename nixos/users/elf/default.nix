@@ -6,11 +6,20 @@ in
     enable = true;
     configFile = {
       "npm/npmrc".source = ./files/npmrc;
-      "ncmpcpp/config".source = ./files/ncmpcpp-config;
       "ssh/config".source = ./files/ssh-config;
       "ripgreprc".source = ./files/ripgreprc;
       "nvim/coc-settings.json".source = ./files/coc-settings.json;
       "emacs.d/init.el".source = ./files/init.el;
+
+      "ncmpcpp/config".text = ''
+        display-bitrate = yes
+        progressbar_look = "── "
+
+        ncmpcpp_directory="/home/elf/.cache/ncmpcpp"
+        lyrics_directory="/home/elf/.cache/ncmpcpp/lyrics"
+
+        execute_on_song_change = "${scripts.ncmpcpp-notify}/bin/ncmpcpp-notify"
+      '';
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
