@@ -107,7 +107,7 @@ in
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ cura qemu_kvm minikube OVMF ];
+    home.packages = with pkgs; [ qemu_kvm minikube OVMF nvtop ];
     services.picom.enable = true;
   };
 
@@ -133,17 +133,6 @@ in
     device = "/dev/mapper/backup";
     fsType = "btrfs";
     options = [ "subvol=backup" "noauto" "compress=lzo" "noexec" "nodev" ];
-  };
-
-  services.zfs = {
-    autoScrub = {
-      enable = true;
-      pools = [ "zroot" ];
-    };
-    autoSnapshot = {
-      enable = true;
-      flags = "-k -p --utc";
-    };
   };
 
   security = {

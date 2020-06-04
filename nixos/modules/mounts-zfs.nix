@@ -50,4 +50,15 @@
     fsType = "zfs";
     options = [ "noatime" "nosuid" "nodev" ];
   };
+
+  services.zfs = {
+    autoScrub = {
+      enable = true;
+      pools = [ "zroot" ];
+    };
+    autoSnapshot = {
+      enable = true;
+      flags = "-k -p --utc";
+    };
+  };
 }

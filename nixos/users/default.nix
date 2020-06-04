@@ -1,8 +1,8 @@
 { pkgs, config, lib, ... }:
-
 let credentials = pkgs.callPackage ../credentials.nix { };
 
-in {
+in
+{
   users.mutableUsers = false;
   users.extraUsers.elf = {
     isNormalUser = true;
@@ -10,9 +10,6 @@ in {
     description = "Elias Lawson-Fox";
     extraGroups = [
       "wheel"
-      "systemd-journal"
-      "wireshark"
-      "dialout" # USB serial access for arduino
     ];
     uid = 1000;
     shell = pkgs.zsh;
