@@ -24,7 +24,7 @@ in
     };
 
     kernelModules = [ "kvm_amd" ];
-    kernelParams = [ "amd_iommu=on" "iommu=pt" ];
+    kernelParams = [ "iommu=pt" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
 
@@ -107,8 +107,11 @@ in
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ qemu_kvm minikube OVMF nvtop ];
-    services.picom.enable = true;
+    home.packages = with pkgs; [ qemu_kvm minikube OVMF openjdk8 nvtop ];
+    services.picom = {
+      enable = true;
+      backend = "xrender";
+    };
   };
 
   fileSystems."/efi" = {
@@ -149,4 +152,6 @@ in
       keep-derivations = true
     '';
   };
+
+  powerManagement.cpuFreqGovernor = "ondemand";
 }
