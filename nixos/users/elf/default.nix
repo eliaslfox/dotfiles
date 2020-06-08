@@ -51,7 +51,6 @@ in
       exa
       ripgrep
       archiver
-      pgcli
       httpie
 
       #
@@ -85,14 +84,12 @@ in
 
       inetutils
       blender
-      calibre
       zoom-us
       postgresql
       git
       zathura
       pavucontrol
       transmission-gtk
-      nixops
       btrbk
       discord
       feh

@@ -1,9 +1,5 @@
 with import <nixpkgs> { }; {
   enable = true;
-  iconTheme = {
-    name = "Adwaita";
-    package = pkgs.gnome3.adwaita-icon-theme;
-  };
   settings = {
     global = {
       font = "FiraCode 9";

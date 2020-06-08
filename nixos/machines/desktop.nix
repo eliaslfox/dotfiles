@@ -129,13 +129,13 @@ in
   fileSystems."/run/media/elf/stuff" = {
     device = "/dev/mapper/stuff";
     fsType = "btrfs";
-    options = [ "subvol=stuff" "compress=zstd" "noexec" "nodev" ];
+    options = [ "subvol=stuff" "noauto" "compress=zstd" "lazytime" "noexec" "nosuid" "nodev" ];
   };
 
   fileSystems."/run/media/elf/backup" = {
     device = "/dev/mapper/backup";
     fsType = "btrfs";
-    options = [ "subvol=backup" "noauto" "compress=lzo" "noexec" "nodev" ];
+    options = [ "subvol=backup" "noauto" "compress=lzo" "lazytime" "noexec" "nosuid" "nodev" ];
   };
 
   security = {
@@ -143,7 +143,12 @@ in
     lockKernelModules = false;
     allowUserNamespaces = true;
   };
-  environment.memoryAllocator.provider = "libc";
+
+  environment = {
+    memoryAllocator.provider = "libc";
+
+    etc."machine-id".text = "231cf24683d645868a965c534d80e403";
+  };
 
   nix = {
     maxJobs = lib.mkDefault 12;
