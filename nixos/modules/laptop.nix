@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 let
   lowBatteryNotifier = pkgs.writeScript "lowBatteryNotifier" ''
     #!/bin/sh
@@ -10,7 +9,13 @@ let
     test $BAT_PCT -le 10 && test $BAT_STA = "Discharging" && DISPLAY=:0.0 ${pkgs.libnotify}/bin/notify-send -u critical 'Low Battery' "Battery is at $BAT_PCT%"
   '';
 
-in {
+in
+{
+  kernel.sysctl = {
+    # Swap to disk less
+    "vm.swappiness" = 1;
+  };
+
   services.upower.enable = true;
 
   services.udev.extraRules = ''

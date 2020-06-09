@@ -22,11 +22,6 @@ in
   ];
 
   boot = {
-    kernel.sysctl = {
-      # Swap to disk less
-      "vm.swappiness" = 1;
-    };
-
     extraModprobeConfig = ''
       # Disable overlayfs
       blacklist overlayfs

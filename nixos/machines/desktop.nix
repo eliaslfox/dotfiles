@@ -158,5 +158,12 @@ in
     '';
   };
 
+  swapDevices = [
+    {
+      # https://github.com/zfsonlinux/pkg-zfs/wiki/HOWTO-use-a-zvol-as-a-swap-device
+      device = "/dev/zvol/zroot/swap";
+    }
+  ];
+
   powerManagement.cpuFreqGovernor = "ondemand";
 }
