@@ -73,7 +73,7 @@ in
       localDoh.enable = true;
     };
     internet-sharing = {
-      enable = true;
+      enable = false;
       externalInterface = "wlp6s0";
       internalInterface = "enp4s0";
     };
@@ -90,6 +90,12 @@ in
     hostName = "darling";
     hostId = "8425e349";
     wireless.interfaces = [ "wlp6s0" ];
+    firewall = {
+      allowedTCPPortRanges = lib.mkForce [ ];
+      allowedTCPPorts = lib.mkForce credentials.firewall.tcp;
+      allowedUDPPortRanges = lib.mkForce [ ];
+      allowedUDPPorts = lib.mkForce credentials.firewall.udp;
+    };
   };
 
   services.xserver = {

@@ -39,8 +39,8 @@ in
     firewall = {
       enable = true;
       allowPing = false;
-      allowedUDPPorts = [ ];
-      allowedTCPPorts = [ ];
+      checkReversePath = "strict";
+      logReversePathDrops = true;
     };
     wireless = {
       enable = true;
