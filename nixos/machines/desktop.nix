@@ -35,16 +35,16 @@ in
     '';
 
     loader = {
-      grub = {
-        device = "nodev";
-        efiSupport = true;
-        useOSProber = true;
+      systemd-boot = {
+        enable = true;
+        editor = false;
+        consoleMode = "auto";
       };
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = 10;
+      timeout = 0;
     };
 
     initrd = {
@@ -125,13 +125,6 @@ in
     fsType = "vfat";
     options = [ "noexec" "nodev" ];
   };
-
-  fileSystems."/boot" = {
-    device = "/dev/nvme0n1p2";
-    fsType = "ext4";
-    options = [ "noexec" "nodev" ];
-  };
-
   fileSystems."/run/media/elf/stuff" = {
     device = "/dev/mapper/stuff";
     fsType = "btrfs";
@@ -163,13 +156,6 @@ in
       keep-derivations = true
     '';
   };
-
-  swapDevices = [
-    {
-      # https://github.com/zfsonlinux/pkg-zfs/wiki/HOWTO-use-a-zvol-as-a-swap-device
-      device = "/dev/zvol/zroot/swap";
-    }
-  ];
 
   powerManagement.cpuFreqGovernor = "ondemand";
 }

@@ -42,6 +42,14 @@ in
         ".local/share/mozilla/firefox/clean/user.js";
       ".mozilla/firefox/clean/chrome/userChrome.css".target =
         ".local/share/mozilla/firefox/clean/chrome/userChrome.css";
+
+      ".startxrc".text = ''
+        #!${pkgs.bash}/bin/bash
+        set -eou safepipe
+
+        systemctl restart --user graphical-session.target
+        exec i3
+      '';
     };
 
     extraOutputsToInstall = [ "doc" "info" "devdoc" ];
@@ -73,6 +81,7 @@ in
       # nix
       nixpkgs-fmt
       nix-prefetch-git
+      nix-prefetch-docker
 
       # go
       go
@@ -82,6 +91,7 @@ in
       # haskell
       stack
 
+      libnotify
       scrot
       inetutils
       blender
@@ -181,14 +191,32 @@ in
     services = {
       home-symlinks = {
         Unit = { Description = "Init symlinks in home folder"; };
-        Service = { ExecStart = "${scripts.symlink-init}/bin/symlink-init"; };
+        Service = {
+          ExecStart = "${scripts.symlink-init}/bin/symlink-init";
+        };
         Install = { WantedBy = [ "default.target" ]; };
       };
 
       set-bg = {
         Unit = { Description = "Set background"; };
-        Service = { ExecStart = "${scripts.set-bg}/bin/set-bg"; };
+        Service = {
+          ExecStart = "${scripts.set-bg}/bin/set-bg";
+          Environment = "DISPLAY=:0";
+        };
         Install = { WantedBy = [ "graphical-session.target" ]; };
+      };
+      picom = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      xss-lock = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      xautolock-session = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      unclutter = {
+
+        Service = { Environment = "DISPLAY=:0"; };
       };
     };
   };

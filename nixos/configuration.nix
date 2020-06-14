@@ -138,8 +138,8 @@ in
     pulseaudio = {
       enable = true;
       daemon.config = {
-        default-sample-rate = 44100;
-        alternate-sample-rate = 48000;
+        default-sample-rate = 48000;
+        alternate-sample-rate = 44410;
         avoid-resampling = true;
       };
       configFile = "${pkgs.callPackage ./modules/pulse.nix { }}/default.pa";
