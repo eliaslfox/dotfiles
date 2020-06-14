@@ -28,6 +28,8 @@ in
   };
 
   home = {
+    username = "elf";
+
     file = {
       ".gnupg/gpg-agent.conf".target = ".config/gnupg/gpg-agent.conf";
       ".gnupg/gpg.conf".target = ".config/gnupg/gpg.conf";
@@ -43,9 +45,8 @@ in
       ".mozilla/firefox/clean/chrome/userChrome.css".target =
         ".local/share/mozilla/firefox/clean/chrome/userChrome.css";
 
-      ".startxrc".text = ''
-        #!${pkgs.bash}/bin/bash
-        set -eou safepipe
+      ".xinitrc".text = ''
+        #!/bin/sh
 
         systemctl restart --user graphical-session.target
         exec i3
@@ -119,8 +120,14 @@ in
 
   gtk = {
     enable = true;
-    iconTheme.name = "Adwaita";
-    theme.name = "Adwaita-dark";
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome-themes-extra;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
     gtk3.extraCss = ''
       .titlebar.default-decoration {
         margin: -200px;

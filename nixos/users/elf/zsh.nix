@@ -33,7 +33,6 @@
 
     # Misc Config
     EXA_STRICT = "1";
-    BAT_THEME = "Solarized (dark)";
     MANPAGER = "nvim -c 'set ft=man'";
     RIPGREP_CONFIG_PATH = "/home/elf/.config/ripgreprc";
 
@@ -49,15 +48,6 @@
     unalias -m '*'
     setopt cdable_vars
     setopt hist_find_no_dups
-
-    # pre-populate cd var cache
-    cd ~projects
-    cd ~dotfiles
-    cd ~software
-    cd ~learning
-    cd ~org
-    cd ~saved
-    cd
 
     alias -s git="git clone"
 
@@ -79,6 +69,7 @@
     grep = "grep --text --color=auto";
     ls = "exa";
     tree = "exa -T";
+    startx = "exec startx";
 
     music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     open = "xdg-open";
@@ -86,4 +77,7 @@
     pbpaste = "xclip -selection clipboard -o";
     pass = ''EDITOR="nvim -u NONE" pass'';
   };
+  loginExtra = ''
+    . /etc/profile
+  '';
 }
