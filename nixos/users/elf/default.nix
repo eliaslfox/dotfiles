@@ -208,14 +208,7 @@ in
       picom = {
         Service = { Environment = "DISPLAY=:0"; };
       };
-      xss-lock = {
-        Service = { Environment = "DISPLAY=:0"; };
-      };
-      xautolock-session = {
-        Service = { Environment = "DISPLAY=:0"; };
-      };
       unclutter = {
-
         Service = { Environment = "DISPLAY=:0"; };
       };
     };
