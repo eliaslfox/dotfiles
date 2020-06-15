@@ -29,6 +29,7 @@ in
   };
 
   networking = {
+    useDHCP = false;
     nameservers = [ "8.8.8.8" "8.8.4.4" ];
     firewall = {
       enable = true;
@@ -77,9 +78,7 @@ in
       RuntimeMaxUse=100M
     '';
 
-    resolved = {
-      enable = true;
-    };
+    resolved.enable = true;
   };
 
   fonts = {

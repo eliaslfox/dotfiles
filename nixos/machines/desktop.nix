@@ -16,8 +16,8 @@ in
 
     kernel.sysctl = {
       /* 
-       * Allow normal users to use userns
-       * this is needed for nix and chromium
+       * Allow unprivileged users to use user namespaces
+       * this is needed for the nix sandbox and chromium
        * this is added by the hardened patchset
        */
       "kernel.unprivileged_userns_clone" = true;
@@ -86,6 +86,7 @@ in
     hostName = "darling";
     hostId = "8425e349";
     wireless.interfaces = [ "wlp6s0" ];
+    interfaces.wlp6s0.useDHCP = true;
     firewall = {
       allowedTCPPortRanges = lib.mkForce [ ];
       allowedTCPPorts = lib.mkForce credentials.firewall.tcp;
@@ -141,7 +142,6 @@ in
 
   environment = {
     memoryAllocator.provider = "libc";
-
     etc."machine-id".text = "231cf24683d645868a965c534d80e403";
   };
 
