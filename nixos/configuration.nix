@@ -22,12 +22,6 @@ in
   ];
 
   boot = {
-    extraModprobeConfig = ''
-      # Disable overlayfs
-      blacklist overlayfs
-      install overlayfs ${pkgs.coreutils}/bin/false
-    '';
-
     plymouth = {
       enable = true;
       theme = "tribar";
@@ -49,11 +43,6 @@ in
   };
 
   environment = {
-    etc = {
-      "bashrc.local".text = ''
-        export HISTFILE=~/.cache/bash_history
-      '';
-    };
     pathsToLink = [ "/share/zsh" ];
     systemPackages = with pkgs; [
       manpages
@@ -87,6 +76,10 @@ in
       Storage=volatile
       RuntimeMaxUse=100M
     '';
+
+    resolved = {
+      enable = true;
+    };
   };
 
   fonts = {

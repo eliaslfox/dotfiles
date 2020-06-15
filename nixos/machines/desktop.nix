@@ -71,6 +71,7 @@ in
     dnscrypt = {
       enable = true;
       localDoh.enable = true;
+      cache.enable = false;
     };
     vm-bridge.enable = false;
     horriblesubsd.enable = true;
