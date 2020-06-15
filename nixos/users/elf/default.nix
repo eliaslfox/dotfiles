@@ -59,7 +59,6 @@ in
       # coreutils 2.0
       exa
       ripgrep
-      archiver
       httpie
 
       #
@@ -92,7 +91,6 @@ in
       # haskell
       stack
 
-      libnotify
       scrot
       inetutils
       blender
