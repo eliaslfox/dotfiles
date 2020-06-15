@@ -72,7 +72,7 @@ in
       enable = true;
       localDoh.enable = true;
     };
-    vm-bridge.enable = true;
+    vm-bridge.enable = false;
     horriblesubsd.enable = true;
   };
 

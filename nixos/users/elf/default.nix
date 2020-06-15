@@ -29,6 +29,7 @@ in
 
   home = {
     username = "elf";
+    keyboard.layout = "us";
 
     file = {
       ".gnupg/gpg-agent.conf".target = ".config/gnupg/gpg-agent.conf";
@@ -96,12 +97,11 @@ in
       blender
       zoom-us
       postgresql
-      git
       zathura
       pavucontrol
       transmission-gtk
       btrbk
-      discord
+      #discord
       feh
       vlc
       mpv
@@ -206,8 +206,24 @@ in
         Unit = { Description = "Set background"; };
         Service = {
           ExecStart = "${scripts.set-bg}/bin/set-bg";
+          Environment = "DISPLAY=:0";
         };
         Install = { WantedBy = [ "graphical-session.target" ]; };
+      };
+      picom = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      unclutter = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      xss-lock = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      xautolock-session = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
+      setxkbmap = {
+        Service = { Environment = "DISPLAY=:0"; };
       };
     };
   };
