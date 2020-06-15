@@ -198,7 +198,6 @@ in
       "nvidia-settings"
       "nvidia-x11"
       "nvidia-persistenced"
-      "nvtop"
       "cudatoolkit"
 
       "zoom-us"

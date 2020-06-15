@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-let scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
+let
+  scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
+  master = import <nixpkgs-master> { config = { allowUnfree = true; }; };
 in
 {
   xdg = {
@@ -101,7 +103,7 @@ in
       pavucontrol
       transmission-gtk
       btrbk
-      #discord
+      master.discord
       feh
       vlc
       mpv
