@@ -208,15 +208,8 @@ in
         Unit = { Description = "Set background"; };
         Service = {
           ExecStart = "${scripts.set-bg}/bin/set-bg";
-          Environment = "DISPLAY=:0";
         };
         Install = { WantedBy = [ "graphical-session.target" ]; };
-      };
-      picom = {
-        Service = { Environment = "DISPLAY=:0"; };
-      };
-      unclutter = {
-        Service = { Environment = "DISPLAY=:0"; };
       };
     };
   };

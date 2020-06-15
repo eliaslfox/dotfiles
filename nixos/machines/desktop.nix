@@ -72,11 +72,6 @@ in
       enable = true;
       localDoh.enable = true;
     };
-    internet-sharing = {
-      enable = false;
-      externalInterface = "wlp6s0";
-      internalInterface = "enp4s0";
-    };
     vm-bridge.enable = true;
     horriblesubsd.enable = true;
   };
