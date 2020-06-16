@@ -231,7 +231,7 @@ in
         Service = { Environment = "DISPLAY=:0"; };
       };
       pasystray = {
-        Service = { Environment = "DISPLAY=:0"; };
+        Service.Environment = "DISPLAY=:0";
       };
     };
   };
