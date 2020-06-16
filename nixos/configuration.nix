@@ -77,8 +77,6 @@ in
       Storage=volatile
       RuntimeMaxUse=100M
     '';
-
-    resolved.enable = true;
   };
 
   fonts = {
