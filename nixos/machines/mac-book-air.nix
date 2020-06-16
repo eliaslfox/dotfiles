@@ -47,6 +47,7 @@
     services.cbatticon = {
       enable = true;
     };
+    services.passytray.enable = true;
   };
 
   # intel graphics packages
