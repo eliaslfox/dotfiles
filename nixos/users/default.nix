@@ -10,6 +10,7 @@ in
     description = "Elias Lawson-Fox";
     extraGroups = [
       "wheel"
+      "video"
     ];
     uid = 1000;
     shell = pkgs.zsh;

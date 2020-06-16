@@ -64,7 +64,6 @@
     };
     "cpu_temperature 0" = {
       position = 11;
-      settings = { path = "/sys/class/hwmon/hwmon0/temp1_input"; };
     };
     "tztime local" = {
       position = 12;

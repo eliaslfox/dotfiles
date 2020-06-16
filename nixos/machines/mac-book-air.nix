@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 {
-
-  imports = [ ../laptop.nix ../xorg.nix ];
+  imports = [ ../modules/laptop.nix ../modules/xorg.nix ];
 
   networking = {
     hostName = "nico-ni";
     wireless.interfaces = [ "wlp3s0" ];
+    interfaces.wlp3s0.useDHCP = true;
   };
 
   boot = {
@@ -33,7 +33,7 @@
         device = "nodev";
         enable = true;
         efiSupport = true;
-        memtest86.enable = true;
+        enableCryptodisk = true;
       };
       efi = {
         canTouchEfiVariables = true;

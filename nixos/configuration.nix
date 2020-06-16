@@ -199,5 +199,7 @@ in
 
       "libspotify"
       "pyspotify"
+
+      "broadcom-sta"
     ];
 }
