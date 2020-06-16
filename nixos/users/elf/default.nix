@@ -85,6 +85,7 @@ in
       nixpkgs-fmt
       nix-prefetch-git
       nix-prefetch-docker
+      nixpkgs-review
 
       # go
       go

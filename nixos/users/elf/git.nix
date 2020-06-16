@@ -28,5 +28,6 @@
       submoduleSummary = true;
     };
     push = { default = "current"; };
+    pull = { ff = "only"; };
   };
 }
