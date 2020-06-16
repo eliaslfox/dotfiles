@@ -65,11 +65,13 @@ let
 
   settings = {
     # UI Config
-    "widget.content.gtk-theme-override" = "Adwaita:light";
-    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-    "browser.newtabpage.enabled" = false;
+    "browser.aboutConfig.showWarning" = false;
     "browser.newtab.url" = "about:blank";
+    "browser.newtabpage.enabled" = false;
     "devtools.theme" = "dark";
+    "extensions.pocket.enabled" = false;
+    "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+    "widget.content.gtk-theme-override" = "Adwaita:light";
 
     # Misc
     "identity.fxaccounts.enabled" = false;
@@ -100,22 +102,25 @@ let
     #
 
     # Disable JS APIs
-    "dom.serviceWorkers.enable" = false;
     "dom.enable_performance" = false;
     "dom.enable_user_timing" = false;
+    "dom.gamepad.enabled" = false;
+    "dom.serviceWorkers.enable" = false;
+    "dom.vr.enabled" = false;
     "geo.enabled" = false;
-    "media.peerconnection.enabled" = false; # WebRTC
-    "javascript.options.wasm" = false;
     "javascript.options.asmjs" = false;
     "javascript.options.shared_memory" = false;
-    "webgl.disabled" = true;
-    "dom.disable_beforeunload" = true;
-    "dom.event.contextmenu.enabled" = false;
+    "javascript.options.wasm" = false;
+    "media.peerconnection.enabled" = false; # WebRTC
     "offline-apps.allow_by_default" = false;
+    "webgl.disabled" = true;
+    "dom.enable_resource_timing.enabled" = false;
 
-    # Clipboard
+    # Web AntiFeatures
     "dom.event.clipboardevents.enabled" = false;
     "dom.allow_cut_copy" = false;
+    "dom.event.contextmenu.enabled" = false;
+    "dom.disable_beforeunload" = true;
 
     # Network Spam
     "beacon.enabled" = false;
@@ -132,10 +137,7 @@ let
     "media.webspeech.recognition.enable" = false;
     "media.synth.enable" = false;
     "dom.battery.enabled" = false;
-    "dom.gamepad.enabled" = false;
-    "dom.vr.enabled" = false;
     "dom.vibrator.enabled" = false;
-    "dom.enable_resource_timing.enabled" = false;
     "dom.telephony.enabled" = false;
     "device.sensors.enabled" = false;
     "dom.mozTCPSocket.enabled" = false;
@@ -152,7 +154,6 @@ let
 
     # MISC
     "dom.maxHardwareConcurrency" = 2;
-    "camera.control.face_detection.enabled" = false;
     "browser.search.countryCode" = "US";
     "browser.search.region" = "US";
     "browser.search.geoip.url" = "";
@@ -169,53 +170,6 @@ let
     "browser.urlbar.filter.javascript" = true;
     "broser.display.use_document_fonts" = 0;
     "ui.use_standins_for_native_colors" = true;
-
-    # Plugins
-    "security.dialog_enable_delay" = 1000;
-    "xpinstall.signatures.required" = true;
-    "extensions.getAddons.cache.enabled" = false;
-    "lightweightThemes.update.enabled" = false;
-    "plugin.state.flash" = 0;
-    "plugin.state.java" = 0;
-    "shumway.disabled" = true;
-    "plugin.state.libgnome-shell-browser-plugin" = 0;
-    "extensions.blocklist.enabled" = true;
-    "services.blocklist.update_enabled" = true;
-    "extensions.blocklist.url" =
-      "https://blocklist.addons.mozilla.org/blocklist/3/%APP_ID%/%APP_VERSION%/";
-    "extensions.systemAddon.update.enabled" = false;
-
-    # AntiFeatures
-    "browser.newtabpage.activity-stream.asrouter.userprefs.cfr" = false;
-    "devtools.webide.enabled" = false;
-    "devtools.webide.autoinstallADBHelper" = false;
-    "devtools.webide.autoinstallFxdtAdapters" = false;
-    "devtools.debugger.remote-enabled" = false;
-    "devtools.chrome.enabled" = false;
-    "devtools.debugger.force-local" = false;
-    "toolkit.telemetry.enabled" = false;
-    "toolkit.telemetry.unified" = false;
-    "toolkit.telemetry.archive.enabled" = false;
-    "experiments.supported" = false;
-    "experiments.enabled" = false;
-    "experiments.manifest.uri" = "";
-    "network.allow-experiments" = false;
-    "breakpad.reportURL" = "";
-    "browser.tabs.crashReporting.sendReport" = false;
-    "browser.crashReports.unsubmittedCheck.enabled" = false;
-    "dom.flyweb.enabled" = false;
-    "browser.uitour.enabled" = false;
-    "datareporting.healthreport.uploadEnabled" = false;
-    "datareporting.healthreport.service.enabled" = false;
-    "datareporting.policy.dataSubmissionEnabled" = false;
-    "browser.discovery.enabled" = false;
-    "browser.selfsupport.url" = "";
-    "loop.logDomains" = false;
-    "browser.pocket.enabled" = false;
-    "extensions.pocket.enabled" = false;
-    "extensions.shield-recipe-client.enabled" = false;
-    "app.shield.optoutstudies.enabled" = false;
-    "browser.newtabpage.activity-stream.feeds.section.topstories" = false;
 
     # Fingerprinting
     "privacy.trackingprotection.enabled" = true;
@@ -236,22 +190,14 @@ let
     "network.predictor.enabled" = false;
     "network.dns.blockDotOnion" = true;
     "network.http.speculative-parallel-limit" = 0;
-    "browser.aboutHomeSnippets.updateUrl" = false;
-    "browser.search.update" = false;
     "network.captive-portal-service.enabled" = false;
     "browser.casting.enabled" = false;
 
     # HTTP
-    "network.negotiate-auth.allow-insecure-ntlm-v1" = false;
-    "network.negotiate-auth.allow-insecure-ntlm-v1-http" = false;
-    "security.csp.experimentalEnabled" = true;
-    "security.csp.enable" = true;
-    "secirity.sri.enable" = true;
     "privacy.donottrackheader.enabled" = true;
     "network.http.referer.spoofSource" = true;
     "network.cookie.cookieBehavior" = 1;
     "privacy.firstparty.isolate" = true;
-
   };
 
 in

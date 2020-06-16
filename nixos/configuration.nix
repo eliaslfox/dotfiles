@@ -40,6 +40,7 @@ in
     wireless = {
       enable = true;
       networks = credentials.wifi;
+      userControlled.enable = true;
     };
   };
 
