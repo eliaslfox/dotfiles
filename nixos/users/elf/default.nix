@@ -230,9 +230,6 @@ in
       cbatticon = {
         Service = { Environment = "DISPLAY=:0"; };
       };
-      pasystray = {
-        Service.Environment = "DISPLAY=:0";
-      };
     };
   };
 
