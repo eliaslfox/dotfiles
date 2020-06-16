@@ -227,6 +227,9 @@ in
       setxkbmap = {
         Service = { Environment = "DISPLAY=:0"; };
       };
+      cbatticon = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
     };
   };
 
