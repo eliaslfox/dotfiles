@@ -78,12 +78,12 @@ in
         lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
     };
     bars = [
-      ({
-        trayOutput = "none";
-      } // (lib.mkIf config.features.wireguard.enable {
-        statusCommand = "/run/wrappers/bin/elf-i3status";
-      }
-      ))
+      (
+        if config.features.wireguard.enable then
+          { statusCommand = "/run/wrappers/bin/elf-i3status"; trayOutput = "none"; }
+        else
+          { }
+      )
     ];
   };
   extraConfig = ''

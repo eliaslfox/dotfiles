@@ -8,7 +8,7 @@
   services.upower = {
     enable = true;
     percentageAction = 5;
-    percenageCritical = 7;
+    percentageCritical = 7;
   };
 
   programs.light.enable = true;
