@@ -94,6 +94,7 @@ in
       # haskell
       stack
 
+      libnotify
       scrot
       inetutils
       blender

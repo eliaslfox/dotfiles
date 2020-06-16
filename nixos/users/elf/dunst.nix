@@ -1,5 +1,4 @@
 with import <nixpkgs> { }; {
-  enable = true;
   iconTheme = {
     package = pkgs.gnome-themes-extra;
     name = "Adwaita";

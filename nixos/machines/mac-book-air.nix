@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ../modules/laptop.nix ../modules/xorg.nix ];
+  imports = [ ../modules/laptop.nix ];
 
   networking = {
     hostName = "nico-ni";
@@ -44,10 +44,13 @@
   };
 
   home-manager.users.elf = {
-    services.cbatticon = {
+
+    programs.mako = {
       enable = true;
     };
   };
+
+  programs.sway.enable = true;
 
   # intel graphics packages
   hardware.opengl.extraPackages = with pkgs; [
