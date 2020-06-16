@@ -23,6 +23,7 @@ in
     users.elf = import ./elf {
       config = config;
       pkgs = pkgs;
+      lib = lib;
     };
   };
 }

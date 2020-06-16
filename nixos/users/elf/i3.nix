@@ -1,7 +1,7 @@
-with import <nixpkgs> { };
+{ pkgs, lib, config }:
 let
   borderColor = "#002b36";
-  scripts = callPackage ../../scripts.nix { };
+  scripts = pkgs.callPackage ../../scripts.nix { };
 
   /*
    * This replaces the default dmenu_run script so that
@@ -77,10 +77,14 @@ in
       placeholder =
         lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
     };
-    bars = [{
-      trayOutput = "none";
-      statusCommand = "/run/wrappers/bin/elf-i3status";
-    }];
+    bars = [
+      ({
+        trayOutput = "none";
+      } // (lib.mkIf config.features.wireguard.enable {
+        statusCommand = "/run/wrappers/bin/elf-i3status";
+      }
+      ))
+    ];
   };
   extraConfig = ''
     default_border none

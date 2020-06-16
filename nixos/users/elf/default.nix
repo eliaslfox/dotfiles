@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
   master = import <nixpkgs-master> { config = { allowUnfree = true; }; };
@@ -136,7 +136,7 @@ in
     '';
   };
 
-  xsession.windowManager.i3 = import ./i3.nix;
+  xsession.windowManager.i3 = import ./i3.nix { pkgs = pkgs; config = config; lib = lib; };
 
   programs = {
     emacs = import ./emacs.nix { pkgs = pkgs; };
