@@ -78,12 +78,14 @@ in
         lib.mkOptionDefault { childBorder = lib.mkForce borderColor; };
     };
     bars = [
-      (
+      ((
         if config.features.wireguard.enable then
-          { statusCommand = "/run/wrappers/bin/elf-i3status"; trayOutput = "none"; }
+          { statusCommand = "/run/wrappers/bin/elf-i3status"; }
         else
           { }
-      )
+      ) // (
+        if config.networking.hostname == "darling" then { trayOutput = "none"; } else { }
+      ))
     ];
   };
   extraConfig = ''
