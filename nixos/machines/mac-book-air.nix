@@ -43,6 +43,12 @@
     };
   };
 
+  home-manager.users.elf = {
+    services.cbatticon = {
+      enable = true;
+    };
+  };
+
   # intel graphics packages
   hardware.opengl.extraPackages = with pkgs; [
     vaapiIntel
