@@ -31,6 +31,7 @@ in
 
   home = {
     username = "elf";
+    homeDirectory = "/home/elf";
     keyboard.layout = "us";
 
     file = {
@@ -70,6 +71,7 @@ in
 
       # c
       gcc
+      gdb
       gnumake
 
       # rust
