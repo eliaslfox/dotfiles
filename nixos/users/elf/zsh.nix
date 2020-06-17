@@ -35,6 +35,7 @@
     EXA_STRICT = "1";
     MANPAGER = "nvim -c 'set ft=man'";
     RIPGREP_CONFIG_PATH = "/home/elf/.config/ripgreprc";
+    NO_AT_BRIDGE = "1";
 
     # Common directories
     projects = "$HOME/Documents/projects";
