@@ -60,7 +60,7 @@ in
 
   features = {
     mopidy.enable = true;
-    steam.enable = true;
+    steam.enable = false;
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
