@@ -24,15 +24,15 @@ in
     };
 
     kernelModules = [ "kvm_amd" ];
-    kernelParams = [ "iommu=pt" ];
+    kernelParams = [ "iommu=pt" "nvidia-drm.modeset=1" ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
 
       options vfio-pci ids=10de:1c81,10de:0fb9
-      blacklist nouveau
       softdep nvidia pre: vfio-pci
       softdep nvidia* pre: vfio-pci
     '';
+    blacklistedKernelModules = [ "sp5100-tco" "tpm_crb" ];
 
     loader = {
       systemd-boot = {
@@ -49,11 +49,9 @@ in
 
     initrd = {
       availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "vfio-pci" ];
-      luks = {
-        devices = {
-          root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
-          stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
-        };
+      luks.devices = {
+        root.device = "/dev/disk/by-uuid/edc067ee-6d0a-445e-a05a-28f25c2409dd";
+        stuff.device = "/dev/disk/by-uuid/04c4a351-9e58-41b3-add1-4e3cd2759155";
       };
     };
   };
