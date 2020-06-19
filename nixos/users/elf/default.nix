@@ -52,6 +52,9 @@ in
       ".xinitrc".text = ''
         #!/bin/sh
 
+        if [ -f ~/.Xresources ]; then
+          xrdb ~/.Xresources   
+        fi
         systemctl restart --user graphical-session.target
         exec i3
       '';

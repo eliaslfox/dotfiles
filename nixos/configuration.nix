@@ -69,6 +69,13 @@ in
 
     udisks2.enable = false;
 
+    printing = {
+      enable = true;
+      drivers = [
+        pkgs.brlaser
+      ];
+    };
+
     physlock = {
       enable = true;
       allowAnyUser = true;
@@ -78,6 +85,7 @@ in
       Storage=volatile
       RuntimeMaxUse=100M
     '';
+
   };
 
   fonts = {
@@ -144,6 +152,7 @@ in
   programs.iotop.enable = true;
   programs.dconf.enable = true;
   programs.wireshark.enable = true;
+  programs.system-config-printer.enable = true;
 
   documentation = {
     dev.enable = true;
