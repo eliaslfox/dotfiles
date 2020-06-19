@@ -84,7 +84,7 @@ in
         else
           { }
       ) // (
-        if config.networking.hostName == "darling" then {} else { }
+        if config.networking.hostName == "darling" then { trayOutput = "none"; } else { }
       ))
     ];
   };

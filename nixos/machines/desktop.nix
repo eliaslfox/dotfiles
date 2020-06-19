@@ -60,7 +60,6 @@ in
 
   features = {
     mopidy.enable = true;
-    steam.enable = false;
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
@@ -73,8 +72,8 @@ in
       localDoh.enable = true;
       cache.enable = false;
     };
-    vm-bridge.enable = false;
     horriblesubsd.enable = true;
+    printing.enable = true;
   };
 
   hardware = {
