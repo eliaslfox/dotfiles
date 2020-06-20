@@ -1,0 +1,60 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/*** Remove Scroll bar                               ***/
+/*** https://support.mozilla.org/bm/questions/902136 ***/
+#content browser { margin-right:-14px!important; overflow-y:scroll; overflow-x:hidden;}
+
+
+/*** Tree Style Tab Changes                                                           ***/
+/*** https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules ***/
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+  opacity: 0;
+  pointer-events: none;
+}
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+    visibility: collapse !important;
+}
+
+#sidebar-header {
+  display: none;
+}
+
+/*** BEGIN Firefox 77 (June 2, 2020) Override URL bar enlargement ***/
+/***  https://support.mozilla.org/en-US/questions/1290682         ***/
+
+/* Compute new position, width, and padding */
+
+#urlbar[breakout][breakout-extend] {
+  top: 5px !important;
+  left: 0px !important;
+  width: 100% !important;
+  padding: 0px !important;
+}
+/* for alternate Density settings */
+[uidensity="compact"] #urlbar[breakout][breakout-extend] {
+  top: 3px !important;
+}
+[uidensity="touch"] #urlbar[breakout][breakout-extend] {
+  top: 4px !important;
+}
+
+/* Prevent shift of URL bar contents */
+
+#urlbar[breakout][breakout-extend] > #urlbar-input-container {
+  height: var(--urlbar-height) !important;
+  padding: 0 !important;
+}
+
+/* Do not animate */
+
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+  animation: none !important;;
+}
+
+/* Remove shadows */
+
+#urlbar[breakout][breakout-extend] > #urlbar-background {
+  box-shadow: none !important;
+}
+
+/*** END Firefox 77 (June 2, 2020) Override URL bar enlargement ***/

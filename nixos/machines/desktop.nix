@@ -65,6 +65,7 @@ in
       credentials = credentials.wireguard;
     };
     docker.enable = true;
+    vm-bridge.enable = true;
     dnscrypt = {
       enable = true;
       localDoh.enable = true;
