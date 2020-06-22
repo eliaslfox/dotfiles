@@ -121,6 +121,10 @@ in
     };
   };
 
+  systemd.services."zram-reloader" = {
+    restartIfChanged = lib.mkForce false;
+  };
+
   fileSystems."/efi" = {
     device = "/dev/nvme0n1p1";
     fsType = "vfat";
@@ -154,6 +158,7 @@ in
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
+      extra-platforms = [ "aarch64-linux" ]
     '';
   };
 

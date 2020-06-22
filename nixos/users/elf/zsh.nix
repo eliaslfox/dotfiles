@@ -70,15 +70,19 @@
     grep = "grep --text --color=auto";
     ls = "exa";
     tree = "exa -T";
-    startx = "exec startx";
 
-    music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
     pbpaste = "xclip -selection clipboard -o";
+
+    music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     pass = ''EDITOR="nvim -u NONE" pass'';
   };
   loginExtra = ''
     . /etc/profile
+
+    if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+      exec startx
+    fi
   '';
 }
