@@ -113,6 +113,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<cr>
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -140,10 +141,14 @@ let g:ale_fixers = {
     \ 'typescript': ['prettier'],
     \ 'markdown': ['prettier'],
     \ 'go': ['gofmt', 'goimports'],
+    \ 'c': ['clang-format'],
+    \ 'cpp': ['clang-format'],
     \ }
 
 let g:ale_linters = {
     \ 'rust': [],
     \ 'go': [],
     \ 'typescript': [],
+    \ 'c': [],
+    \ 'c++': [],
     \ }

@@ -73,9 +73,11 @@ in
       #
 
       # c
-      gcc
       gdb
       gnumake
+      gcc
+      llvmPackages.clang-unwrapped
+      binutils
 
       # rust
       rustup
