@@ -191,7 +191,6 @@ in
       "nvidia-persistenced"
       "cudatoolkit"
 
-      "zoom-us"
       "discord"
 
       "steam"

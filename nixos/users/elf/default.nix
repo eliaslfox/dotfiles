@@ -58,6 +58,19 @@ in
         systemctl restart --user graphical-session.target
         exec i3
       '';
+
+      ".gdbinit".source = "${pkgs.fetchFromGitHub {
+          owner = "cyrus-and";
+          repo = "gdb-dashboard";
+          rev = "2d31a3b391e5d0e032b791e1fb7172338b02cecb";
+          sha256 = "05kg4884sic2p5ibrsr6c5rnkj0vkyndwxyg01xccx6gkqgmw34d";
+          }}/.gdbinit";
+
+      ".gdbinit.d/init".text = ''
+        dashboard -style style_low '1;34'
+
+        set confirm off
+      '';
     };
 
     extraOutputsToInstall = [ "doc" "info" "devdoc" ];
@@ -106,7 +119,6 @@ in
       scrot
       inetutils
       blender
-      zoom-us
       postgresql
       zathura
       pavucontrol
