@@ -12,7 +12,7 @@
   :after evil)
 
 ;;; UI
-(set-frame-font "Fira Code 14" nil t)
+(set-frame-font "Fira Code 11" nil t)
 
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)

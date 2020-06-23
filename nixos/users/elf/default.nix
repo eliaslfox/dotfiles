@@ -89,10 +89,11 @@ in
       # c
       gdb
       gnumake
-      gcc
+      gcc-unwrapped
       clang-tools
       llvmPackages.clang-unwrapped.python
-      binutils
+      binutils-unwrapped
+      valgrind
 
       # rust
       rustup
@@ -117,6 +118,7 @@ in
       # haskell
       stack
 
+      calibre
       libnotify
       scrot
       inetutils
