@@ -80,6 +80,7 @@ in
       exa
       ripgrep
       httpie
+      zoom-us
 
       #
       # programming
@@ -89,7 +90,8 @@ in
       gdb
       gnumake
       gcc
-      llvmPackages.clang-unwrapped
+      clang-tools
+      llvmPackages.clang-unwrapped.python
       binutils
 
       # rust

@@ -192,6 +192,7 @@ in
       "cudatoolkit"
 
       "discord"
+      "zoom-us"
 
       "steam"
       "steam-original"
