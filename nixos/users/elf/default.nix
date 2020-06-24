@@ -67,9 +67,10 @@ in
           }}/.gdbinit";
 
       ".gdbinit.d/init".text = ''
-        dashboard -style style_low '1;34'
-
         set confirm off
+        set print thread-events off
+
+        dashboard -style style_low '1;34'
       '';
     };
 

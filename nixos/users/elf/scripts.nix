@@ -22,6 +22,10 @@
     ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/stack
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/stack /home/elf/.stack
 
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.config/zoom
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/zoom /home/elf/.zoom
+
+
     ${lib.optionalString config.features.steam.enable ''
       ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam
       ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam /home/elf/.steam
