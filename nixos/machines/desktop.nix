@@ -108,7 +108,7 @@ in
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ qemu minikube OVMF openjdk8 ];
+    home.packages = with pkgs; [ qemu_kvm vagrant minikube OVMF openjdk8 ];
     services.picom = {
       enable = true;
       backend = "xrender";
@@ -151,6 +151,10 @@ in
   environment = {
     memoryAllocator.provider = "libc";
     etc."machine-id".text = "231cf24683d645868a965c534d80e403";
+  };
+
+  virtualisation.virtualbox.host = {
+    enable = true;
   };
 
   nix = {

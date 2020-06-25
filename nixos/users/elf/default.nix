@@ -90,9 +90,9 @@ in
       # c
       gdb
       gnumake
-      (pkgs.hiPrio gcc-unwrapped)
-      (pkgs.hiPrio clang-tools)
-      llvmPackages.clang-unwrapped
+      gcc-unwrapped
+      clang-tools
+      llvmPackages.clang-unwrapped.python
       binutils-unwrapped
       valgrind
 
