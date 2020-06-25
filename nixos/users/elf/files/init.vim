@@ -143,7 +143,10 @@ let g:ale_fixers = {
     \ 'go': ['gofmt', 'goimports'],
     \ 'c': ['clang-format'],
     \ 'cpp': ['clang-format'],
+    \ 'sh': ['shfmt'],
     \ }
+
+let g:ale_sh_shellcheck_options = '--external-sources --enable=all'
 
 let g:ale_linters = {
     \ 'rust': [],
@@ -151,4 +154,6 @@ let g:ale_linters = {
     \ 'typescript': [],
     \ 'c': [],
     \ 'c++': [],
+    \ 'sh': ['shellcheck'],
+    \ 'dockerfile': ['hadolint'],
     \ }

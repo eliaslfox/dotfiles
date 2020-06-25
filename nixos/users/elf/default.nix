@@ -90,9 +90,9 @@ in
       # c
       gdb
       gnumake
-      gcc-unwrapped
-      clang-tools
-      llvmPackages.clang-unwrapped.python
+      (pkgs.hiPrio gcc-unwrapped)
+      (pkgs.hiPrio clang-tools)
+      llvmPackages.clang-unwrapped
       binutils-unwrapped
       valgrind
 
@@ -118,6 +118,13 @@ in
 
       # haskell
       stack
+
+      # shell
+      shellcheck
+      shfmt
+
+      # dockerfile
+      hadolint
 
       calibre
       libnotify
