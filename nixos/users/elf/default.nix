@@ -80,6 +80,7 @@ in
       # coreutils 2.0
       exa
       ripgrep
+      fd
       httpie
       zoom-us
 

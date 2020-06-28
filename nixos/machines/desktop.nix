@@ -73,6 +73,7 @@ in
     };
     horriblesubsd.enable = true;
     printing.enable = true;
+    steam.enable = false;
   };
 
   hardware = {

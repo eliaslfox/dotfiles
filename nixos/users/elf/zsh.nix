@@ -25,8 +25,9 @@
     PASSWORD_STORE_DIR = "$HOME/Documents/.password-store";
     GOPATH = "$HOME/Documents/go";
 
-    # Don't create files
+    # Temp Files
     LESSHISTFILE = "-";
+    GDBHISTFILE = "~/.cache/gdb_history";
 
     # Make gpg-agent ssh work
     SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
