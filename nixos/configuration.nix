@@ -47,6 +47,9 @@ in
 
   environment = {
     pathsToLink = [ "/share/zsh" ];
+    etc = {
+      "u2f-mappings".text = credentials.u2f;
+    };
     systemPackages = with pkgs; [
       manpages
       git
@@ -156,14 +159,22 @@ in
       Defaults  lecture="never"
     '';
   };
-  security.wrappers = {
-    elf-i3status = {
-      source = "${scripts.elf-i3status}/bin/elf-i3status";
-      capabilities = "cap_sys_admin+ep";
+  security = {
+    pam = {
+      u2f = {
+        enable = true;
+        authFile = "/etc/u2f-mappings";
+      };
     };
-    wg-status = {
-      source = "${scripts.wg-status}/bin/wg-status";
-      capabilities = "cap_net_admin+ep";
+    wrappers = {
+      elf-i3status = {
+        source = "${scripts.elf-i3status}/bin/elf-i3status";
+        capabilities = "cap_sys_admin+ep";
+      };
+      wg-status = {
+        source = "${scripts.wg-status}/bin/wg-status";
+        capabilities = "cap_net_admin+ep";
+      };
     };
   };
 

@@ -2,7 +2,14 @@
   enable = true;
   userName = "Elias Lawson-Fox";
   userEmail = "me@eliaslfox.com";
-  ignores = [ "*~" "*.swp" ];
+  ignores = [
+    # Swap Files
+    "*~"
+    "*.swp"
+
+    # Clangd Metadata
+    "compile_commands.json"
+  ];
   signing = {
     signByDefault = true;
     key = "0x2E9DA81892721D77";
