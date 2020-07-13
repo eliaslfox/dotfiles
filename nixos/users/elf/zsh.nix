@@ -71,6 +71,8 @@
     grep = "grep --text --color=auto";
     ls = "exa";
     tree = "exa -T";
+    g = "git";
+    stack = "stack --stack-root ~/.local/share/stack";
 
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";

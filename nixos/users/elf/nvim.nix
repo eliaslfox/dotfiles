@@ -12,6 +12,7 @@
     gundo
     ctrlp-vim
     ghcid
+    vim-markdown
 
     vim-nix
   ];

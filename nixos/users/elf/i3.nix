@@ -34,9 +34,10 @@ in
       # Commands missing from the default
       "Mod1+a" = "focus parent";
       "Mod1+e" = "layout toggle split";
-
+  
       # Start Programs better
       "Mod1+d" = "exec ${dmenu-run}/bin/dmenu-run";
+      "Mod1+p" = "exec ${pkgs.pass}/bin/passmenu";
 
       # Vim Mode
       "Mod1+c" = "split h";

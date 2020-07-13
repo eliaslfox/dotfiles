@@ -1,5 +1,6 @@
 " base config
 syntax enable
+syntax sync minlines=10000 "syntax highight based on offscreen lines
 set termguicolors
 filetype plugin indent on
 colorscheme NeoSolarized
@@ -104,6 +105,12 @@ let g:ctrlp_map = '<C-Space>'
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 0
 
+"
+" vim markdown
+"
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+
 
 "
 " coc.nvim
@@ -141,8 +148,8 @@ let g:ale_fixers = {
     \ 'typescript': ['prettier'],
     \ 'markdown': ['prettier'],
     \ 'go': ['gofmt', 'goimports'],
-    \ 'c': ['clang-format'],
-    \ 'cpp': ['clang-format'],
+    \ 'c': [],
+    \ 'cpp': [],
     \ 'sh': ['shfmt'],
     \ }
 
@@ -153,7 +160,7 @@ let g:ale_linters = {
     \ 'go': [],
     \ 'typescript': [],
     \ 'c': [],
-    \ 'c++': [],
+    \ 'cpp': [],
     \ 'sh': ['shellcheck'],
     \ 'dockerfile': ['hadolint'],
     \ }

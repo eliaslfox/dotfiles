@@ -83,6 +83,7 @@ in
       fd
       httpie
       zoom-us
+      atom
 
       #
       # programming
@@ -94,6 +95,7 @@ in
       gcc-unwrapped
       clang-tools
       llvmPackages.clang-unwrapped.python
+      (pkgs.lowPrio llvmPackages.clang-unwrapped)
       binutils-unwrapped
       valgrind
 
@@ -127,6 +129,7 @@ in
       # dockerfile
       hadolint
 
+      libreoffice
       calibre
       libnotify
       scrot
