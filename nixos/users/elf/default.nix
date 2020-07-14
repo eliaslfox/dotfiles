@@ -129,6 +129,7 @@ in
       # dockerfile
       hadolint
 
+      pandoc
       libreoffice
       calibre
       libnotify
