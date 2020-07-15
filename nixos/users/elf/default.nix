@@ -82,8 +82,6 @@ in
       ripgrep
       fd
       httpie
-      zoom-us
-      atom
 
       #
       # programming
@@ -92,6 +90,7 @@ in
       # c
       gdb
       gnumake
+      bear
       gcc-unwrapped
       clang-tools
       llvmPackages.clang-unwrapped.python
@@ -129,6 +128,7 @@ in
       # dockerfile
       hadolint
 
+      zoom-us
       pandoc
       libreoffice
       calibre
