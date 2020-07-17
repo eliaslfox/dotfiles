@@ -155,6 +155,7 @@ in
 
     systemPackages = with pkgs; [
       linuxPackages_latest_hardened.perf
+      linuxPackages_latest_hardened.bpftrace
     ];
   };
 
