@@ -1,6 +1,6 @@
 " base config
 syntax enable
-syntax sync minlines=10000 "syntax highight based on offscreen lines
+syntax sync minlines=1000 "syntax highight based on offscreen lines
 set termguicolors
 filetype plugin indent on
 colorscheme NeoSolarized
@@ -32,15 +32,12 @@ set wildmenu
 set wildmode=full
 set wildoptions+=pum
 set wildignorecase
-set path+=**
 
 " keybindts
 
 " file browser
 let g:netrw_banner=0
-let g:netrw_liststyle=0
 let g:netrw_altv=1
-let g:netrw_list_hide=netrw_gitignore#Hide()
 
 " spelling
 set complete+=kspell
@@ -86,20 +83,6 @@ set directory=~/.local/share/nvim/swap//
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
 
-" gitgutter
-let g:gitgutter_override_sign_column_highlight = 0
-let g:gitgutter_map_keys = 0
-
-nmap ]c <Plug>(GitGutterNextHunk)
-nmap [c <Plug>(GitGutterPrevHunk)
-
-
-" gundo
-let g:gundo_prefer_python3 = 1
-let g:gundo_help = 0
-
-nnoremap <leader>u :GundoToggle<CR>
-
 " ctrlp
 let g:ctrlp_map = '<C-Space>'
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
@@ -110,6 +93,13 @@ let g:ctrlp_use_caching = 0
 "
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
+
+"
+" Signify
+"
+let g:signify_sign_delete = '-'
+let g:signify_sign_change = '~'
+let g:signify_sign_show_count = 0
 
 
 "
@@ -127,9 +117,9 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>rn <Plug>(coc-rename)
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <Leader>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <Leader>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <Leader>s  :<C-u>CocList -I symbols<cr>
 
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"

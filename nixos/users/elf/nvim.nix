@@ -8,12 +8,10 @@
 
     coc-nvim
     ale
-    gitgutter
-    gundo
     ctrlp-vim
-    ghcid
-    vim-markdown
+    vim-signify
 
+    ghcid
     vim-nix
   ];
   withPython = false;

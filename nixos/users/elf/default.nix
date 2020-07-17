@@ -72,6 +72,12 @@ in
 
         dashboard -style style_low '1;34'
       '';
+
+      ".haskeline".text = ''
+         historyDuplicates: IgnoreAll
+         editMode: Vi
+         completionType: MenuCompletion
+      '';
     };
 
     extraOutputsToInstall = [ "doc" "info" "devdoc" ];
@@ -97,6 +103,7 @@ in
       (pkgs.lowPrio llvmPackages.clang-unwrapped)
       binutils-unwrapped
       valgrind
+      ltrace
 
       # rust
       rustup
@@ -120,6 +127,7 @@ in
 
       # haskell
       stack
+      ghc
 
       # shell
       shellcheck
@@ -128,6 +136,7 @@ in
       # dockerfile
       hadolint
 
+      cura
       zoom-us
       pandoc
       libreoffice
