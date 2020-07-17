@@ -89,17 +89,9 @@ let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 0
 
 "
-" vim markdown
+" git gutter
 "
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_no_default_key_mappings = 1
-
-"
-" Signify
-"
-let g:signify_sign_delete = '-'
-let g:signify_sign_change = '~'
-let g:signify_sign_show_count = 0
+let g:gitgutter_map_keys = 0
 
 
 "

@@ -9,7 +9,7 @@
     coc-nvim
     ale
     ctrlp-vim
-    vim-signify
+    vim-gitgutter
 
     ghcid
     vim-nix
