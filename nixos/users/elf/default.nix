@@ -74,9 +74,9 @@ in
       '';
 
       ".haskeline".text = ''
-         historyDuplicates: IgnoreAll
-         editMode: Vi
-         completionType: MenuCompletion
+        historyDuplicates: IgnoreAll
+        editMode: Vi
+        completionType: MenuCompletion
       '';
     };
 
@@ -104,6 +104,7 @@ in
       binutils-unwrapped
       valgrind
       ltrace
+      rr
 
       # rust
       rustup
@@ -128,6 +129,8 @@ in
       # haskell
       stack
       ghc
+      hlint
+      stylish-haskell
 
       # shell
       shellcheck
@@ -136,6 +139,7 @@ in
       # dockerfile
       hadolint
 
+      gnuplot
       cura
       zoom-us
       pandoc

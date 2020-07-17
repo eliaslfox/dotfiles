@@ -33,8 +33,6 @@ set wildmode=full
 set wildoptions+=pum
 set wildignorecase
 
-" keybindts
-
 " file browser
 let g:netrw_banner=0
 let g:netrw_altv=1
@@ -88,9 +86,7 @@ let g:ctrlp_map = '<C-Space>'
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 0
 
-"
 " git gutter
-"
 let g:gitgutter_map_keys = 0
 
 
@@ -119,6 +115,7 @@ inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "
 " Ale
 "
+let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 1
 
 let g:ale_fixers = {
@@ -133,16 +130,18 @@ let g:ale_fixers = {
     \ 'c': [],
     \ 'cpp': [],
     \ 'sh': ['shfmt'],
+    \ 'haskell': ['hlint'],
     \ }
 
 let g:ale_sh_shellcheck_options = '--external-sources --enable=all'
 
 let g:ale_linters = {
     \ 'rust': [],
-    \ 'go': [],
+    \ 'go': ['go vet'],
     \ 'typescript': [],
-    \ 'c': [],
-    \ 'cpp': [],
+    \ 'c': ['clangtidy'],
+    \ 'cpp': ['clangtidy'],
     \ 'sh': ['shellcheck'],
     \ 'dockerfile': ['hadolint'],
+    \ 'haskell': ['stylish-haskell'],
     \ }
