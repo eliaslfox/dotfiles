@@ -109,7 +109,7 @@ in
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ qemu_kvm vagrant minikube OVMF openjdk8  ];
+    home.packages = with pkgs; [ qemu_kvm vagrant minikube OVMF pkgs.openjdk  ];
     services.picom = {
       enable = true;
       backend = "xrender";

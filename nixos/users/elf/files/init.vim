@@ -107,8 +107,8 @@ let g:ale_fixers = {
     \ 'javascript': ['prettier'],
     \ 'typescript': ['prettier'],
     \ 'markdown': ['prettier'],
-    \ 'c': ['clang-format'],
-    \ 'cpp': ['clang-format'],
+    \ 'c': ['trim_whitespace'],
+    \ 'cpp': ['trim_whitespace'],
     \ 'sh': ['shfmt'],
     \ 'haskell': ['hlint'],
     \ }
@@ -129,4 +129,5 @@ let g:ale_linters = {
     \ 'sh': ['shellcheck'],
     \ 'dockerfile': ['hadolint'],
     \ 'haskell': ['stylish-haskell'],
+    \ 'asm': [],
     \ }

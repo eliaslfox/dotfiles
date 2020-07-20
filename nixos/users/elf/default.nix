@@ -120,6 +120,7 @@ in
       nix-prefetch-git
       nix-prefetch-docker
       nixpkgs-review
+      nixops
 
       # go
       go
