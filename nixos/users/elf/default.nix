@@ -105,6 +105,8 @@ in
       valgrind
       ltrace
       rr
+      ninja
+      meson
 
       # rust
       rustup
@@ -136,6 +138,9 @@ in
       # shell
       shellcheck
       shfmt
+
+      # lisp
+      mitscheme
 
       # dockerfile
       hadolint
