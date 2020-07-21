@@ -171,10 +171,6 @@ in
         source = "${scripts.elf-i3status}/bin/elf-i3status";
         capabilities = "cap_sys_admin+ep";
       };
-      wg-status = {
-        source = "${scripts.wg-status}/bin/wg-status";
-        capabilities = "cap_net_admin+ep";
-      };
     };
   };
 
@@ -200,10 +196,10 @@ in
       "nvidia-settings"
       "nvidia-x11"
       "nvidia-persistenced"
-      "cudatoolkit"
 
       "discord"
       "zoom-us"
+      "faac"
 
       "steam"
       "steam-original"

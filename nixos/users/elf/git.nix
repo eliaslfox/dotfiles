@@ -22,7 +22,10 @@
   };
   delta = {
     enable = true;
-    options = [ "--theme=none" "--hunk-style=plain" ];
+    options = {
+      syntax-theme = "none";
+      hunk-header-style = "omit";
+    };
   };
   extraConfig = {
     core = {
