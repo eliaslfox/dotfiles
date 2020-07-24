@@ -16,28 +16,31 @@
   };
   aliases = {
     l = "log --decorate --oneline --graph --first-parent";
-    s = "status --short";
     mb = "checkout -b";
     tree = "!exa -l -T --git";
-  };
-  delta = {
-    enable = true;
-    options = {
-      syntax-theme = "none";
-      hunk-header-style = "omit";
-    };
   };
   extraConfig = {
     core = {
       editor = "nvim";
       whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
+      pager = "${pkgs.gitAndTools.delta}/bin/delta --syntax-theme=none --hunk-header-style=omit";
     };
     help = { autocorrect = 1; };
     status = {
       showStatus = true;
       submoduleSummary = true;
     };
-    push = { default = "current"; };
-    pull = { ff = "only"; };
+    push = { 
+      default = "current"; 
+    };
+    pull = { 
+      ff = "only"; 
+    };
+    commit = {
+      verbose = true;
+    };
+    interactive = {
+      diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
+    };
   };
 }
