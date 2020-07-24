@@ -69,7 +69,7 @@ in
     dnscrypt = {
       enable = true;
       localDoh.enable = true;
-      cache.enable = false;
+      cache.enable = true;
     };
     horriblesubsd.enable = true;
     printing.enable = true;

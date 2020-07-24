@@ -127,7 +127,6 @@ in
       # go
       go
       gopls
-      goimports
 
       # haskell
       stack

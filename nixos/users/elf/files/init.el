@@ -48,6 +48,7 @@
     ("\.mkv" . "mpv %s")
     ("\.mp4" . "mpv %s")
     ("\.m4a" . "mpv %s")
+    ("\.webm" . "mpv %s")
     ("\.pdf" . "zathura %s")))
 
 ;;; Misc
