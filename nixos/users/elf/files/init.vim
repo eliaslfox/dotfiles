@@ -101,7 +101,7 @@ let g:ale_fix_on_save = 1
 let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
     \ 'rust': ['rustfmt'],
-    \ 'go': ['gofmt'],
+    \ 'go': ['goimports'],
     \ 'nix': ['nixpkgs-fmt'],
     \ 'json': ['prettier'],
     \ 'javascript': ['prettier'],
@@ -118,10 +118,11 @@ let g:ale_sh_shellcheck_options = '--external-sources --enable=all'
 let g:ale_c_clangtidy_checks = [
     \ '-clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling',
     \ ]
+let g:ale_go_golangci_lint_options = '--disable typecheck'
 
 let g:ale_linters = {
     \ 'rust': [],
-    \ 'go': ['go vet'],
+    \ 'go': ['golangci-lint'],
     \ 'javascript': [],
     \ 'typescript': [],
     \ 'c': ['clangtidy'],

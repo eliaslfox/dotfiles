@@ -127,6 +127,8 @@ in
       # go
       go
       gopls
+      goimports
+      golangci-lint
 
       # haskell
       stack
