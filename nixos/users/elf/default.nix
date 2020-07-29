@@ -3,6 +3,8 @@ let
   scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
   master = import <nixpkgs-master> { config = { allowUnfree = true; }; };
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  stable = import <nixos-stable> { config = { allowUnfree = true; }; };
+
 in
 {
   xdg = {
@@ -163,7 +165,7 @@ in
       pavucontrol
       transmission-gtk
       btrbk
-      master.discord
+      stable.discord
       feh
       vlc
       mpv
