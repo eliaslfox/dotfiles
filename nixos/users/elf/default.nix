@@ -2,6 +2,7 @@
 let
   scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
   master = import <nixpkgs-master> { config = { allowUnfree = true; }; };
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
 in
 {
   xdg = {
@@ -112,6 +113,7 @@ in
       rustup
       rust-analyzer
       cargo-audit
+      cargo-license
 
       # node
       nodejs
@@ -209,6 +211,7 @@ in
 
     chromium = {
       enable = true;
+      package = unstable.chromium;
       extensions = [
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # ublock origin
       ];
