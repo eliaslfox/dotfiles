@@ -30,17 +30,20 @@
       showStatus = true;
       submoduleSummary = true;
     };
-    push = { 
-      default = "current"; 
+    push = {
+      default = "current";
     };
-    pull = { 
-      ff = "only"; 
+    pull = {
+      ff = "only";
     };
     commit = {
       verbose = true;
     };
     interactive = {
       diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
+    };
+    advice = {
+      addEmptyPathSpec = false;
     };
   };
 }
