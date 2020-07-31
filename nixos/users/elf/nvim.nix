@@ -13,6 +13,9 @@
 
     ghcid
     vim-nix
+    vim-javascript
+    typescript-vim
+    vim-jsx-typescript
   ];
   withPython = false;
   withRuby = false;
