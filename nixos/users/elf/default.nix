@@ -163,7 +163,7 @@ in
       pavucontrol
       transmission-gtk
       btrbk
-      (discord.override { nss = pkgs.nss_3_44; })
+      master.discord
       feh
       vlc
       mpv
