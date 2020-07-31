@@ -22,16 +22,21 @@
   extraConfig = {
     core = {
       editor = "nvim";
-      whitespace = "blank-at-eol,blank-at-eof,space-before-tab";
       pager = "${pkgs.gitAndTools.delta}/bin/delta --syntax-theme=none --hunk-header-style=omit";
+      autocrlf = "input";
     };
-    help = { autocorrect = 1; };
+    help = {
+      autocorrect = 1;
+    };
     status = {
-      showStatus = true;
       submoduleSummary = true;
+      showUntrackedFiles = "all";
+      showStash = true;
     };
     push = {
       default = "current";
+      followTags = true;
+      recurseSubmodules = "on-demand";
     };
     pull = {
       ff = "only";
@@ -39,11 +44,22 @@
     commit = {
       verbose = true;
     };
-    interactive = {
-      diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
+    diff = {
+      mnemonicPrefix = true;
+      submodule = "log";
     };
+    fetch = {
+      prune = true;
+      pruneTags = true;
+    };
+    log.follow = true;
+    rebase.missingCommitsCheck = "error";
+    submodule.recurse = true;
+    tag.gpgSign = true;
+    interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
     advice = {
       addEmptyPathSpec = false;
+      detachedHead = false;
     };
   };
 }

@@ -34,6 +34,12 @@ augroup spelling
     autocmd FileType gitcommit setlocal spell
 augroup END
 
+" gitcommit wrapping
+augroup wrapping
+    autocmd!
+    autocmd FileType gitcommit setlocal textwidth=72
+augroup END
+
 " disable arrow keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
