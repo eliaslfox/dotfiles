@@ -89,6 +89,7 @@ in
       ripgrep
       fd
       httpie
+      hyperfine
 
       #
       # programming
