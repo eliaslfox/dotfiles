@@ -54,7 +54,6 @@
     };
     log.follow = true;
     rebase.missingCommitsCheck = "error";
-    submodule.recurse = true;
     tag.gpgSign = true;
     interactive.diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only --theme=none";
     advice = {
