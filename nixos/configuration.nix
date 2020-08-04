@@ -13,6 +13,7 @@ in
 
     ./features/mopidy.nix
     ./features/docker.nix
+    ./features/libvirt.nix
     ./features/steam.nix
     ./features/internet-sharing.nix
     ./features/vm-bridge.nix

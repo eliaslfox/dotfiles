@@ -23,6 +23,11 @@ in
 
         execute_on_song_change = "${scripts.ncmpcpp-notify}/bin/ncmpcpp-notify"
       '';
+
+      "hadolint.yaml".text = ''
+         ignored:
+          - DL3008
+      '';
     };
     dataFile = {
       "stack/config.yaml".source = ./files/stack-config.yaml;
@@ -102,13 +107,14 @@ in
       gcc-unwrapped
       clang-tools
       llvmPackages.clang-unwrapped.python
-      (pkgs.lowPrio llvmPackages.clang-unwrapped)
       binutils-unwrapped
       valgrind
       ltrace
       rr
       ninja
       meson
+      cscope
+
 
       # rust
       rustup

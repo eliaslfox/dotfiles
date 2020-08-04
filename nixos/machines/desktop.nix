@@ -65,7 +65,8 @@ in
       credentials = credentials.wireguard;
     };
     docker.enable = true;
-    vm-bridge.enable = true;
+    libvirt.enable = true;
+    vm-bridge.enable = false;
     dnscrypt = {
       enable = true;
       localDoh.enable = true;
@@ -109,7 +110,7 @@ in
   };
 
   home-manager.users.elf = {
-    home.packages = with pkgs; [ qemu_kvm vagrant minikube OVMF pkgs.openjdk  ];
+    home.packages = with pkgs; [ qemu_kvm vagrant minikube OVMF pkgs.openjdk ];
     services.picom = {
       enable = true;
       backend = "xrender";
