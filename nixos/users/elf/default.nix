@@ -25,8 +25,15 @@ in
       '';
 
       "hadolint.yaml".text = ''
-         ignored:
-          - DL3008
+        ignored:
+         - DL3008
+      '';
+
+      ".clang-format".text = ''
+        BasedOnStyle: LLVM
+        IndentWidth: 4
+        AllowShortFunctionsOnASingleLine: None
+        KeepEmptyLinesAtTheStartOfBlocks: false
       '';
     };
     dataFile = {
@@ -125,6 +132,7 @@ in
       # node
       nodejs
       nodePackages.prettier
+      nodePackages.eslint
 
       # nix
       nixpkgs-fmt
@@ -158,12 +166,8 @@ in
       gnuplot
       cura
       zoom-us
-      pandoc
-      libreoffice
       calibre
-      libnotify
       scrot
-      inetutils
       blender
       postgresql
       zathura

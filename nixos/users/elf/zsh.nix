@@ -73,6 +73,7 @@
     tree = "exa -T";
     g = "git";
     stack = "stack --stack-root ~/.local/share/stack";
+    docker = "podman";
 
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";

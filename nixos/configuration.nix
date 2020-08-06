@@ -57,6 +57,7 @@ in
       wget
       ncat
       dnsutils
+      inetutils
       file
 
       psmisc

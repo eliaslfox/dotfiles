@@ -24,7 +24,7 @@ in
     };
 
     kernelModules = [ "kvm_amd" ];
-    kernelParams = [ "iommu=pt" "nvidia-drm.modeset=1" ];
+    kernelParams = [ "iommu=pt" "nvidia-drm.modeset=1" /* "systemd.unified_cgroup_hierarchy=1" */ ];
     extraModprobeConfig = ''
       options iwlwifi 11n_disable=1
 
