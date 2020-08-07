@@ -65,7 +65,7 @@ in
       credentials = credentials.wireguard;
     };
     docker.enable = true;
-    libvirt.enable = true;
+    libvirt.enable = false;
     vm-bridge.enable = false;
     dnscrypt = {
       enable = true;

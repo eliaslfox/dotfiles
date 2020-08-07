@@ -25,6 +25,9 @@
       pager = "${pkgs.gitAndTools.delta}/bin/delta --syntax-theme=none --hunk-header-style=omit";
       autocrlf = "input";
     };
+    init = {
+      defaultBranch = "main";
+    };
     help = {
       autocorrect = 1;
     };
