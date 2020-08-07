@@ -16,5 +16,12 @@ in
         enable = true;
       };
     };
+    environment.etc."containers/storage.conf".text = ''
+      [storage]
+      driver="zfs"
+
+      [storage.options.zfs]
+      mountopt="nodev"
+    '';
   };
 }

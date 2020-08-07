@@ -56,6 +56,10 @@
     function movie() {
       ${pkgs.tree}/bin/tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
     }
+
+    function podman-update() {
+      podman image list --format '{{.Repository}}' | xargs -L1 podman pull
+    }
   '';
   history = {
     path = "/home/elf/.config/zsh/history";

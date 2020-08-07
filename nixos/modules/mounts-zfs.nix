@@ -28,10 +28,10 @@
     options = [ "lazytime" "noexec" "nosuid" "nodev" ];
   };
 
-  fileSystems."/var/lib/docker" = {
-    device = "zroot/root/var/lib/docker";
+  fileSystems."/var/lib/containers" = {
+    device = "zroot/var/lib/containers";
     fsType = "zfs";
-    options = [ "noatime" "noexec" "nosuid" "nodev" ];
+    options = [ "lazytime" "noexec" "nosuid" "nodev" ];
   };
 
   # mount persisted user directories
