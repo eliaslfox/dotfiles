@@ -121,6 +121,7 @@ in
       ninja
       meson
       cscope
+      (pkgs.lowPrio llvmPackages.clang-unwrapped)
 
 
       # rust
@@ -128,6 +129,7 @@ in
       rust-analyzer
       cargo-audit
       cargo-license
+      cargo-edit
 
       # node
       nodejs
