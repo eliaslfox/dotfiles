@@ -27,9 +27,14 @@ in {
             ip link set dev tap0 up
             ip addr add 0.0.0.0 dev tap0
 
+            ip tuntap add dev tap1 mode tap user elf
+            ip link set dev tap1 up
+            ip addr add 0.0.0.0 dev tap1
+
             ip link add br0 type bridge
             ip link set br0 up
             ip link set tap0 master br0
+            ip link set tap1 master br0
             ip addr add 10.0.0.1/24 dev br0
 
             iptables -t nat -A POSTROUTING -o wg0 -j MASQUERADE
@@ -41,6 +46,7 @@ in {
             set -eou pipefail
 
             ip link delete tap0
+            ip link delete tap1
             ip link delete br0
 
             iptables -t nat -D POSTROUTING -o wg0 -j MASQUERADE

@@ -66,7 +66,7 @@ in
     };
     docker.enable = true;
     libvirt.enable = false;
-    vm-bridge.enable = false;
+    vm-bridge.enable = true;
     dnscrypt = {
       enable = true;
       localDoh.enable = true;
@@ -169,7 +169,6 @@ in
     extraOptions = ''
       keep-outputs = true
       keep-derivations = true
-      extra-platforms = [ "aarch64-linux" ]
     '';
   };
 
