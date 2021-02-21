@@ -10,8 +10,8 @@
     ale
     ctrlp-vim
     vim-gitgutter
+    vim-fugitive
 
-    ghcid
     vim-nix
     vim-javascript
     typescript-vim

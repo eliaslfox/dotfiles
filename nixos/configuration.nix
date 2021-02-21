@@ -11,12 +11,8 @@ in
 
     ./users
 
-    ./features/mopidy.nix
     ./features/docker.nix
-    ./features/libvirt.nix
     ./features/steam.nix
-    ./features/internet-sharing.nix
-    ./features/vm-bridge.nix
     ./features/horriblesubsd.nix
     ./features/printing.nix
 
@@ -42,7 +38,6 @@ in
     wireless = {
       enable = true;
       networks = credentials.wifi;
-      userControlled.enable = true;
     };
   };
 
@@ -65,7 +60,6 @@ in
       usbutils
 
       scripts.iommuGroups
-      scripts.mountBackup
       scripts.physexec
     ];
   };
@@ -85,6 +79,8 @@ in
       Storage=volatile
       RuntimeMaxUse=100M
     '';
+
+    fstrim.enable = true;
   };
 
   fonts = {
@@ -154,7 +150,7 @@ in
 
   documentation = {
     dev.enable = true;
-    doc.enable = false;
+    man.generateCaches = true;
   };
 
   security.sudo = {
@@ -180,7 +176,7 @@ in
   time.timeZone = "US/Pacific";
 
   system = {
-    stateVersion = "20.09";
+    stateVersion = "21.05";
     autoUpgrade = { enable = true; };
   };
 
@@ -198,18 +194,17 @@ in
     builtins.elem (lib.getName pkg) [
       "nvidia-settings"
       "nvidia-x11"
-      "nvidia-persistenced"
 
       "discord"
       "zoom-us"
+      "zoom"
       "faac"
+      "spotify"
+      "spotify-unwrapped"
 
       "steam"
       "steam-original"
       "steam-runtime"
-
-      "libspotify"
-      "pyspotify"
 
       "broadcom-sta"
     ];

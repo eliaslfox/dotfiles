@@ -37,19 +37,19 @@
     MANPAGER = "nvim -c 'set ft=man'";
     RIPGREP_CONFIG_PATH = "/home/elf/.config/ripgreprc";
     NO_AT_BRIDGE = "1";
-
-    # Common directories
+  };
+  dirHashes = {
     projects = "$HOME/Documents/projects";
     dotfiles = "$HOME/Documents/dotfiles";
     software = "$HOME/Documents/software";
     learning = "$HOME/Documents/learning";
     org = "$HOME/Documents/org";
     saved = "$HOME/Documents/org/saved";
+
   };
   initExtra = ''
     unalias -m '*'
     setopt cdable_vars
-    setopt hist_find_no_dups
 
     alias -s git="git clone"
 
@@ -65,13 +65,7 @@
     path = "/home/elf/.config/zsh/history";
     extended = true;
   };
-  oh-my-zsh = {
-    enable = true;
-    theme = "agnoster";
-    plugins = [ ];
-  };
   shellAliases = {
-    history = "omz_history";
     grep = "grep --text --color=auto";
     ls = "exa";
     tree = "exa -T";
@@ -93,4 +87,20 @@
       exec startx
     fi
   '';
+  oh-my-zsh = {
+    enable = true;
+    plugins = [ ];
+  };
+  plugins = [
+    {
+      name = "powerlevel10k";
+      src = pkgs.zsh-powerlevel10k;
+      file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    }
+    {
+      name = "p10k-config";
+      src = ./p10k;
+      file = "p10k.zsh";
+    }
+  ];
 }

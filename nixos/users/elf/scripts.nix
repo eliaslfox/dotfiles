@@ -29,22 +29,8 @@
     ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.config/zoom /home/elf/.zoom
 
 
-    ${lib.optionalString config.features.steam.enable ''
-      ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam
-      ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam /home/elf/.steam
-    ''}
-  '';
-
-  ncmpcpp-notify = pkgs.writeScriptBin "ncmpcpp-notify" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    MPC=${pkgs.mpc_cli}/bin/mpc
-    IFS=$'\t' read album artist title \
-      <<< "$($MPC --format="%album%\t%artist%\t%title%")"
-
-    ${pkgs.libnotify}/bin/notify-send --app-name=ncmpcpp --icon=audio-x-generic \
-        "$title" "$artist\n$album"
+    ${pkgs.coreutils}/bin/mkdir -vp /home/elf/.local/share/steam
+    ${pkgs.coreutils}/bin/ln -sfvT /home/elf/.local/share/steam /home/elf/.steam
   '';
 
   set-bg = pkgs.writeScriptBin "set-bg" ''

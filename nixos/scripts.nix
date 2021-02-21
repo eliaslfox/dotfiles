@@ -13,15 +13,6 @@
      done;
   '';
 
-  mountBackup = pkgs.writeScriptBin "mountBackup" ''
-    #!${pkgs.bash}/bin/bash
-    set -euo pipefail
-
-    sudo cryptsetup luksOpen /dev/disk/by-uuid/607af807-a3fd-42cd-adc6-ac69a8ce2074 backup
-    sudo mkdir /run/media/elf/backup
-    sudo mount /run/media/elf/backup
-  '';
-
   physexec = pkgs.writeScriptBin "physexec" ''
     #! ${pkgs.bash}/bin/bash
     set -eou pipefail

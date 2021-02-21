@@ -1,12 +1,14 @@
 " base config
 set termguicolors
 colorscheme NeoSolarized
+highlight CocFloating ctermbg=109 guifg=#83a598
 
 " general settings
 set hidden
 set updatetime=100
 set shortmess+=I
 set shortmess+=c
+set mouse=a
 let mapleader=","
 
 " UI
@@ -14,7 +16,6 @@ set nowrap
 set scrolloff=2
 set cursorline
 set showmatch
-set showcmd
 set wildmode=full
 
 " splitting
@@ -32,12 +33,6 @@ augroup spelling
     autocmd!
     autocmd FileType markdown setlocal spell
     autocmd FileType gitcommit setlocal spell
-augroup END
-
-" gitcommit wrapping
-augroup wrapping
-    autocmd!
-    autocmd FileType gitcommit setlocal textwidth=72
 augroup END
 
 " disable arrow keys
@@ -66,6 +61,8 @@ set directory=~/.local/share/nvim/swap//
 " airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#nvimlsp#enabled = 0
+let g:airline#extensions#branch#enabled = 0
 
 " ctrlp
 let g:ctrlp_map = '<C-Space>'
@@ -79,6 +76,7 @@ let g:gitgutter_map_keys = 0
 "
 " coc.nvim
 "
+nnoremap <leader>a :<C-u>CocAction<cr>
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -104,9 +102,13 @@ inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 let g:ale_disable_lsp = 1
 let g:ale_fix_on_save = 1
 
+let g:ale_sign_error = '⚑'
+let g:ale_sign_warning = '✘'
+let g:ale_sign_info = 'ℹ'
+
 let g:ale_fixers = {
     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'rust': ['rustfmt'],
+    \ 'rust': [],
     \ 'go': ['goimports'],
     \ 'nix': ['nixpkgs-fmt'],
     \ 'json': ['prettier'],
@@ -117,6 +119,7 @@ let g:ale_fixers = {
     \ 'cpp': ['clang-format'],
     \ 'sh': ['shfmt'],
     \ 'haskell': ['hlint'],
+    \ 'python': ['black']
     \ }
 
 let g:ale_sh_shellcheck_options = '--external-sources --enable=all'
@@ -137,4 +140,7 @@ let g:ale_linters = {
     \ 'dockerfile': ['hadolint'],
     \ 'haskell': ['stylish-haskell'],
     \ 'asm': [],
+    \ 'markdown': ['proselint'],
+    \ 'text': ['proselint'],
+    \ 'python': ['flake8']
     \ }

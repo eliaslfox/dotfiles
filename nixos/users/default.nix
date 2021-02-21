@@ -11,6 +11,7 @@ in
     extraGroups = [
       "wheel"
       "video"
+      "plugdev"
     ];
     uid = 1000;
     shell = pkgs.zsh;

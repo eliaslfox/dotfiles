@@ -33,6 +33,11 @@
     fsType = "zfs";
     options = [ "lazytime" "noexec" "nosuid" "nodev" ];
   };
+  fileSystems."/var/lib/systemd/coredump" = {
+    device = "zroot/var/lib/systemd/coredump";
+    fsType = "zfs";
+    options = [ "lazytime" "noexec" "nosuid" "nodev" ];
+  };
 
   # mount persisted user directories
   fileSystems."/home/elf/Documents" = {

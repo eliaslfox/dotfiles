@@ -5,10 +5,12 @@
     enable = true;
     libinput = {
       enable = true;
-      tapping = true;
-      disableWhileTyping = true;
-      sendEventsMode = "disabled-on-external-mouse";
-      accelSpeed = "1.75";
+      touchpad = {
+        tapping = true;
+        disableWhileTyping = true;
+        sendEventsMode = "disabled-on-external-mouse";
+        accelSpeed = "1.75";
+      };
     };
     displayManager.startx.enable = true;
   };
@@ -20,6 +22,7 @@
     xsession.windowManager.i3.enable = true;
 
     services.unclutter.enable = true;
+    services.dunst.enable = true;
 
     services.screen-locker = {
       enable = true;

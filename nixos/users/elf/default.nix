@@ -14,16 +14,6 @@ in
       "nvim/coc-settings.json".source = ./files/coc-settings.json;
       "emacs.d/init.el".source = ./files/init.el;
 
-      "ncmpcpp/config".text = ''
-        display-bitrate = yes
-        progressbar_look = "── "
-
-        ncmpcpp_directory="/home/elf/.cache/ncmpcpp"
-        lyrics_directory="/home/elf/.cache/ncmpcpp/lyrics"
-
-        execute_on_song_change = "${scripts.ncmpcpp-notify}/bin/ncmpcpp-notify"
-      '';
-
       "hadolint.yaml".text = ''
         ignored:
          - DL3008
@@ -100,8 +90,10 @@ in
       exa
       ripgrep
       fd
-      httpie
+      xh
       hyperfine
+      hexyl
+      dust
 
       #
       # programming
@@ -118,18 +110,17 @@ in
       valgrind
       ltrace
       rr
-      ninja
-      meson
-      cscope
       (pkgs.lowPrio llvmPackages.clang-unwrapped)
-
 
       # rust
       rustup
       rust-analyzer
-      cargo-audit
+      cargo-audit # checks rustsec advisory database
       cargo-license
       cargo-edit
+      cargo-geiger # checks dependency tree for unsafe code
+      cargo-outdated
+      cargo-deny
 
       # node
       nodejs
@@ -163,8 +154,16 @@ in
       mitscheme
 
       # dockerfile
-      hadolint
+      #hadolint
 
+      # python
+      black
+      python39Packages.flake8
+
+      # text
+      proselint
+
+      ranger
       gnuplot
       cura
       zoom-us
@@ -172,8 +171,11 @@ in
       scrot
       blender
       postgresql
-      zathura
+      mupdf
       pavucontrol
+      razergenie
+      spotify-tui
+      spotify
       transmission-gtk
       btrbk
       master.discord
@@ -184,12 +186,10 @@ in
       neofetch
       tor-browser-bundle-bin
       youtube-dl
-      ncmpcpp
 
       scripts.multimc
     ];
   };
-
 
   gtk = {
     enable = true;
@@ -301,8 +301,11 @@ in
       setxkbmap = {
         Service = { Environment = "DISPLAY=:0"; };
       };
+      dunst = {
+        Service = { Environment = "DISPLAY=:0"; };
+      };
     };
   };
 
-  home.stateVersion = "20.09";
+  home.stateVersion = "21.05";
 }

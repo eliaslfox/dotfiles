@@ -12,7 +12,7 @@ in
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest_hardened;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernel.sysctl = {
       /* 
@@ -57,7 +57,6 @@ in
   };
 
   features = {
-    mopidy.enable = true;
     wireguard = {
       enable = true;
       wirelessInterface = "wlp6s0";
@@ -65,14 +64,12 @@ in
       credentials = credentials.wireguard;
     };
     docker.enable = true;
-    libvirt.enable = false;
-    vm-bridge.enable = true;
     dnscrypt = {
       enable = true;
       localDoh.enable = true;
       cache.enable = true;
     };
-    horriblesubsd.enable = true;
+    horriblesubsd.enable = false;
     printing.enable = true;
     steam.enable = false;
   };
@@ -80,6 +77,7 @@ in
   hardware = {
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
+    openrazer.enable = true;
   };
 
   networking = {
@@ -98,11 +96,11 @@ in
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     xrandrHeads = [
-      { output = "DP-5"; }
       {
         output = "DP-0";
         primary = true;
       }
+      { output = "DP-5"; }
     ];
     screenSection = ''
       Option    "metamodes" "DP-5: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-0: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On, AllowGSYNCCompatible=On}"
@@ -116,7 +114,6 @@ in
       backend = "xrender";
     };
     programs.i3status.modules."cpu_temperature 0".settings.path = "/sys/class/hwmon/hwmon0/temp1_input";
-    services.dunst.enable = true;
 
     xresources.properties = {
       "Xft.dpi" = 96;
@@ -155,14 +152,14 @@ in
     etc."machine-id".text = "231cf24683d645868a965c534d80e403";
 
     systemPackages = with pkgs; [
-      linuxPackages_latest_hardened.perf
-      linuxPackages_latest_hardened.bpftrace
+      linuxPackages_latest.perf
+      linuxPackages_latest.bpftrace
     ];
   };
 
-  virtualisation.virtualbox.host = {
-    enable = true;
-  };
+  #virtualisation.virtualbox.host = {
+  #  enable = true;
+  #};
 
   nix = {
     maxJobs = lib.mkDefault 12;
@@ -171,6 +168,8 @@ in
       keep-derivations = true
     '';
   };
+
+  programs.steam.enable = true;
 
   powerManagement.cpuFreqGovernor = "ondemand";
 }
