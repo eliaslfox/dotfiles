@@ -16,6 +16,7 @@
     vim-javascript
     typescript-vim
     vim-jsx-typescript
+    rust-vim
   ];
   withPython = false;
   withRuby = false;
