@@ -29,11 +29,8 @@ let g:netrw_altv=1
 " spelling
 set complete+=kspell
 set spelllang=en
-augroup spelling
-    autocmd!
-    autocmd FileType markdown setlocal spell
-    autocmd FileType gitcommit setlocal spell
-augroup END
+autocmd FileType markdown setlocal spell
+autocmd FileType gitcommit setlocal spell
 
 " disable arrow keys
 noremap <Up> <NOP>
@@ -71,6 +68,9 @@ let g:ctrlp_use_caching = 0
 
 " git gutter
 let g:gitgutter_map_keys = 0
+
+" mundo
+nnoremap <F5> :MundoToggle<CR>
 
 
 "

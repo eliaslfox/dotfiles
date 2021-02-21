@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  enable = true;
+  enable = false;
   extraPackages = epkgs: [
     epkgs.use-package
     epkgs.solarized-theme

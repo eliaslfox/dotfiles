@@ -2,6 +2,7 @@
   enable = true;
   extraConfig = builtins.readFile ./files/init.vim;
   plugins = with pkgs.vimPlugins; [
+    # ui
     NeoSolarized
     vim-airline
     vim-airline-themes
@@ -11,7 +12,9 @@
     ctrlp-vim
     vim-gitgutter
     vim-fugitive
+    vim-mundo
 
+    # syntax highlighting
     vim-nix
     vim-javascript
     typescript-vim
