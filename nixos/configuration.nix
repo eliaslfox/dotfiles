@@ -85,29 +85,9 @@ in
 
   fonts = {
     enableDefaultFonts = true;
+    enableGhostscriptFonts = true;
     fontconfig = {
       defaultFonts = { monospace = [ "Fira Code Light" ]; };
-      localConf = ''
-        <fontconfig>
-        <match>
-          <test name="family">
-            <string>Helvetica</string>
-          </test>
-          <edit binding="same" mode="assign" name="family">
-            <string>Source Sans Pro</string>
-          </edit>
-        </match>
-        <match>
-          <test name="family">
-            <string>Arial</string>
-          </test>
-          <edit binding="same" mode="assign" name="family">
-            <string>Source Sans Pro</string>
-          </edit>
-        </match>
-        </fontconfig>
-      '';
-      hinting.autohint = true;
       includeUserConf = false;
     };
     fonts = with pkgs; [
@@ -130,6 +110,8 @@ in
   hardware = {
     pulseaudio = {
       enable = true;
+
+      # settings to improve passthrough audio from a vm
       daemon.config = {
         default-sample-rate = 48000;
         alternate-sample-rate = 44410;
@@ -142,6 +124,9 @@ in
   zramSwap = {
     enable = true;
     algorithm = "zstd";
+  };
+  systemd.services."zram-reloader" = {
+    restartIfChanged = lib.mkForce false;
   };
 
   programs.iotop.enable = true;

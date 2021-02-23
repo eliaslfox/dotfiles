@@ -24,15 +24,19 @@ in
     };
 
     kernelModules = [ "kvm_amd" ];
-    kernelParams = [ "iommu=pt" "nvidia-drm.modeset=1" /* "systemd.unified_cgroup_hierarchy=1" */ ];
+    kernelParams = [ "iommu=pt" "nvidia-drm.modeset=1" ];
     extraModprobeConfig = ''
+      # settings for intel wifi drivers
       options iwlwifi 11n_disable=1 power_save=1
       options iwlmvm power_scheme=1
 
+      # use vfio-pci driver for gpu passthrough
       options vfio-pci ids=10de:1c81,10de:0fb9
       softdep nvidia pre: vfio-pci
       softdep nvidia* pre: vfio-pci
     '';
+
+    # blacklisted 
     blacklistedKernelModules = [ "sp5100-tco" "tpm_crb" ];
 
     loader = {
@@ -45,7 +49,7 @@ in
         canTouchEfiVariables = true;
         efiSysMountPoint = "/efi";
       };
-      timeout = 0;
+      timeout = 5;
     };
 
     initrd = {
@@ -79,6 +83,7 @@ in
     enableRedistributableFirmware = true;
     cpu.amd.updateMicrocode = true;
     openrazer.enable = true;
+    nvidia.modesetting.enable = true;
   };
 
   networking = {
@@ -121,9 +126,6 @@ in
     };
   };
 
-  systemd.services."zram-reloader" = {
-    restartIfChanged = lib.mkForce false;
-  };
 
   fileSystems."/efi" = {
     device = "/dev/nvme0n1p1";
@@ -171,6 +173,4 @@ in
   };
 
   programs.steam.enable = true;
-
-  powerManagement.cpuFreqGovernor = "ondemand";
 }
