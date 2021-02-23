@@ -26,7 +26,8 @@ in
     kernelModules = [ "kvm_amd" ];
     kernelParams = [ "iommu=pt" "nvidia-drm.modeset=1" /* "systemd.unified_cgroup_hierarchy=1" */ ];
     extraModprobeConfig = ''
-      options iwlwifi 11n_disable=1
+      options iwlwifi 11n_disable=1 power_save=1
+      options iwlmvm power_scheme=1
 
       options vfio-pci ids=10de:1c81,10de:0fb9
       softdep nvidia pre: vfio-pci
