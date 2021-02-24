@@ -173,6 +173,7 @@ in
       postgresql
       mupdf
       pavucontrol
+      libreoffice
       razergenie
       spotify-tui
       spotify
