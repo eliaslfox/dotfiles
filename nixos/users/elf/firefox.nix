@@ -70,6 +70,7 @@ let
     "browser.newtabpage.enabled" = false;
     "devtools.theme" = "dark";
     "extensions.pocket.enabled" = false;
+    "browser.pocket.enabled" = false;
     "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     "widget.content.gtk-theme-override" = "Adwaita:light";
 
@@ -83,12 +84,14 @@ let
     # UI
     "network.IDN_show_punycode" = true;
     "layout.css.visited_links_enabled" = false;
+    "browser.uitour.enabled" = false;
+    "browser.formfill.enable" = false;
 
     # URL Bar Config
     "browser.urlbar.openViewOnFocus" = false;
-    "browser.urlbar.update1" = false;
-    "browser.urlbar.update1.interventions" = false;
-    "browser.urlbar.update1.searchTips" = false;
+    "browser.urlbar.trimURLs" = false;
+    "browser.fixup.alternate.enabled" = false;
+    "browser.urlbar.filter.javascript" = true;
 
     # ESNI
     "network.trr.custom_uri" = "https://127.0.0.1:3000/dns-query";
@@ -102,19 +105,33 @@ let
     #
 
     # Disable JS APIs
+    "camera.control.face_detectoin.enabled" = false;
+    "device.sensors.enabled" = false;
     "dom.enable_performance" = false;
+    "dom.enable_resource_timing.enabled" = false;
     "dom.enable_user_timing" = false;
+    "dom.flyweb.enabled" = false;
     "dom.gamepad.enabled" = false;
+    "dom.mozTCPSocket.enabled" = false;
+    "dom.netinfo.enabled" = false;
     "dom.serviceWorkers.enable" = false;
+    "dom.serviceWorkers.enabled" = false;
+    "dom.telephony.enabled" = false;
+    "dom.vibrator.enabled" = false;
     "dom.vr.enabled" = false;
+    "dom.webaudio.enabled" = false;
+    "dom.workers.enabled" = false;
     "geo.enabled" = false;
     "javascript.options.asmjs" = false;
     "javascript.options.shared_memory" = false;
     "javascript.options.wasm" = false;
     "media.peerconnection.enabled" = false; # WebRTC
+    "media.peerconnection.ice.no_host" = false;
+    "media.synth.enable" = false;
+    "media.webspeech.recognition.enable" = false;
+    "media.webspeech.synth.enabled" = false;
     "offline-apps.allow_by_default" = false;
     "webgl.disabled" = true;
-    "dom.enable_resource_timing.enabled" = false;
 
     # Web AntiFeatures
     "dom.event.clipboardevents.enabled" = false;
@@ -122,7 +139,7 @@ let
     "dom.event.contextmenu.enabled" = false;
     "dom.disable_beforeunload" = true;
 
-    # Network Spam
+    # Traching Features
     "beacon.enabled" = false;
     "browser.send_pings" = false;
 
@@ -131,52 +148,57 @@ let
     "media.navigator.video.enabled" = false;
     "media.getusermedia.screensharing.enabled" = false;
     "media.audiocapture.enabled" = false;
-    "media.getusermedia.browser.enabled" = false;
-
-    # Misc JS APIs
-    "media.webspeech.recognition.enable" = false;
-    "media.synth.enable" = false;
-    "dom.battery.enabled" = false;
-    "dom.vibrator.enabled" = false;
-    "dom.telephony.enabled" = false;
-    "device.sensors.enabled" = false;
-    "dom.mozTCPSocket.enabled" = false;
-    "dom.netinfo.enabled" = false;
 
     # Media
     "media.autoplay.default" = 2;
-    "media.video_status.enabled" = false;
+    "media.video_stats.enabled" = false;
     "media.gmp-gmpopenh264.enabled" = false;
     "media.gmp-gmpopenh264.visible" = false;
     "media.gmp-manager.url" = false;
     "media.gmp-widevinecdm.enable" = false;
     "media.gmp-widevinecdm.visible" = false;
 
-    # MISC
+    # Generic Information
     "dom.maxHardwareConcurrency" = 2;
     "browser.search.countryCode" = "US";
     "browser.search.region" = "US";
     "browser.search.geoip.url" = "";
     "intl.accept_languages" = "en-US";
+    "intl.locale.matchOS" = false;
     "browser.search.geoSpecificDefaults" = false;
-    "clipboard.autocopy" = false;
     "javascript.use_us_english_locale" = true;
-    "browser.urlbar.trimURLs" = false;
-    "browser.fixup.alternate.enabled" = false;
+
+    # MISC
+    "glx.font_rendering.opentype_svg.enabled" = false;
+    "clipboard.autocopy" = false;
     "network.manage-offline-status" = false;
+    "network.proxy.socks_remote_dns" = true;
     "security.mixed_content.block_active_content" = true;
     "security.mixed_content.block_display_content" = true;
     "security.mixed_content.block_object_subrequest" = true;
-    "browser.urlbar.filter.javascript" = true;
+    "security.fileuri.scrict_origin_policy" = true;
+    "security.xpconnect.plugin.unrestricted" = false;
+    "security.dialog_enable_delay" = 1000;
+    "security.getAddons.cache.enabled" = false;
+    "lightweightThemes.update.enabled" = false;
     "broser.display.use_document_fonts" = 0;
-    "ui.use_standins_for_native_colors" = true;
+
+    # Extensions
+    "extensions.update.enalbed" = true;
+    "extensions.blocklist.enabled" = true;
+    "services.blocklist.update_enabled" = true;
 
     # Fingerprinting
     "privacy.trackingprotection.enabled" = true;
-    "privacy.trackingprotection.pbmode.enabled" = true;
     "privacy.userContext.enabled" = true;
     "privacy.resistFingerprinting" = true;
     "pdfjs.disabled" = true;
+
+    # Anti-Features
+    "devtools.webide.enabled" = false;
+    "devtools.debugger.remote-enabled" = false;
+    "devtools.chrome.enabled" = false;
+    "devtools.debugger.force-local" = true;
 
     # Safe Browsing
     "browser.safebrowsing.phishing.enabled" = true;
@@ -194,6 +216,7 @@ let
     "browser.casting.enabled" = false;
 
     # HTTP
+    "dom.security.https_only_mode" = true;
     "privacy.donottrackheader.enabled" = true;
     "network.http.referer.spoofSource" = true;
     "network.cookie.cookieBehavior" = 1;
