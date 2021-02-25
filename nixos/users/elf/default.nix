@@ -167,7 +167,7 @@ in
       cava
       ranger
       gnuplot
-      #cura
+      cura
       zoom-us
       calibre
       scrot
