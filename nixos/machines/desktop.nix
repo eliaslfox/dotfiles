@@ -69,14 +69,9 @@ in
       credentials = credentials.wireguard;
     };
     docker.enable = true;
-    dnscrypt = {
-      enable = true;
-      localDoh.enable = true;
-      cache.enable = true;
-    };
+    dnscrypt.enable = true;
     horriblesubsd.enable = false;
     printing.enable = true;
-    steam.enable = false;
   };
 
   hardware = {
