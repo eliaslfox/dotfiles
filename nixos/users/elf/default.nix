@@ -54,6 +54,7 @@ in
 
       ".xinitrc".text = ''
         #!/bin/sh
+        set -e
 
         if [ -f ~/.Xresources ]; then
           xrdb ~/.Xresources
@@ -163,6 +164,7 @@ in
       # text
       proselint
 
+      cava
       ranger
       gnuplot
       #cura

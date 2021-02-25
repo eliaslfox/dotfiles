@@ -12,7 +12,7 @@ in
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest_hardened;
 
     kernel.sysctl = {
       /* 
@@ -155,8 +155,8 @@ in
     etc."machine-id".text = "231cf24683d645868a965c534d80e403";
 
     systemPackages = with pkgs; [
-      linuxPackages_latest.perf
-      linuxPackages_latest.bpftrace
+      linuxPackages_latest_hardened.perf
+      linuxPackages_latest_hardened.bpftrace
     ];
   };
 
