@@ -45,20 +45,14 @@
     learning = "$HOME/Documents/learning";
     org = "$HOME/Documents/org";
     saved = "$HOME/Documents/org/saved";
-
   };
   initExtra = ''
     unalias -m '*'
-    setopt cdable_vars
 
     alias -s git="git clone"
 
     function movie() {
       ${pkgs.tree}/bin/tree /run/media/elf/stuff/movies -L 2 -P "*$1*" --matchdirs --prune --ignore-case
-    }
-
-    function podman-update() {
-      podman image list --format '{{.Repository}}' | xargs -L1 podman pull
     }
   '';
   history = {
@@ -68,16 +62,15 @@
   shellAliases = {
     grep = "grep --text --color=auto";
     ls = "exa";
-    tree = "exa -T";
     g = "git";
     stack = "stack --stack-root ~/.local/share/stack";
     docker = "podman";
+    ns = "nix-shell --command zsh";
 
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";
     pbpaste = "xclip -selection clipboard -o";
 
-    music = "ncmpcpp -c /home/elf/.config/ncmpcpp/config";
     pass = ''EDITOR="nvim -u NONE" pass'';
   };
   loginExtra = ''

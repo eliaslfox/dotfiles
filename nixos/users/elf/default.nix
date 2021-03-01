@@ -175,7 +175,7 @@ in
       postgresql
       mupdf
       pavucontrol
-      libreoffice
+      scripts.libreoffice
       razergenie
       spotify-tui
       spotify

@@ -44,6 +44,15 @@
     #!${pkgs.bash}/bin/bash
     set -euo pipefail
 
-    ${pkgs.multimc}/bin/multimc -d "$HOME/.local/share/multimc"
+    exec ${pkgs.multimc}/bin/multimc -d "$HOME/.local/share/multimc"
   '';
+
+  libreoffice = pkgs.writeScriptBin "libreoffice" ''
+    #!${pkgs.bash}/bin/bash
+    set -eou pipefail
+
+    export GTK_THEME=Adwaita:light 
+    exec ${pkgs.libreoffice}/bin/libreoffice
+  '';
+
 }
