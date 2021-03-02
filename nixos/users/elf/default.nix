@@ -77,6 +77,15 @@ in
         set history save off
 
         dashboard -style style_low '1;34'
+
+        define dash-asm
+          dashboard -layout assembly breakpoints registers source stack
+        end
+
+        define dash-src
+          dashboard -layout breakpoints source stack threads
+          dashboard source -style height
+        end
       '';
 
       ".haskeline".text = ''
