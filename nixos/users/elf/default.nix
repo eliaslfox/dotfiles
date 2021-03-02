@@ -66,13 +66,15 @@ in
       ".gdbinit".source = "${pkgs.fetchFromGitHub {
           owner = "cyrus-and";
           repo = "gdb-dashboard";
-          rev = "2d31a3b391e5d0e032b791e1fb7172338b02cecb";
-          sha256 = "05kg4884sic2p5ibrsr6c5rnkj0vkyndwxyg01xccx6gkqgmw34d";
+          rev = "f09356e264121fabdde125aa8838bcfcaf1d13c7";
+          sha256 = "1z1y5ac339k303yjfdsrv4ffyn02vzinra9z3klzzimh5snjf0cc";
           }}/.gdbinit";
 
       ".gdbinit.d/init".text = ''
         set confirm off
         set print thread-events off
+        set disassembly-flavor intel
+        set history save off
 
         dashboard -style style_low '1;34'
       '';
@@ -95,6 +97,7 @@ in
       hyperfine
       hexyl
       dust
+      moreutils
 
       #
       # programming

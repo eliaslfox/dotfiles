@@ -27,7 +27,6 @@
 
     # Temp Files
     LESSHISTFILE = "-";
-    GDBHISTFILE = "~/.cache/gdb_history";
 
     # Make gpg-agent ssh work
     SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
@@ -43,8 +42,6 @@
     dotfiles = "$HOME/Documents/dotfiles";
     software = "$HOME/Documents/software";
     learning = "$HOME/Documents/learning";
-    org = "$HOME/Documents/org";
-    saved = "$HOME/Documents/org/saved";
   };
   initExtra = ''
     unalias -m '*'
@@ -64,7 +61,6 @@
     ls = "exa";
     g = "git";
     stack = "stack --stack-root ~/.local/share/stack";
-    docker = "podman";
     ns = "nix-shell --command zsh";
 
     open = "xdg-open";
