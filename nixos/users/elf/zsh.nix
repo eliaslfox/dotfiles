@@ -63,6 +63,7 @@
     g = "git";
     stack = "stack --stack-root ~/.local/share/stack";
     ns = "nix-shell --command zsh";
+    objdump = "objdump -M intel";
 
     open = "xdg-open";
     pbcopy = "xclip -selection clipboard";

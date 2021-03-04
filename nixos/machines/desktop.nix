@@ -155,9 +155,9 @@ in
     ];
   };
 
-  #virtualisation.virtualbox.host = {
-  #  enable = true;
-  #};
+  virtualisation.virtualbox.host = {
+    enable = true;
+  };
 
   nix = {
     maxJobs = lib.mkDefault 12;
