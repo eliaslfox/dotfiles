@@ -45,6 +45,7 @@
   };
   initExtra = ''
     unalias -m '*'
+    setopt cdable_vars
 
     alias -s git="git clone"
 

@@ -22,7 +22,6 @@ in
   boot = {
     plymouth = {
       enable = true;
-      theme = "tribar";
     };
   };
 
@@ -42,6 +41,7 @@ in
   };
 
   environment = {
+    enableDebugInfo = true;
     pathsToLink = [ "/share/zsh" ];
     etc = {
       "u2f-mappings".text = credentials.u2f;

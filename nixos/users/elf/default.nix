@@ -116,14 +116,17 @@ in
       gdb
       gnumake
       bear
-      gcc-unwrapped
-      clang-tools
-      llvmPackages.clang-unwrapped.python
       binutils-unwrapped
+      llvmPackages_latest.bintools
+      clang-tools
       valgrind
       ltrace
       rr
-      (pkgs.lowPrio llvmPackages.clang-unwrapped)
+
+      # this was required to get clangd working
+      # with gcc, hopefully not anymore?
+      # gcc-unwrapped
+      # (pkgs.lowPrio llvmPackages.clang-unwrapped)
 
       # rust
       rustup
@@ -145,13 +148,13 @@ in
       nix-prefetch-git
       nix-prefetch-docker
       nixpkgs-review
-      nixops
+      # nixops
 
       # go
-      go
-      gopls
-      goimports
-      golangci-lint
+      # go
+      # gopls
+      # goimports
+      # golangci-lint
 
       # haskell
       stack
