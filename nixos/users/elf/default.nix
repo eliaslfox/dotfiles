@@ -3,6 +3,8 @@ let
   scripts = pkgs.callPackage (import ./scripts.nix) { config = config; };
   master = import <nixpkgs-master> { config = { allowUnfree = true; }; };
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  stable = import <nixos-stable> { config = { allowUnfree = true; }; };
+
 in
 {
   xdg = {
@@ -179,6 +181,10 @@ in
       # text
       proselint
 
+      # tla
+      stable.tlaplusToolbox
+      tlaplus
+
       cava
       ranger
       gnuplot
@@ -224,6 +230,13 @@ in
         margin: -200px;
         opacity: 0;
       }
+    '';
+
+    # override gtk-2 with a light theme
+    # this is because dark themes look bad on some applications
+    # and gtk2 themes cannot easily be overriden on a per application basis
+    gtk2.extraConfig = ''
+      gtk-theme-name = "Adwaita-light"
     '';
   };
 

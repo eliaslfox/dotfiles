@@ -13,7 +13,6 @@ in
 
     ./features/docker.nix
     ./features/steam.nix
-    ./features/horriblesubsd.nix
     ./features/printing.nix
 
     ./machine.nix

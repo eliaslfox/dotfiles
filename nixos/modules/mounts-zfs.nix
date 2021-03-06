@@ -55,6 +55,11 @@
     fsType = "zfs";
     options = [ "lazytime" "nosuid" "nodev" ];
   };
+  fileSystems."/home/elf/.swt" = {
+    device = "zroot/home/elf/.swt";
+    fsType = "zfs";
+    options = [ "lazytime" "nosuid" "nodev" ];
+  };
 
   services.zfs = {
     autoScrub = {

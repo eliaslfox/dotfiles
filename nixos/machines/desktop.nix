@@ -12,7 +12,7 @@ in
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest_hardened;
+    # kernelPackages = pkgs.linuxPackages_latest_hardened;
 
     kernel.sysctl = {
       /* 
@@ -70,7 +70,6 @@ in
     };
     docker.enable = true;
     dnscrypt.enable = true;
-    horriblesubsd.enable = false;
     printing.enable = true;
   };
 
@@ -150,8 +149,8 @@ in
     etc."machine-id".text = "231cf24683d645868a965c534d80e403";
 
     systemPackages = with pkgs; [
-      linuxPackages_latest_hardened.perf
-      linuxPackages_latest_hardened.bpftrace
+      linuxPackages_hardened.perf
+      linuxPackages_hardened.bpftrace
     ];
   };
 
