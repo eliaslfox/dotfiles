@@ -76,7 +76,12 @@ nnoremap <F5> :MundoToggle<CR>
 "
 " coc.nvim
 "
-nnoremap <leader>a :<C-u>CocAction<cr>
+nmap <leader>a <Plug>(coc-codeaction)
+nmap <leader>f <Plug>(coc-fix-current)
+nmap <Leader>rn <Plug>(coc-rename)
+vmap <leader>a <Plug>(coc-codeaction-selected)
+
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -86,12 +91,13 @@ nmap <silent> gD :call CocAction('jumpDefinition', 'vsplit')<cr>
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-nmap <Leader>rn <Plug>(coc-rename)
-nnoremap <silent> K :call CocAction('doHover')<CR>
-
 nnoremap <silent> <Leader>e  :<C-u>CocList extensions<cr>
 nnoremap <silent> <Leader>o  :<C-u>CocList outline<cr>
 nnoremap <silent> <Leader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <Leader>c :<C-u>CocList commands<cr>
+
+nnoremap <silent> <Leader>em :<C-u>CocCommand rust-analyzer.expandMacro<cr>
+nnoremap <silent> <Leader>p :<C-u>CocCommand rust-analyzer.parentModule<cr>
 
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
